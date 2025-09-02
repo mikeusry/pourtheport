@@ -1,0 +1,128 @@
+---
+import CloudinaryImage from './CloudinaryImage.astro';
+
+// Environment variables for science images
+const microbesImageId = import.meta.env.PUBLIC_MICROBES_IMAGE_ID || 'Blog Images/Microbes_i7iv8p';
+const acidsImageId = import.meta.env.PUBLIC_ACIDS_IMAGE_ID || '9944f7765f55acf01bb1b65cf20755d9';
+const carbonImageId = import.meta.env.PUBLIC_CARBON_IMAGE_ID || '4d17f98791f234077fba646f790aa3ac';
+---
+
+<section class="py-20 bg-gradient-to-br from-slate-50 via-blue-50 to-green-50">
+  <div class="container mx-auto px-4">
+    <div class="max-w-6xl mx-auto">
+      
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+          The Science Behind <span class="text-green-600">Natural Protection</span>
+        </h2>
+        <p class="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+          Pour the PORT leverages three powerful natural ingredients to eliminate odors and break down solids in your septic system—keeping it functioning optimally without harming the environment.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+        
+        <!-- Beneficial Microbes -->
+        <div class="bg-white rounded-3xl shadow-xl p-8 text-center hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+          <div class="mb-8">
+            <CloudinaryImage
+              publicId={microbesImageId}
+              alt="Beneficial microbes that decompose waste naturally"
+              width={240}
+              height={240}
+              loading="lazy"
+              className="mx-auto rounded-full shadow-lg"
+            />
+          </div>
+          <h3 class="text-2xl font-bold text-gray-900 mb-4">Beneficial Microbes</h3>
+          <div class="h-1 w-16 bg-blue-500 mx-auto mb-6 rounded-full"></div>
+          <p class="text-gray-700 leading-relaxed text-lg">
+            Added beneficial microbes help decompose waste without harming the environment. This active, aerobic microbiology works against anaerobic bacteria in your septic tank to clear solids and eliminate odors naturally.
+          </p>
+        </div>
+
+        <!-- Organic Acids -->
+        <div class="bg-white rounded-3xl shadow-xl p-8 text-center hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+          <div class="mb-8">
+            <CloudinaryImage
+              publicId={acidsImageId}
+              alt="Organic acids that break surface tension and prevent biofilm"
+              width={240}
+              height={240}
+              loading="lazy"
+              className="mx-auto rounded-full shadow-lg"
+            />
+          </div>
+          <h3 class="text-2xl font-bold text-gray-900 mb-4">Organic Acids</h3>
+          <div class="h-1 w-16 bg-green-500 mx-auto mb-6 rounded-full"></div>
+          <p class="text-gray-700 leading-relaxed text-lg">
+            Organic acids and top-quality carbon work to break surface tension in tanks, eliminating biofilm buildup. Your septic system can function without getting clogged or developing strong odors.
+          </p>
+        </div>
+
+        <!-- Active Carbon -->
+        <div class="bg-white rounded-3xl shadow-xl p-8 text-center hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+          <div class="mb-8">
+            <CloudinaryImage
+              publicId={carbonImageId}
+              alt="Active carbon that binds odors and feeds beneficial bacteria"
+              width={240}
+              height={240}
+              loading="lazy"
+              className="mx-auto rounded-full shadow-lg"
+            />
+          </div>
+          <h3 class="text-2xl font-bold text-gray-900 mb-4">Active Carbon</h3>
+          <div class="h-1 w-16 bg-purple-500 mx-auto mb-6 rounded-full"></div>
+          <p class="text-gray-700 leading-relaxed text-lg">
+            Carbon serves three critical functions: binds hydrogen sulfide to eliminate odors, increases the carbon-to-nitrogen ratio to speed composting, and feeds the microorganisms that break down solids faster.
+          </p>
+        </div>
+
+      </div>
+
+      <!-- Results Summary -->
+      <div class="mt-16 bg-gradient-to-r from-green-500 to-blue-600 rounded-3xl p-12 text-center text-white">
+        <h3 class="text-3xl font-bold mb-6">
+          The Result: Superior Septic Performance
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+          <div class="flex flex-col items-center">
+            <div class="bg-white bg-opacity-20 rounded-full w-16 h-16 flex items-center justify-center mb-4">
+              <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </div>
+            <h4 class="font-bold text-lg mb-2">Better Function</h4>
+            <p class="text-blue-100">Tanks function optimally without clogs</p>
+          </div>
+          <div class="flex flex-col items-center">
+            <div class="bg-white bg-opacity-20 rounded-full w-16 h-16 flex items-center justify-center mb-4">
+              <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+              </svg>
+            </div>
+            <h4 class="font-bold text-lg mb-2">Fewer Pumps</h4>
+            <p class="text-blue-100">Reduces maintenance frequency</p>
+          </div>
+          <div class="flex flex-col items-center">
+            <div class="bg-white bg-opacity-20 rounded-full w-16 h-16 flex items-center justify-center mb-4">
+              <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+              </svg>
+            </div>
+            <h4 class="font-bold text-lg mb-2">No Odors</h4>
+            <p class="text-blue-100">Eliminates unpleasant smells naturally</p>
+          </div>
+        </div>
+        <div class="mt-8 inline-flex items-center bg-white bg-opacity-10 border border-white border-opacity-30 rounded-full px-8 py-4">
+          <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
+          </svg>
+          <span class="font-semibold text-lg">All without harming the environment!</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
