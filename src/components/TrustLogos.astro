@@ -1,5 +1,8 @@
 ---
+import CloudinaryImage from './CloudinaryImage.astro';
 
+// Environment variable for USDA logo
+const usdaLogoId = import.meta.env.PUBLIC_USDA_LOGO_ID || '7279de27c7fd68bf4f8abeb922ee74ca';
 ---
 
 <section class="py-16 bg-gray-50">
@@ -19,10 +22,15 @@
       <div class="grid grid-cols-2 md:grid-cols-4 gap-8 items-center justify-items-center mb-16">
         
         <div class="trust-badge group">
-          <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-all duration-300 transform hover:scale-105 w-full h-24 flex items-center justify-center">
-            <svg class="w-16 h-16 text-green-700 group-hover:text-green-600 transition-colors" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 2L3 7l9 5 9-5-9-5zM3 17l9 5 9-5M3 12l9 5 9-5"/>
-            </svg>
+          <div class="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-all duration-300 transform hover:scale-105 w-full h-24 flex items-center justify-center">
+            <CloudinaryImage
+              publicId={usdaLogoId}
+              alt="USDA Certified Biobased logo"
+              width={120}
+              height={60}
+              loading="lazy"
+              className="max-w-full max-h-full object-contain"
+            />
           </div>
           <div class="text-center mt-3">
             <div class="font-bold text-gray-900 text-sm">USDA</div>
