@@ -1,16 +1,170 @@
 ---
+import Hero from '../components/Hero.astro';
+import PainPoints from '../components/PainPoints.astro';
+import Solution from '../components/Solution.astro';
+import TrustLogos from '../components/TrustLogos.astro';
+import HowItWorks from '../components/HowItWorks.astro';
+import Pricing from '../components/Pricing.astro';
+import FAQ from '../components/FAQ.astro';
+import StickyCAT from '../components/StickyCAT.astro';
+import '../styles/global.css';
 
+const title = "Pour the PORT - Prevent $15,000 Septic Disasters for $84/Year";
+const description = "USDA Certified Biobased® septic tank treatment trusted by National Parks for 10+ years. Natural bacterial protection prevents costly system failures. Just 3 applications per year.";
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://pourtheport.com');
 ---
 
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
+		
+		<!-- SEO Meta Tags -->
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<meta name="keywords" content="septic tank treatment, septic system maintenance, USDA certified biobased, natural septic treatment, septic bacteria, prevent septic failure, septic disaster prevention" />
+		<link rel="canonical" href={canonicalURL} />
+		
+		<!-- Open Graph / Facebook -->
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content={Astro.url} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content="/og-image.jpg" />
+		<meta property="og:site_name" content="Pour the PORT" />
+		
+		<!-- Twitter -->
+		<meta property="twitter:card" content="summary_large_image" />
+		<meta property="twitter:url" content={Astro.url} />
+		<meta property="twitter:title" content={title} />
+		<meta property="twitter:description" content={description} />
+		<meta property="twitter:image" content="/twitter-image.jpg" />
+		
+		<!-- Additional Meta -->
+		<meta name="robots" content="index, follow" />
+		<meta name="author" content="Pour the PORT" />
+		<meta name="theme-color" content="#22c55e" />
+		
+		<!-- Preload Critical Resources -->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		
+		<!-- Schema Markup for Product -->
+		<script type="application/ld+json">
+		{
+			"@context": "https://schema.org",
+			"@type": "Product",
+			"name": "Pour the PORT Septic Tank Treatment",
+			"description": "USDA Certified Biobased® natural bacterial treatment for septic systems. Prevents costly failures with 3 simple applications per year.",
+			"brand": {
+				"@type": "Brand",
+				"name": "Pour the PORT"
+			},
+			"offers": {
+				"@type": "Offer",
+				"url": "https://pourtheport.com",
+				"priceCurrency": "USD",
+				"price": "84.00",
+				"priceValidUntil": "2025-12-31",
+				"availability": "https://schema.org/InStock",
+				"seller": {
+					"@type": "Organization",
+					"name": "Pour the PORT"
+				}
+			},
+			"aggregateRating": {
+				"@type": "AggregateRating",
+				"ratingValue": "4.8",
+				"reviewCount": "127"
+			},
+			"features": [
+				"USDA Certified Biobased®",
+				"Trusted by National Parks",
+				"Natural bacterial treatment",
+				"Prevents system failures",
+				"3 applications per year"
+			]
+		}
+		</script>
+		
+		<!-- Schema Markup for FAQPage -->
+		<script type="application/ld+json">
+		{
+			"@context": "https://schema.org",
+			"@type": "FAQPage",
+			"mainEntity": [
+				{
+					"@type": "Question",
+					"name": "How does Pour the PORT prevent septic system failures?",
+					"acceptedAnswer": {
+						"@type": "Answer",
+						"text": "Pour the PORT introduces billions of beneficial bacteria into your septic tank, restoring the natural biological balance needed for proper waste breakdown. This prevents the conditions that lead to backups, overflows, and system replacements."
+					}
+				},
+				{
+					"@type": "Question",
+					"name": "Why do National Parks trust Pour the PORT?",
+					"acceptedAnswer": {
+						"@type": "Answer",
+						"text": "Joshua Tree National Park and other protected environments have used Pour the PORT for over a decade because it meets the strictest environmental standards while delivering consistent results in critical facilities where failure is not an option."
+					}
+				},
+				{
+					"@type": "Question",
+					"name": "Is Pour the PORT safe for families and the environment?",
+					"acceptedAnswer": {
+						"@type": "Answer",
+						"text": "Yes, Pour the PORT is 100% natural bacteria with USDA Certified Biobased® credentials. It's safe for children, pets, and the environment, with no harsh chemicals or toxic fumes."
+					}
+				}
+			]
+		}
+		</script>
+		
+		<!-- Performance & Analytics -->
+		<link rel="dns-prefetch" href="//fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
 	</head>
-	<body>
-		<h1>Astro</h1>
+	<body class="antialiased">
+		<!-- Main Content -->
+		<main>
+			<Hero />
+			<TrustLogos />
+			<PainPoints />
+			<Solution />
+			<HowItWorks />
+			<Pricing />
+			<FAQ />
+		</main>
+		
+		<!-- Sticky CTA -->
+		<StickyCAT />
+		
+		<!-- Smooth Scrolling -->
+		<style>
+			html {
+				scroll-behavior: smooth;
+			}
+			
+			/* Custom scrollbar */
+			::-webkit-scrollbar {
+				width: 8px;
+			}
+			
+			::-webkit-scrollbar-track {
+				background: #f1f5f9;
+			}
+			
+			::-webkit-scrollbar-thumb {
+				background: #22c55e;
+				border-radius: 4px;
+			}
+			
+			::-webkit-scrollbar-thumb:hover {
+				background: #16a34a;
+			}
+		</style>
 	</body>
 </html>

@@ -1,0 +1,171 @@
+---
+
+---
+
+<div id="sticky-cta" class="fixed bottom-0 left-0 right-0 z-50 transform translate-y-full transition-transform duration-300 ease-in-out">
+  <div class="bg-gradient-to-r from-green-500 to-green-600 shadow-2xl border-t-4 border-green-400">
+    <div class="container mx-auto px-4 py-4">
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+        
+        <div class="flex-1 text-center sm:text-left">
+          <div class="text-white font-bold text-lg mb-1">
+            Don't Risk $15,000 in Septic Disasters
+          </div>
+          <div class="text-green-100 text-sm">
+            Protect your home with USDA Certified treatment for just $84/year
+          </div>
+        </div>
+
+        <div class="flex items-center gap-4">
+          <div class="text-right hidden sm:block">
+            <div class="text-white font-bold text-2xl">$84</div>
+            <div class="text-green-100 text-sm">Annual Supply</div>
+          </div>
+          
+          <a 
+            href="#pricing" 
+            class="bg-white text-green-600 font-bold py-3 px-6 rounded-full hover:bg-green-50 transition-all duration-300 transform hover:scale-105 shadow-lg whitespace-nowrap"
+          >
+            Order Now
+          </a>
+          
+          <button 
+            id="close-sticky-cta" 
+            class="text-green-100 hover:text-white transition-colors p-2"
+            aria-label="Close"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Progress bar showing scroll progress -->
+    <div class="h-1 bg-green-400/30">
+      <div id="scroll-progress" class="h-full bg-white transition-all duration-150 ease-out w-0"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const stickyCta = document.getElementById('sticky-cta');
+  const closeStickyBtn = document.getElementById('close-sticky-cta');
+  const scrollProgress = document.getElementById('scroll-progress');
+  let isCtaDismissed = false;
+  let showThreshold = 500; // Show after scrolling 500px
+
+  function updateStickyCta() {
+    if (isCtaDismissed) return;
+    
+    const scrollY = window.scrollY;
+    const documentHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const scrollPercent = (scrollY / documentHeight) * 100;
+    
+    // Update progress bar
+    if (scrollProgress) {
+      scrollProgress.style.width = Math.min(scrollPercent, 100) + '%';
+    }
+    
+    // Show/hide sticky CTA
+    if (scrollY > showThreshold) {
+      stickyCta.classList.remove('translate-y-full');
+    } else {
+      stickyCta.classList.add('translate-y-full');
+    }
+  }
+
+  function dismissStickyCta() {
+    isCtaDismissed = true;
+    stickyCta.classList.add('translate-y-full');
+    
+    // Store dismissal in session storage
+    sessionStorage.setItem('stickyCTADismissed', 'true');
+  }
+
+  // Check if CTA was previously dismissed in this session
+  if (sessionStorage.getItem('stickyCTADismissed') === 'true') {
+    isCtaDismissed = true;
+  }
+
+  // Event listeners
+  window.addEventListener('scroll', updateStickyCta, { passive: true });
+  closeStickyBtn?.addEventListener('click', dismissStickyCta);
+
+  // Dismiss CTA when user clicks on pricing/order links
+  document.querySelectorAll('a[href="#pricing"], a[href="#order"]').forEach(link => {
+    link.addEventListener('click', () => {
+      setTimeout(dismissStickyCta, 1000); // Dismiss after 1 second
+    });
+  });
+
+  // Also dismiss when user reaches the bottom of the page
+  window.addEventListener('scroll', function() {
+    if (isCtaDismissed) return;
+    
+    const scrollY = window.scrollY;
+    const documentHeight = document.documentElement.scrollHeight - window.innerHeight;
+    
+    // If user scrolled to bottom 10% of page
+    if (scrollY / documentHeight > 0.9) {
+      setTimeout(dismissStickyCta, 2000); // Dismiss after 2 seconds
+    }
+  }, { passive: true });
+
+  // Initial check
+  updateStickyCta();
+
+  // Add micro-interactions
+  stickyCta.addEventListener('mouseenter', function() {
+    if (!isCtaDismissed && !stickyCta.classList.contains('translate-y-full')) {
+      this.style.transform = 'translateY(-2px)';
+    }
+  });
+
+  stickyCta.addEventListener('mouseleave', function() {
+    if (!isCtaDismissed && !stickyCta.classList.contains('translate-y-full')) {
+      this.style.transform = 'translateY(0)';
+    }
+  });
+
+  // Pulse animation every 10 seconds if CTA is visible and not dismissed
+  setInterval(() => {
+    if (!isCtaDismissed && !stickyCta.classList.contains('translate-y-full')) {
+      stickyCta.classList.add('animate-pulse');
+      setTimeout(() => {
+        stickyCta.classList.remove('animate-pulse');
+      }, 1000);
+    }
+  }, 10000);
+});
+</script>
+
+<style>
+#sticky-cta {
+  backdrop-filter: blur(10px);
+}
+
+@media (max-width: 640px) {
+  #sticky-cta .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+/* Custom pulse animation for CTA */
+@keyframes gentle-pulse {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-1px) scale(1.01);
+  }
+}
+
+#sticky-cta.animate-pulse {
+  animation: gentle-pulse 1s ease-in-out;
+}
+</style>
