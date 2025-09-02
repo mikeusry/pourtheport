@@ -14,7 +14,7 @@ This guide explains how to set up and use Cloudinary for optimal image delivery 
 1. Copy `.env.example` to `.env`
 2. Add your Cloudinary cloud name:
 ```bash
-PUBLIC_CLOUDINARY_CLOUD_NAME=your-actual-cloud-name
+PUBLIC_CLOUDINARY_CLOUD_NAME=southland-organics
 ```
 
 ### 3. Upload Your Images

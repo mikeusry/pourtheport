@@ -1,8 +1,8 @@
 import { Cloudinary } from '@cloudinary/url-gen';
 import { auto } from '@cloudinary/url-gen/actions/resize';
-import { auto as autoFormat } from '@cloudinary/url-gen/actions/delivery';
+import { format, quality } from '@cloudinary/url-gen/actions/delivery';
 import { autoGravity } from '@cloudinary/url-gen/qualifiers/gravity';
-import { quality } from '@cloudinary/url-gen/actions/delivery';
+import { auto as formatAuto } from '@cloudinary/url-gen/qualifiers/format';
 
 // Initialize Cloudinary instance
 // Replace 'your-cloud-name' with your actual Cloudinary cloud name
@@ -32,8 +32,8 @@ export function getOptimizedImage(publicId, options = {}) {
 
   let image = cld.image(publicId);
 
-  // Apply auto format and quality for optimal delivery
-  image = image.delivery(autoFormat()).delivery(quality(imageQuality));
+  // Apply auto format and quality for optimal delivery  
+  image = image.delivery(format(formatAuto())).delivery(quality(imageQuality));
 
   // Apply resize transformation
   if (height) {
@@ -99,7 +99,7 @@ export function getImageWithText(backgroundId, text, options = {}) {
         color: textColor
       }).position().gravity('center')
     )
-    .delivery(autoFormat())
+    .delivery(format(formatAuto()))
     .delivery(quality('auto'))
     .toURL();
 }
