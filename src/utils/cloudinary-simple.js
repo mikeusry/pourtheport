@@ -20,6 +20,7 @@ export function getOptimizedImage(publicId, options = {}) {
     quality: imageQuality = 'auto'
   } = options;
 
+  // Use the publicId as-is - Cloudinary SDK handles encoding
   let image = cld.image(publicId);
   
   // Apply basic transformations
