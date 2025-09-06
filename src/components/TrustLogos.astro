@@ -1,8 +1,11 @@
 ---
 import CloudinaryImage from './CloudinaryImage.astro';
 
-// Environment variable for USDA logo
+// Environment variables for all logos
 const usdaLogoId = import.meta.env.PUBLIC_USDA_LOGO_ID || '7279de27c7fd68bf4f8abeb922ee74ca';
+const nationalParksLogoId = import.meta.env.PUBLIC_NATIONAL_PARKS_LOGO_ID || 'pour-the-port/logos/national-parks-service';
+const forestServiceLogoId = import.meta.env.PUBLIC_FOREST_SERVICE_LOGO_ID || 'pour-the-port/logos/forest-service';
+const universityGeorgiaLogoId = import.meta.env.PUBLIC_UNIVERSITY_GEORGIA_ID || 'pour-the-port/logos/university-of-georgia';
 ---
 
 <section class="py-16 bg-gray-50">
@@ -19,61 +22,99 @@ const usdaLogoId = import.meta.env.PUBLIC_USDA_LOGO_ID || '7279de27c7fd68bf4f8ab
         </p>
       </div>
 
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 items-center justify-items-center mb-16">
-        
-        <div class="trust-badge group">
-          <div class="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-all duration-300 transform hover:scale-105 w-full h-24 flex items-center justify-center">
-            <CloudinaryImage
-              publicId={usdaLogoId}
-              alt="USDA Certified Biobased logo"
-              width={120}
-              height={60}
-              loading="lazy"
-              className="max-w-full max-h-full object-contain"
+      <!-- Scrolling Logo Carousel -->
+      <div class="logo-carousel-container overflow-hidden mb-16">
+        <div class="logo-carousel-track">
+          <!-- First set of logos with correct paths -->
+          <div class="trust-logo">
+            <img
+              src="https://res.cloudinary.com/southland-organics/image/upload/w_160,h_90,c_fit/pour-the-port/logos/Army_Corp_mr5dfw"
+              alt="Army Corp logo"
+              width="160"
+              height="90"
+              loading="eager"
+              class="max-w-full max-h-full object-contain"
             />
           </div>
-          <div class="text-center mt-3">
-            <div class="font-bold text-gray-900 text-sm">USDA</div>
-            <div class="text-xs text-gray-600">Certified BioPreferred</div>
+
+          <div class="trust-logo">
+            <img
+              src="https://res.cloudinary.com/southland-organics/image/upload/w_160,h_90,c_fit/pour-the-port/logos/USDA_Certified_BioBased"
+              alt="USDA Certified Biobased logo"
+              width="160"
+              height="90"
+              loading="eager"
+              class="max-w-full max-h-full object-contain"
+            />
+          </div>
+
+          <div class="trust-logo">
+            <img
+              src="https://res.cloudinary.com/southland-organics/image/upload/w_160,h_90,c_fit/pour-the-port/logos/national-parks-service"
+              alt="National Parks Service logo"
+              width="160"
+              height="90"
+              loading="eager"
+              class="max-w-full max-h-full object-contain"
+            />
+          </div>
+
+          <div class="trust-logo">
+            <img
+              src="https://res.cloudinary.com/southland-organics/image/upload/w_160,h_90,c_fit/pour-the-port/logos/forest-service"
+              alt="US Forest Service logo"
+              width="160"
+              height="90"
+              loading="eager"
+              class="max-w-full max-h-full object-contain"
+            />
+          </div>
+
+          <!-- Duplicate set for seamless loop -->
+          <div class="trust-logo">
+            <img
+              src="https://res.cloudinary.com/southland-organics/image/upload/w_160,h_90,c_fit/pour-the-port/logos/Army_Corp_mr5dfw"
+              alt="Army Corp logo"
+              width="160"
+              height="90"
+              loading="eager"
+              class="max-w-full max-h-full object-contain"
+            />
+          </div>
+
+          <div class="trust-logo">
+            <img
+              src="https://res.cloudinary.com/southland-organics/image/upload/w_160,h_90,c_fit/pour-the-port/logos/USDA_Certified_BioBased"
+              alt="USDA Certified Biobased logo"
+              width="160"
+              height="90"
+              loading="eager"
+              class="max-w-full max-h-full object-contain"
+            />
+          </div>
+
+          <div class="trust-logo">
+            <img
+              src="https://res.cloudinary.com/southland-organics/image/upload/w_160,h_90,c_fit/pour-the-port/logos/national-parks-service"
+              alt="National Parks Service logo"
+              width="160"
+              height="90"
+              loading="eager"
+              class="max-w-full max-h-full object-contain"
+            />
+          </div>
+
+          <div class="trust-logo">
+            <img
+              src="https://res.cloudinary.com/southland-organics/image/upload/w_160,h_90,c_fit/pour-the-port/logos/forest-service"
+              alt="US Forest Service logo"
+              width="160"
+              height="90"
+              loading="eager"
+              class="max-w-full max-h-full object-contain"
+            />
           </div>
         </div>
-
-        <div class="trust-badge group">
-          <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-all duration-300 transform hover:scale-105 w-full h-24 flex items-center justify-center">
-            <svg class="w-16 h-16 text-green-700 group-hover:text-green-600 transition-colors" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
-            </svg>
-          </div>
-          <div class="text-center mt-3">
-            <div class="font-bold text-gray-900 text-sm">National Parks</div>
-            <div class="text-xs text-gray-600">Bulk purchases by parks</div>
-          </div>
-        </div>
-
-        <div class="trust-badge group">
-          <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-all duration-300 transform hover:scale-105 w-full h-24 flex items-center justify-center">
-            <svg class="w-16 h-16 text-green-700 group-hover:text-green-600 transition-colors" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-            </svg>
-          </div>
-          <div class="text-center mt-3">
-            <div class="font-bold text-gray-900 text-sm">Forest Service</div>
-            <div class="text-xs text-gray-600">Environmental Choice</div>
-          </div>
-        </div>
-
-        <div class="trust-badge group">
-          <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-all duration-300 transform hover:scale-105 w-full h-24 flex items-center justify-center">
-            <svg class="w-16 h-16 text-green-700 group-hover:text-green-600 transition-colors" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6L23 9l-11-6zM18.82 17L12 20.18 5.18 17V12.18L12 15l6.82-2.82V17z"/>
-            </svg>
-          </div>
-          <div class="text-center mt-3">
-            <div class="font-bold text-gray-900 text-sm">University of Georgia</div>
-            <div class="text-xs text-gray-600">Research Validated</div>
-          </div>
-        </div>
-
       </div>
 
       <div class="bg-white rounded-xl shadow-lg p-8 md:p-12">
@@ -141,11 +182,52 @@ const usdaLogoId = import.meta.env.PUBLIC_USDA_LOGO_ID || '7279de27c7fd68bf4f8ab
 </section>
 
 <style>
-  .trust-badge {
-    transition: all 0.3s ease;
+  .logo-carousel-container {
+    width: 100%;
+    padding: 20px 0;
   }
   
-  .trust-badge:hover {
-    transform: translateY(-2px);
+  .logo-carousel-track {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+    animation: scroll 25s linear infinite;
+    width: max-content;
+  }
+  
+  .trust-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 90px;
+    min-width: 180px;
+    flex-shrink: 0;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+  }
+  
+  .trust-logo:hover {
+    opacity: 1;
+  }
+  
+  .trust-logo img {
+    max-width: 160px;
+    max-height: 90px;
+    object-fit: contain;
+    display: block;
+  }
+  
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+  
+  /* Pause animation on hover */
+  .logo-carousel-container:hover .logo-carousel-track {
+    animation-play-state: paused;
   }
 </style>

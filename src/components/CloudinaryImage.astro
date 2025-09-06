@@ -1,5 +1,6 @@
 ---
-import { getOptimizedImage, getResponsiveImageUrls, getPlaceholderImage } from '../utils/cloudinary-simple.js';
+import { Image } from 'astro:assets';
+import { getOptimizedImage } from '../utils/cloudinary.js';
 
 export interface Props {
   publicId: string;
@@ -8,11 +9,8 @@ export interface Props {
   height?: number;
   className?: string;
   loading?: 'lazy' | 'eager';
-  responsive?: boolean;
   quality?: string;
   crop?: string;
-  placeholder?: boolean;
-  sizes?: string;
 }
 
 const { 
@@ -22,111 +20,19 @@ const {
   height, 
   className = '', 
   loading = 'lazy',
-  responsive = true,
   quality = 'auto',
-  crop = 'fill',
-  placeholder = true,
-  sizes = '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+  crop = 'fill'
 } = Astro.props;
 
-// Generate optimized image URLs
-const imageOptions = { width, height, quality, crop };
-const mainImageUrl = getOptimizedImage(publicId, imageOptions);
-
-let srcSet = '';
-let placeholderUrl = '';
-
-if (responsive) {
-  const responsiveUrls = getResponsiveImageUrls(publicId, imageOptions);
-  srcSet = `
-    ${responsiveUrls.mobile} 480w,
-    ${responsiveUrls.tablet} 768w,
-    ${responsiveUrls.desktop} 1200w,
-    ${responsiveUrls.xl} 1920w
-  `;
-}
-
-if (placeholder && loading === 'lazy') {
-  placeholderUrl = getPlaceholderImage(publicId);
-}
+// Generate optimized image URL
+const imageUrl = getOptimizedImage(publicId, { width, height, quality, crop });
 ---
 
-<div class={`cloudinary-image-container ${className}`}>
-  {placeholder && loading === 'lazy' && (
-    <img
-      src={placeholderUrl}
-      alt=""
-      class="cloudinary-placeholder absolute inset-0 w-full h-full object-cover transition-opacity duration-300"
-      aria-hidden="true"
-    />
-  )}
-  
-  <img
-    src={mainImageUrl}
-    srcset={responsive ? srcSet : undefined}
-    sizes={responsive ? sizes : undefined}
-    alt={alt}
-    width={width}
-    height={height}
-    loading={loading}
-    class={`cloudinary-main-image w-full h-full object-cover transition-opacity duration-300 ${loading === 'lazy' && placeholder ? 'opacity-0' : 'opacity-100'}`}
-    onload={loading === 'lazy' && placeholder ? "this.classList.add('loaded'); this.classList.remove('opacity-0'); this.classList.add('opacity-100');" : undefined}
-  />
-</div>
-
-<style>
-  .cloudinary-image-container {
-    position: relative;
-    overflow: hidden;
-  }
-  
-  .cloudinary-main-image.loaded ~ .cloudinary-placeholder,
-  .cloudinary-main-image.loaded + .cloudinary-placeholder {
-    opacity: 0;
-  }
-  
-  /* Smooth loading animation */
-  .cloudinary-main-image {
-    transition: opacity 0.3s ease-in-out;
-  }
-  
-  .cloudinary-placeholder {
-    filter: blur(10px);
-    transform: scale(1.05);
-  }
-</style>
-
-<script>
-  // Enhanced lazy loading with intersection observer
-  if ('IntersectionObserver' in window) {
-    const imageObserver = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const img = entry.target;
-          const placeholder = img.parentElement.querySelector('.cloudinary-placeholder');
-          
-          img.onload = () => {
-            img.classList.add('loaded');
-            img.classList.remove('opacity-0');
-            img.classList.add('opacity-100');
-            
-            if (placeholder) {
-              placeholder.style.opacity = '0';
-              setTimeout(() => {
-                placeholder.style.display = 'none';
-              }, 300);
-            }
-          };
-          
-          observer.unobserve(img);
-        }
-      });
-    });
-
-    // Observe all lazy-loaded Cloudinary images
-    document.addEventListener('DOMContentLoaded', () => {
-      const lazyImages = document.querySelectorAll('.cloudinary-main-image[loading="lazy"]');
-      lazyImages.forEach(img => imageObserver.observe(img));
-    });
-  }
-</script>
+<Image
+  src={imageUrl}
+  alt={alt}
+  width={width}
+  height={height}
+  loading={loading}
+  class={className}
+/>

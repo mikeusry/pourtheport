@@ -5,9 +5,12 @@ import CloudinaryImage from './CloudinaryImage.astro';
 const microbesImageId = import.meta.env.PUBLIC_MICROBES_IMAGE_ID || 'Blog Images/Microbes_i7iv8p';
 const acidsImageId = import.meta.env.PUBLIC_ACIDS_IMAGE_ID || '9944f7765f55acf01bb1b65cf20755d9';
 const carbonImageId = import.meta.env.PUBLIC_CARBON_IMAGE_ID || '4d17f98791f234077fba646f790aa3ac';
+
+// Meadow background for this section - use direct URL to avoid build issues
+const meadowBackgroundUrl = `https://res.cloudinary.com/southland-organics/image/upload/w_1920,h_1080,c_fill,q_auto/pour-the-port/meadow`;
 ---
 
-<section class="py-20 bg-gradient-to-br from-slate-50 via-blue-50 to-green-50">
+<section class="py-20 relative overflow-hidden" style={`background-image: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.5)), url('${meadowBackgroundUrl}'); background-size: cover; background-position: center; background-attachment: fixed;`}>
   <div class="container mx-auto px-4">
     <div class="max-w-6xl mx-auto">
       
@@ -24,14 +27,14 @@ const carbonImageId = import.meta.env.PUBLIC_CARBON_IMAGE_ID || '4d17f98791f2340
         
         <!-- Beneficial Microbes -->
         <div class="bg-white rounded-3xl shadow-xl p-8 text-center hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
-          <div class="mb-8">
+          <div class="mb-8 flex justify-center">
             <CloudinaryImage
               publicId={microbesImageId}
               alt="Beneficial microbes that decompose waste naturally"
               width={240}
               height={240}
-              loading="lazy"
-              className="mx-auto rounded-full shadow-lg"
+              loading="eager"
+              className="block"
             />
           </div>
           <h3 class="text-2xl font-bold text-gray-900 mb-4">Beneficial Microbes</h3>
@@ -43,14 +46,14 @@ const carbonImageId = import.meta.env.PUBLIC_CARBON_IMAGE_ID || '4d17f98791f2340
 
         <!-- Organic Acids -->
         <div class="bg-white rounded-3xl shadow-xl p-8 text-center hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
-          <div class="mb-8">
+          <div class="mb-8 flex justify-center">
             <CloudinaryImage
               publicId={acidsImageId}
               alt="Organic acids that break surface tension and prevent biofilm"
               width={240}
               height={240}
-              loading="lazy"
-              className="mx-auto rounded-full shadow-lg"
+              loading="eager"
+              className="block"
             />
           </div>
           <h3 class="text-2xl font-bold text-gray-900 mb-4">Organic Acids</h3>
@@ -62,14 +65,14 @@ const carbonImageId = import.meta.env.PUBLIC_CARBON_IMAGE_ID || '4d17f98791f2340
 
         <!-- Active Carbon -->
         <div class="bg-white rounded-3xl shadow-xl p-8 text-center hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
-          <div class="mb-8">
+          <div class="mb-8 flex justify-center">
             <CloudinaryImage
               publicId={carbonImageId}
               alt="Active carbon that binds odors and feeds beneficial bacteria"
               width={240}
               height={240}
-              loading="lazy"
-              className="mx-auto rounded-full shadow-lg"
+              loading="eager"
+              className="block"
             />
           </div>
           <h3 class="text-2xl font-bold text-gray-900 mb-4">Active Carbon</h3>

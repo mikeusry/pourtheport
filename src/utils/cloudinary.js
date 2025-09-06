@@ -23,7 +23,7 @@ export function getOptimizedImage(publicId, options = {}) {
     width = 800,
     height,
     crop = 'fill',
-    format = 'auto',
+    format: imageFormat = 'auto',
     quality: imageQuality = 'auto',
     blur,
     overlay,
