@@ -1,0 +1,194 @@
+---
+// Simple API test page
+const STORE_DOMAIN = import.meta.env.PUBLIC_SHOPIFY_STORE_DOMAIN;
+const ACCESS_TOKEN = import.meta.env.PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN;
+
+let testResults = {
+  storeConnected: false,
+  tokenValid: false,
+  productsFound: 0,
+  error: '',
+  response: null
+};
+
+// Test basic connection
+if (STORE_DOMAIN && ACCESS_TOKEN) {
+  try {
+    const testUrl = `https://${STORE_DOMAIN}/api/2024-10/graphql.json`;
+    
+    const response = await fetch(testUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Shopify-Storefront-Access-Token': ACCESS_TOKEN,
+      },
+      body: JSON.stringify({
+        query: `
+          query {
+            shop {
+              name
+              description
+              primaryDomain {
+                host
+              }
+            }
+            products(first: 3) {
+              nodes {
+                id
+                title
+                handle
+                priceRange {
+                  minVariantPrice {
+                    amount
+                    currencyCode
+                  }
+                }
+              }
+            }
+          }
+        `
+      })
+    });
+
+    const data = await response.json();
+    
+    testResults.storeConnected = response.ok;
+    testResults.response = data;
+    
+    if (data.data?.shop) {
+      testResults.tokenValid = true;
+    }
+    
+    if (data.data?.products?.nodes) {
+      testResults.productsFound = data.data.products.nodes.length;
+    }
+    
+    if (data.errors) {
+      testResults.error = JSON.stringify(data.errors);
+    }
+    
+    if (!response.ok) {
+      testResults.error = `HTTP ${response.status}: ${response.statusText}`;
+    }
+    
+  } catch (error) {
+    testResults.error = error.message;
+  }
+} else {
+  testResults.error = 'Missing store domain or access token';
+}
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Shopify API Test</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-50 p-8">
+    <div class="max-w-4xl mx-auto">
+      <h1 class="text-3xl font-bold mb-8">Shopify API Connection Test</h1>
+      
+      <!-- Configuration Status -->
+      <div class="bg-white rounded-lg shadow p-6 mb-6">
+        <h2 class="text-xl font-semibold mb-4">Configuration</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+          <div>
+            <strong>Store Domain:</strong> 
+            <code class="bg-gray-100 px-2 py-1 rounded ml-2">{STORE_DOMAIN || 'Not set'}</code>
+          </div>
+          <div>
+            <strong>Access Token:</strong> 
+            <code class="bg-gray-100 px-2 py-1 rounded ml-2">
+              {ACCESS_TOKEN ? `${ACCESS_TOKEN.substring(0, 8)}...${ACCESS_TOKEN.substring(-4)}` : 'Not set'}
+            </code>
+          </div>
+          <div>
+            <strong>Token Length:</strong> 
+            <span class="ml-2">{ACCESS_TOKEN ? ACCESS_TOKEN.length : 0} characters</span>
+          </div>
+          <div>
+            <strong>Token Format:</strong> 
+            <span class="ml-2">
+              {ACCESS_TOKEN ? (ACCESS_TOKEN.startsWith('shpat_') ? '✅ Correct format' : '⚠️  Unusual format') : 'N/A'}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Test Results -->
+      <div class="bg-white rounded-lg shadow p-6 mb-6">
+        <h2 class="text-xl font-semibold mb-4">Test Results</h2>
+        
+        <div class="space-y-4">
+          <div class="flex items-center">
+            <span class="w-4 h-4 rounded-full mr-3" class={testResults.storeConnected ? 'bg-green-500' : 'bg-red-500'}></span>
+            <span>Store Connection: {testResults.storeConnected ? 'SUCCESS' : 'FAILED'}</span>
+          </div>
+          
+          <div class="flex items-center">
+            <span class="w-4 h-4 rounded-full mr-3" class={testResults.tokenValid ? 'bg-green-500' : 'bg-red-500'}></span>
+            <span>Token Validation: {testResults.tokenValid ? 'VALID' : 'INVALID'}</span>
+          </div>
+          
+          <div class="flex items-center">
+            <span class="w-4 h-4 rounded-full mr-3" class={testResults.productsFound > 0 ? 'bg-green-500' : 'bg-yellow-500'}></span>
+            <span>Products Found: {testResults.productsFound}</span>
+          </div>
+        </div>
+
+        {testResults.error && (
+          <div class="mt-4 p-4 bg-red-50 border border-red-200 rounded">
+            <strong class="text-red-800">Error:</strong>
+            <pre class="text-red-700 text-sm mt-2 whitespace-pre-wrap">{testResults.error}</pre>
+          </div>
+        )}
+      </div>
+
+      <!-- Raw Response -->
+      {testResults.response && (
+        <div class="bg-white rounded-lg shadow p-6 mb-6">
+          <h2 class="text-xl font-semibold mb-4">API Response</h2>
+          <pre class="bg-gray-100 p-4 rounded text-xs overflow-auto max-h-96">{JSON.stringify(testResults.response, null, 2)}</pre>
+        </div>
+      )}
+
+      <!-- Recommendations -->
+      <div class="bg-blue-50 border border-blue-200 rounded-lg p-6">
+        <h2 class="text-xl font-semibold mb-4 text-blue-800">Recommendations</h2>
+        
+        {!testResults.tokenValid && (
+          <div class="mb-4">
+            <h3 class="font-semibold text-blue-700">Token Issues:</h3>
+            <ul class="list-disc list-inside text-blue-600 text-sm space-y-1">
+              <li>Storefront Access Tokens should start with 'shpat_'</li>
+              <li>They're usually 32+ characters long</li>
+              <li>Make sure you generated a Storefront token, not Admin API token</li>
+              <li>Check that the token has required scopes: unauthenticated_read_product_listings</li>
+            </ul>
+          </div>
+        )}
+
+        {testResults.productsFound === 0 && testResults.tokenValid && (
+          <div class="mb-4">
+            <h3 class="font-semibold text-blue-700">Product Issues:</h3>
+            <ul class="list-disc list-inside text-blue-600 text-sm space-y-1">
+              <li>No products found in the store</li>
+              <li>Products may not be published to the Online Store sales channel</li>
+              <li>Check product availability and status in Shopify admin</li>
+            </ul>
+          </div>
+        )}
+      </div>
+
+      <div class="mt-8 text-center space-x-4">
+        <a href="/product" class="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg">
+          Back to Product Page
+        </a>
+        <a href="/debug-shopify" class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg">
+          Debug Products
+        </a>
+      </div>
+    </div>
+  </body>
+</html>

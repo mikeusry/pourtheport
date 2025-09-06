@@ -1,5 +1,27 @@
 ---
+import ShopifyBuyButton from './ShopifyBuyButton.astro';
+import { getProduct, mockProduct, isShopifyConfigured, getDefaultVariant, formatPrice } from '../lib/shopify';
 
+// Fetch product data (will use mock data if Shopify not configured)
+let product = mockProduct;
+let defaultVariant = getDefaultVariant(mockProduct);
+
+if (isShopifyConfigured()) {
+  try {
+    const shopifyProduct = await getProduct();
+    if (shopifyProduct) {
+      product = shopifyProduct;
+      defaultVariant = getDefaultVariant(shopifyProduct);
+    }
+  } catch (error) {
+    console.warn('Failed to fetch Shopify product, using mock data:', error);
+  }
+}
+
+const productPrice = defaultVariant?.price.amount || '84.00';
+const formattedPrice = formatPrice(productPrice);
+const perTreatmentPrice = formatPrice((parseFloat(productPrice) / 3).toString());
+const variantId = defaultVariant?.id || '';
 ---
 
 <div id="sticky-cta" class="fixed bottom-0 left-0 right-0 z-50 transform translate-y-full transition-transform duration-300 ease-in-out">
@@ -12,22 +34,24 @@
             Don't Risk $15,000 in Septic Disasters
           </div>
           <div class="text-green-100 text-sm">
-            Natural septic maintenance - Only $28 per treatment, just 3 times a year
+            Natural septic maintenance - Only {perTreatmentPrice} per treatment, just 3 times a year
           </div>
         </div>
 
         <div class="flex items-center gap-4">
           <div class="text-right hidden sm:block">
-            <div class="text-white font-bold text-2xl">$28</div>
+            <div class="text-white font-bold text-2xl">{perTreatmentPrice}</div>
             <div class="text-green-100 text-sm">Per Treatment</div>
           </div>
           
-          <a 
-            href="#pricing" 
-            class="bg-white text-green-600 font-bold py-3 px-6 rounded-full hover:bg-green-50 transition-all duration-300 transform hover:scale-105 shadow-lg whitespace-nowrap"
-          >
-            Order Now
-          </a>
+          <ShopifyBuyButton 
+            variantId={variantId}
+            quantity={1}
+            text="Order Now"
+            style="secondary"
+            size="md"
+            class="whitespace-nowrap"
+          />
           
           <button 
             id="close-sticky-cta" 
@@ -95,9 +119,9 @@ document.addEventListener('DOMContentLoaded', function() {
   window.addEventListener('scroll', updateStickyCta, { passive: true });
   closeStickyBtn?.addEventListener('click', dismissStickyCta);
 
-  // Dismiss CTA when user clicks on pricing/order links
-  document.querySelectorAll('a[href="#pricing"], a[href="#order"]').forEach(link => {
-    link.addEventListener('click', () => {
+  // Dismiss CTA when user clicks on pricing/order links or Shopify buttons
+  document.querySelectorAll('a[href="#pricing"], a[href="#order"], .shopify-buy-button').forEach(element => {
+    element.addEventListener('click', () => {
       setTimeout(dismissStickyCta, 1000); // Dismiss after 1 second
     });
   });

@@ -1,5 +1,26 @@
 ---
+import ShopifyBuyButton from './ShopifyBuyButton.astro';
+import { getProduct, mockProduct, isShopifyConfigured, getDefaultVariant, formatPrice } from '../lib/shopify';
 
+// Fetch product data (will use mock data if Shopify not configured)
+let product = mockProduct;
+let defaultVariant = getDefaultVariant(mockProduct);
+
+if (isShopifyConfigured()) {
+  try {
+    const shopifyProduct = await getProduct();
+    if (shopifyProduct) {
+      product = shopifyProduct;
+      defaultVariant = getDefaultVariant(shopifyProduct);
+    }
+  } catch (error) {
+    console.warn('Failed to fetch Shopify product, using mock data:', error);
+  }
+}
+
+const productPrice = defaultVariant?.price.amount || '84.00';
+const formattedPrice = formatPrice(productPrice);
+const variantId = defaultVariant?.id || '';
 ---
 
 <section id="pricing" class="py-20 bg-gray-50">
@@ -8,7 +29,7 @@
       
       <div class="text-center mb-16">
         <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-          Only <span class="text-green-600">$28</span> Per Treatment vs <span class="text-red-600">$15,000+</span> Disaster
+          Only <span class="text-green-600">{formatPrice((parseFloat(productPrice) / 3).toString())}</span> Per Treatment vs <span class="text-red-600">$15,000+</span> Disaster
         </h2>
         <p class="text-xl text-gray-600 max-w-3xl mx-auto">
           Just 3 treatments a year keep your septic system worry-free. Each bottle delivers powerful microbial action for reliable, natural maintenance that won't break the bank.
@@ -85,9 +106,9 @@
           
           <div class="p-8">
             <div class="text-center mb-8">
-              <div class="text-6xl font-bold text-green-600 mb-2">$28</div>
+              <div class="text-6xl font-bold text-green-600 mb-2">{formatPrice((parseFloat(productPrice) / 3).toString())}</div>
               <div class="text-lg text-gray-600">per treatment</div>
-              <div class="text-sm text-gray-500">Just 3 times a year • $84 total annual cost</div>
+              <div class="text-sm text-gray-500">Just 3 times a year • {formattedPrice} total annual cost</div>
             </div>
             
             <div class="space-y-4 mb-8">
@@ -129,12 +150,14 @@
               </div>
             </div>
 
-            <a 
-              href="#order" 
-              class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-4 px-8 rounded-full text-lg transition-all duration-300 transform hover:scale-105 shadow-lg text-center block"
-            >
-              Get 3 Treatments - $84
-            </a>
+            <ShopifyBuyButton 
+              variantId={variantId}
+              quantity={1}
+              text={`Get 3 Treatments - ${formattedPrice}`}
+              class="w-full text-center"
+              size="lg"
+              style="primary"
+            />
             
             <p class="text-center text-gray-500 text-sm mt-4">
               30-day money-back guarantee
@@ -156,27 +179,27 @@
         
         <div class="grid grid-cols-1 md:grid-cols-4 gap-6 text-center">
           <div class="bg-white rounded-lg p-6 shadow-md">
-            <div class="text-3xl font-bold text-green-600 mb-2">$0.23</div>
+            <div class="text-3xl font-bold text-green-600 mb-2">{formatPrice((parseFloat(productPrice) / 365).toString())}</div>
             <div class="text-sm text-gray-600 uppercase font-semibold">Per Day</div>
             <div class="text-xs text-gray-500 mt-1">Less than a cup of coffee</div>
           </div>
           
           <div class="bg-white rounded-lg p-6 shadow-md">
-            <div class="text-3xl font-bold text-blue-600 mb-2">$7</div>
+            <div class="text-3xl font-bold text-blue-600 mb-2">{formatPrice((parseFloat(productPrice) / 12).toString())}</div>
             <div class="text-sm text-gray-600 uppercase font-semibold">Per Month</div>
             <div class="text-xs text-gray-500 mt-1">Less than lunch out</div>
           </div>
           
           <div class="bg-white rounded-lg p-6 shadow-md">
-            <div class="text-3xl font-bold text-purple-600 mb-2">$28</div>
+            <div class="text-3xl font-bold text-purple-600 mb-2">{formatPrice((parseFloat(productPrice) / 3).toString())}</div>
             <div class="text-sm text-gray-600 uppercase font-semibold">Per Treatment</div>
             <div class="text-xs text-gray-500 mt-1">4 months protection</div>
           </div>
           
           <div class="bg-white rounded-lg p-6 shadow-md">
-            <div class="text-3xl font-bold text-orange-600 mb-2">377x</div>
+            <div class="text-3xl font-bold text-orange-600 mb-2">{Math.round(31700 / parseFloat(productPrice))}x</div>
             <div class="text-sm text-gray-600 uppercase font-semibold">ROI Potential</div>
-            <div class="text-xs text-gray-500 mt-1">$84 vs $31,700 disaster</div>
+            <div class="text-xs text-gray-500 mt-1">{formattedPrice} vs $31,700 disaster</div>
           </div>
         </div>
       </div>
@@ -240,15 +263,13 @@
           </p>
         </div>
         
-        <a 
-          href="#order" 
-          class="inline-flex items-center bg-green-500 hover:bg-green-600 text-white font-bold py-4 px-8 rounded-full text-xl transition-all duration-300 transform hover:scale-105 shadow-lg"
-        >
-          Start for Just $28 Today
-          <svg class="w-6 h-6 ml-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.031 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
-          </svg>
-        </a>
+        <ShopifyBuyButton 
+          variantId={variantId}
+          quantity={1}
+          text={`Start for Just ${formatPrice((parseFloat(productPrice) / 3).toString())} Today`}
+          size="xl"
+          style="primary"
+        />
       </div>
 
     </div>

@@ -1,0 +1,250 @@
+---
+export interface Props {
+  videoId: string;
+  width?: number;
+  height?: number;
+  aspectRatio?: '16:9' | '4:3' | '1:1' | '9:16';
+  autoplay?: boolean;
+  muted?: boolean;
+  controls?: boolean;
+  playButton?: boolean;
+  volumeControl?: boolean;
+  fullscreenButton?: boolean;
+  settingsControl?: boolean;
+  playbar?: boolean;
+  smallPlayButton?: boolean;
+  playerColor?: string;
+  thumbnail?: string;
+  resumable?: boolean;
+  responsive?: boolean;
+  class?: string;
+  style?: string;
+  loading?: 'lazy' | 'eager';
+  caption?: string;
+  preload?: 'none' | 'metadata' | 'auto';
+}
+
+const {
+  videoId,
+  width = 640,
+  height = 360,
+  aspectRatio = '16:9',
+  autoplay = false,
+  muted = false,
+  controls = true,
+  playButton = true,
+  volumeControl = true,
+  fullscreenButton = true,
+  settingsControl = true,
+  playbar = true,
+  smallPlayButton = true,
+  playerColor = '#ffffff',
+  thumbnail,
+  resumable = true,
+  responsive = true,
+  class: className = '',
+  style = '',
+  loading = 'lazy',
+  caption,
+  preload = 'metadata'
+} = Astro.props;
+
+// Calculate aspect ratio dimensions
+const getAspectRatioDimensions = (ratio: string, baseWidth: number) => {
+  const ratios = {
+    '16:9': { w: 16, h: 9 },
+    '4:3': { w: 4, h: 3 },
+    '1:1': { w: 1, h: 1 },
+    '9:16': { w: 9, h: 16 }
+  };
+  
+  const r = ratios[ratio as keyof typeof ratios] || ratios['16:9'];
+  return {
+    width: baseWidth,
+    height: Math.round(baseWidth * (r.h / r.w))
+  };
+};
+
+const dimensions = responsive 
+  ? getAspectRatioDimensions(aspectRatio, width)
+  : { width, height };
+
+// Build Wistia embed options
+const embedOptions = {
+  autoplay,
+  muted,
+  controls,
+  playButton,
+  volumeControl,
+  fullscreenButton,
+  settingsControl,
+  playbar,
+  smallPlayButton,
+  playerColor: playerColor.replace('#', ''),
+  resumable,
+  preload
+};
+
+// Create unique container ID
+const containerId = `wistia-${videoId}-${Math.random().toString(36).substring(7)}`;
+---
+
+<!-- Wistia Video Container -->
+<div 
+  class={`wistia-video-container ${responsive ? 'wistia-responsive' : ''} ${className}`}
+  style={`${responsive ? `aspect-ratio: ${aspectRatio.replace(':', '/')}; width: 100%;` : `width: ${dimensions.width}px; height: ${dimensions.height}px;`} ${style}`}
+>
+  <!-- Wistia Embed -->
+  <div
+    id={containerId}
+    class={`wistia_embed wistia_async_${videoId}`}
+    data-video-width={dimensions.width}
+    data-video-height={dimensions.height}
+    style={`width: 100%; height: 100%;${thumbnail ? ` background: url('${thumbnail}') center/cover;` : ''}`}
+  >
+    <!-- Loading Placeholder -->
+    <div class="wistia-loading-placeholder">
+      <div class="wistia-loading-spinner"></div>
+      <div class="wistia-loading-text">Loading video...</div>
+    </div>
+  </div>
+  
+  <!-- Optional Caption -->
+  {caption && (
+    <div class="wistia-caption">
+      <p class="text-sm text-gray-600 mt-2 text-center">{caption}</p>
+    </div>
+  )}
+</div>
+
+<!-- Wistia Player Script -->
+<script define:vars={{ videoId, embedOptions, containerId, loading }}>
+  // Load Wistia script if not already loaded
+  if (!window._wq) {
+    window._wq = window._wq || [];
+    const script = document.createElement('script');
+    script.src = 'https://fast.wistia.net/assets/external/E-v1.js';
+    script.async = true;
+    document.head.appendChild(script);
+  }
+
+  // Configure video when ready
+  window._wq = window._wq || [];
+  window._wq.push({
+    id: videoId,
+    options: embedOptions,
+    onReady: function(video) {
+      // Hide loading placeholder
+      const placeholder = document.querySelector(`#${containerId} .wistia-loading-placeholder`);
+      if (placeholder) {
+        placeholder.style.display = 'none';
+      }
+
+      // Custom event tracking
+      video.bind('play', function() {
+        console.log('Wistia video started:', videoId);
+        // Add your analytics tracking here
+      });
+
+      video.bind('end', function() {
+        console.log('Wistia video ended:', videoId);
+        // Add your analytics tracking here
+      });
+
+      // Lazy loading implementation
+      if (loading === 'lazy') {
+        const container = document.querySelector(`#${containerId}`);
+        if (container && 'IntersectionObserver' in window) {
+          const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                video.ready(() => {
+                  console.log('Wistia video ready for lazy loading:', videoId);
+                });
+                observer.unobserve(entry.target);
+              }
+            });
+          }, { threshold: 0.1 });
+          
+          observer.observe(container);
+        }
+      }
+    }
+  });
+</script>
+
+<style>
+  .wistia-video-container {
+    position: relative;
+    background-color: #000;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    width: 100%;
+  }
+
+  .wistia-responsive {
+    width: 100%;
+    height: auto;
+  }
+
+  .wistia_embed {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .wistia-loading-placeholder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    z-index: 1;
+  }
+
+  .wistia-loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-left: 4px solid #ffffff;
+    border-radius: 50%;
+    animation: wistia-spin 1s linear infinite;
+    margin-bottom: 16px;
+  }
+
+  .wistia-loading-text {
+    font-size: 14px;
+    font-weight: 500;
+    opacity: 0.9;
+  }
+
+  @keyframes wistia-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  /* Dark mode support */
+  @media (prefers-color-scheme: dark) {
+    .wistia-caption p {
+      color: #9ca3af;
+    }
+  }
+
+  /* Mobile optimizations */
+  @media (max-width: 768px) {
+    .wistia-video-container {
+      border-radius: 6px;
+    }
+    
+    .wistia-loading-text {
+      font-size: 12px;
+    }
+  }
+</style>

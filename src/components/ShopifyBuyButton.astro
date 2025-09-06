@@ -1,0 +1,211 @@
+---
+export interface Props {
+  variantId?: string;
+  quantity?: number;
+  text?: string;
+  class?: string;
+  size?: 'sm' | 'md' | 'lg' | 'xl';
+  style?: 'primary' | 'secondary';
+  loading?: boolean;
+}
+
+const {
+  variantId = '',
+  quantity = 1,
+  text = 'Buy Now',
+  class: className = '',
+  size = 'lg',
+  style = 'primary',
+  loading = false
+} = Astro.props;
+
+// Size variations
+const sizeClasses = {
+  sm: 'py-2 px-4 text-sm',
+  md: 'py-3 px-6 text-base',
+  lg: 'py-4 px-8 text-lg',
+  xl: 'py-5 px-10 text-xl'
+};
+
+// Style variations
+const styleClasses = {
+  primary: 'bg-green-500 hover:bg-green-600 text-white',
+  secondary: 'bg-white border-2 border-green-500 text-green-600 hover:bg-green-50'
+};
+
+const buttonClasses = `
+  ${styleClasses[style]} 
+  ${sizeClasses[size]} 
+  font-bold rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg 
+  disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none
+  inline-flex items-center justify-center
+  ${className}
+`;
+---
+
+<button 
+  class={`shopify-buy-button ${buttonClasses}`}
+  data-variant-id={variantId}
+  data-quantity={quantity}
+  disabled={loading}
+>
+  <span class="button-text">
+    {loading ? 'Processing...' : text}
+  </span>
+  
+  {loading ? (
+    <svg class="animate-spin -mr-1 ml-3 h-5 w-5 text-current" fill="none" viewBox="0 0 24 24">
+      <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+      <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+    </svg>
+  ) : (
+    <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M8 11v6h8v-6M8 11H6a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2v-8a2 2 0 00-2-2h-2"></path>
+    </svg>
+  )}
+</button>
+
+<script>
+  // Import Shopify functions (this will be available globally)
+  import { buyNow, isShopifyConfigured, mockProduct, getDefaultVariant } from '../lib/shopify';
+  
+  // Handle buy button clicks
+  document.addEventListener('DOMContentLoaded', function() {
+    const buyButtons = document.querySelectorAll('.shopify-buy-button');
+    
+    buyButtons.forEach(button => {
+      button.addEventListener('click', async function(e) {
+        e.preventDefault();
+        
+        const btn = e.currentTarget as HTMLButtonElement;
+        const variantId = btn.dataset.variantId;
+        const quantity = parseInt(btn.dataset.quantity || '1');
+        const buttonText = btn.querySelector('.button-text');
+        
+        if (!buttonText) return;
+        
+        // Show loading state
+        btn.disabled = true;
+        buttonText.textContent = 'Processing...';
+        
+        try {
+          let checkoutUrl: string | null = null;
+          
+          if (isShopifyConfigured() && variantId) {
+            // Use real Shopify integration
+            checkoutUrl = await buyNow(variantId, quantity);
+          } else {
+            // Mock behavior for development/demo
+            console.log('Demo mode: Would redirect to checkout with:', {
+              variantId: variantId || 'demo-variant',
+              quantity,
+              productTitle: 'Pour the PORT - 3-Pack Annual Supply',
+              price: '$84.00'
+            });
+            
+            // Simulate API delay
+            await new Promise(resolve => setTimeout(resolve, 1500));
+            
+            // Demo mode - simulate going to checkout
+            checkoutUrl = 'https://southland-organics.myshopify.com/products/pour-the-port-3-pack';
+          }
+          
+          if (checkoutUrl && !checkoutUrl.includes('#demo')) {
+            // Redirect to Shopify store/checkout
+            window.location.href = checkoutUrl;
+          } else {
+            throw new Error('Failed to create checkout');
+          }
+          
+        } catch (error) {
+          console.error('Checkout error:', error);
+          
+          // Show error state
+          buttonText.textContent = 'Try Again';
+          
+          // Show error message
+          showErrorMessage(btn, 'Something went wrong. Please try again.');
+          
+          // Reset button after delay
+          setTimeout(() => {
+            btn.disabled = false;
+            buttonText.textContent = btn.dataset.originalText || 'Buy Now';
+          }, 3000);
+        }
+      });
+      
+      // Store original text for error recovery
+      const buttonText = button.querySelector('.button-text');
+      if (buttonText) {
+        button.dataset.originalText = buttonText.textContent || 'Buy Now';
+      }
+    });
+  });
+  
+  // Helper functions
+  function showSuccessMessage(button: HTMLButtonElement, quantity: number) {
+    const buttonText = button.querySelector('.button-text');
+    if (!buttonText) return;
+    
+    buttonText.textContent = `Added ${quantity} to Cart!`;
+    button.classList.add('bg-green-600');
+    
+    // Create a temporary success notification
+    const notification = document.createElement('div');
+    notification.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 transform transition-all duration-300';
+    notification.innerHTML = `
+      <div class="flex items-center">
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+        </svg>
+        Demo: Pour the PORT added to cart!
+      </div>
+    `;
+    document.body.appendChild(notification);
+    
+    // Remove notification after delay
+    setTimeout(() => {
+      notification.remove();
+      button.disabled = false;
+      buttonText.textContent = button.dataset.originalText || 'Buy Now';
+      button.classList.remove('bg-green-600');
+    }, 3000);
+  }
+  
+  function showErrorMessage(button: HTMLButtonElement, message: string) {
+    // Create temporary error notification
+    const notification = document.createElement('div');
+    notification.className = 'fixed top-4 right-4 bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg z-50';
+    notification.innerHTML = `
+      <div class="flex items-center">
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+        ${message}
+      </div>
+    `;
+    document.body.appendChild(notification);
+    
+    setTimeout(() => notification.remove(), 5000);
+  }
+</script>
+
+<style>
+  .shopify-buy-button:disabled {
+    transform: none !important;
+  }
+  
+  .shopify-buy-button:not(:disabled):hover {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  }
+  
+  /* Success state animation */
+  .shopify-buy-button.success {
+    background-color: #059669 !important;
+  }
+  
+  /* Loading state */
+  .shopify-buy-button:disabled .button-text {
+    opacity: 0.8;
+  }
+</style>

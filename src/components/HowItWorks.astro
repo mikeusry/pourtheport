@@ -1,4 +1,6 @@
 ---
+import WistiaVideo from './WistiaVideo.astro';
+
 // Hex background for this section
 const hexBackgroundUrl = `https://res.cloudinary.com/southland-organics/image/upload/w_1920,h_1080,c_fill,q_auto/Southland%20Website/hex`;
 ---
@@ -136,6 +138,52 @@ const hexBackgroundUrl = `https://res.cloudinary.com/southland-organics/image/up
             </div>
           </div>
 
+        </div>
+      </div>
+
+      <!-- Video Demonstration Section -->
+      <div class="mt-20 mb-16">
+        <div class="text-center mb-12">
+          <h3 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            See It In <span class="text-green-600">Action</span>
+          </h3>
+          <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+            Watch how simple and effective Pour the PORT really is. This short demonstration 
+            shows you exactly how our 3-step process protects your septic system.
+          </p>
+        </div>
+        
+        <div class="max-w-4xl mx-auto">
+          <WistiaVideo 
+            videoId="0oizgyr5y2"
+            responsive={true}
+            width={800}
+            aspectRatio="16:9"
+            autoplay={false}
+            muted={false}
+            caption="See how Pour the PORT's simple 3-step process protects your septic system"
+            loading="lazy"
+            playerColor="#22c55e"
+            class="shadow-2xl border border-gray-100"
+          />
+        </div>
+        
+        <!-- Call to Action after video -->
+        <div class="text-center mt-8">
+          <div class="bg-green-50 border border-green-200 rounded-xl p-6 max-w-2xl mx-auto">
+            <p class="text-green-800 font-medium mb-4">
+              Ready to protect your septic system with the same trusted formula used by National Parks?
+            </p>
+            <a 
+              href="#pricing" 
+              class="inline-flex items-center bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-full transition-all duration-300 transform hover:scale-105 shadow-md"
+            >
+              Get Your 3-Pack Today
+              <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+              </svg>
+            </a>
+          </div>
         </div>
       </div>
 

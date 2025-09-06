@@ -1,0 +1,170 @@
+---
+import { shopifyClient } from '../lib/shopify';
+
+let products = [];
+let error = '';
+
+if (shopifyClient) {
+  const PRODUCTS_QUERY = `
+    query getProducts($first: Int!) {
+      products(first: $first) {
+        nodes {
+          id
+          handle
+          title
+          description
+          priceRange {
+            minVariantPrice {
+              amount
+              currencyCode
+            }
+          }
+          variants(first: 5) {
+            nodes {
+              id
+              title
+              price {
+                amount
+                currencyCode
+              }
+              availableForSale
+            }
+          }
+        }
+      }
+    }
+  `;
+
+  try {
+    const response = await shopifyClient.request(PRODUCTS_QUERY, {
+      variables: { first: 10 }
+    });
+    
+    if (response.data?.products?.nodes) {
+      products = response.data.products.nodes;
+      console.log('Found products:', products.length);
+    }
+  } catch (err) {
+    error = err.message || 'Failed to fetch products';
+    console.error('Shopify API Error:', err);
+  }
+} else {
+  error = 'Shopify client not initialized - check your environment variables';
+}
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Shopify Debug - Product Listing</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-50 p-8">
+    <div class="max-w-4xl mx-auto">
+      <h1 class="text-3xl font-bold text-gray-900 mb-8">Shopify Debug - Product Listing</h1>
+      
+      {error ? (
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6">
+          <strong class="font-bold">Error: </strong>
+          <span>{error}</span>
+        </div>
+      ) : (
+        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-6">
+          <strong class="font-bold">Success! </strong>
+          <span>Connected to Shopify store. Found {products.length} products.</span>
+        </div>
+      )}
+
+      {products.length > 0 && (
+        <div class="space-y-6">
+          {products.map((product) => (
+            <div class="bg-white rounded-lg shadow-md p-6 border border-gray-200">
+              <div class="mb-4">
+                <h2 class="text-xl font-semibold text-gray-900 mb-2">{product.title}</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                  <div>
+                    <strong>Handle:</strong> <code class="bg-gray-100 px-2 py-1 rounded">{product.handle}</code>
+                  </div>
+                  <div>
+                    <strong>ID:</strong> <code class="bg-gray-100 px-2 py-1 rounded">{product.id}</code>
+                  </div>
+                  <div>
+                    <strong>Price:</strong> ${product.priceRange.minVariantPrice.amount} {product.priceRange.minVariantPrice.currencyCode}
+                  </div>
+                  <div>
+                    <strong>Variants:</strong> {product.variants.nodes.length}
+                  </div>
+                </div>
+              </div>
+              
+              {product.description && (
+                <div class="mb-4">
+                  <strong class="text-sm text-gray-700">Description:</strong>
+                  <p class="text-gray-600 text-sm mt-1">{product.description.substring(0, 200)}...</p>
+                </div>
+              )}
+
+              {product.variants.nodes.length > 0 && (
+                <div>
+                  <strong class="text-sm text-gray-700 block mb-2">Variants:</strong>
+                  <div class="space-y-2">
+                    {product.variants.nodes.map((variant) => (
+                      <div class="bg-gray-50 rounded p-3 text-sm">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
+                          <div>
+                            <strong>Title:</strong> {variant.title}
+                          </div>
+                          <div>
+                            <strong>Price:</strong> ${variant.price.amount} {variant.price.currencyCode}
+                          </div>
+                          <div>
+                            <strong>Available:</strong> 
+                            <span class={variant.availableForSale ? 'text-green-600' : 'text-red-600'}>
+                              {variant.availableForSale ? 'Yes' : 'No'}
+                            </span>
+                          </div>
+                          <div class="md:col-span-3">
+                            <strong>Variant ID:</strong> 
+                            <code class="bg-white px-2 py-1 rounded border text-xs">{variant.id}</code>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
+
+      {products.length === 0 && !error && (
+        <div class="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded">
+          <strong class="font-bold">No products found</strong>
+          <p class="mt-2">Your Shopify store doesn't have any products yet, or they may not be published to your sales channel.</p>
+        </div>
+      )}
+
+      <div class="mt-8 text-center">
+        <a href="/product" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mr-4">
+          Back to Product Page
+        </a>
+        <a href="/" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">
+          Back to Home
+        </a>
+      </div>
+
+      <!-- Environment Info -->
+      <div class="mt-8 bg-gray-100 rounded-lg p-4 text-sm">
+        <h3 class="font-bold mb-2">Debug Info:</h3>
+        <div class="space-y-1 text-gray-600">
+          <div><strong>Store Domain:</strong> {import.meta.env.PUBLIC_SHOPIFY_STORE_DOMAIN || 'Not set'}</div>
+          <div><strong>Has Access Token:</strong> {import.meta.env.PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN ? 'Yes' : 'No'}</div>
+          <div><strong>Product Handle:</strong> {import.meta.env.PUBLIC_SHOPIFY_PRODUCT_HANDLE || 'Not set'}</div>
+          <div><strong>Product ID:</strong> {import.meta.env.PUBLIC_SHOPIFY_PRODUCT_ID || 'Not set'}</div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
