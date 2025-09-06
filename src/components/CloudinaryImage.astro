@@ -1,38 +1,517 @@
 ---
-import { Image } from 'astro:assets';
-import { getOptimizedImage } from '../utils/cloudinary.js';
+/**
+ * Enhanced CloudinaryImage Component for Pour the PORT
+ * 
+ * A comprehensive Astro component for advanced Cloudinary image delivery.
+ * Features error handling, performance optimizations, advanced effects,
+ * and extensive TypeScript support for all Cloudinary transformations.
+ */
 
+import { 
+  buildCloudinaryUrl, 
+  getCloudinaryResponsiveSet,
+  getCloudinaryDprSrcset,
+  getPlaceholderUrl,
+  getFallbackImageUrl,
+  getSkeletonDataUrl,
+  validatePublicId,
+  getImageConfig,
+  ENHANCED_IMAGE_CONFIGS,
+  type CloudinaryTransforms,
+  IMAGE_CONFIGS
+} from '../lib/cloudinary';
+
+// Comprehensive TypeScript interface for component props
 export interface Props {
+  /** Cloudinary public ID of the image */
   publicId: string;
+  
+  /** Alt text for accessibility */
   alt: string;
+  
+  /** Image width in pixels */
   width?: number;
+  
+  /** Image height in pixels */
   height?: number;
-  className?: string;
+  
+  /** CSS classes to apply to the img element */
+  class?: string;
+  
+  /** Loading strategy */
   loading?: 'lazy' | 'eager';
-  quality?: string;
-  crop?: string;
+  
+  /** Image crop mode */
+  crop?: CloudinaryTransforms['crop'];
+  
+  /** Image quality setting */
+  quality?: CloudinaryTransforms['quality'];
+  
+  /** Image format (auto recommended) */
+  format?: CloudinaryTransforms['format'];
+  
+  /** Gravity for cropping */
+  gravity?: CloudinaryTransforms['gravity'];
+  
+  /** Enable responsive images with srcset */
+  responsive?: boolean;
+  
+  /** Custom sizes attribute for responsive images */
+  sizes?: string;
+  
+  /** Enable lazy loading with blur placeholder */
+  placeholder?: boolean;
+  
+  /** Preset configuration type */
+  preset?: keyof typeof IMAGE_CONFIGS;
+  
+  /** Additional CSS styles */
+  style?: string;
+  
+  /** Image decoding hint */
+  decoding?: 'sync' | 'async' | 'auto';
+  
+  /** Fetch priority hint */
+  fetchpriority?: 'high' | 'low' | 'auto';
+  
+  /** Device pixel ratio support */
+  dpr?: CloudinaryTransforms['dpr'];
+  
+  /** Enable device pixel ratio optimization */
+  supportDpr?: boolean;
+  
+  /** Enable error handling with fallback */
+  errorFallback?: boolean;
+  
+  /** Custom fallback image public ID */
+  fallbackId?: string;
+  
+  /** Enable loading skeleton */
+  skeleton?: boolean;
+  
+  /** Enable intersection observer for lazy loading */
+  observerLoading?: boolean;
+  
+  // Advanced transformation props
+  /** Aspect ratio (e.g., "16:9", "1:1") */
+  aspectRatio?: string;
+  
+  /** Brightness adjustment (-100 to 100) */
+  brightness?: number;
+  
+  /** Contrast adjustment (-100 to 100) */
+  contrast?: number;
+  
+  /** Saturation adjustment (-100 to 100) */
+  saturation?: number;
+  
+  /** Blur effect (1 to 2000) */
+  blur?: number;
+  
+  /** Sharpen effect (1 to 400) */
+  sharpen?: number;
+  
+  /** Sepia effect (1 to 100) */
+  sepia?: number;
+  
+  /** Grayscale effect */
+  grayscale?: boolean;
+  
+  /** Negate colors */
+  negate?: boolean;
+  
+  /** Oil paint effect (1 to 100) */
+  oilPaint?: number;
+  
+  /** Pixelate effect (1 to 200) */
+  pixelate?: number;
+  
+  /** Border (e.g., "5_black", "3_rgb:ff0000") */
+  border?: string;
+  
+  /** Background color */
+  background?: string;
+  
+  /** Rotation angle (-360 to 360) */
+  angle?: number;
+  
+  /** Custom transformation string */
+  customTransform?: string;
+  
+  /** Enable progressive loading */
+  progressive?: boolean;
+  
+  /** Strip image profile */
+  stripProfile?: boolean;
+  
+  /** Custom error handler */
+  onError?: () => void;
+  
+  /** Custom load handler */
+  onLoad?: () => void;
 }
 
-const { 
-  publicId, 
-  alt, 
-  width = 800, 
-  height, 
-  className = '', 
+// Destructure props with defaults
+const {
+  publicId,
+  alt,
+  width,
+  height,
+  class: className = '',
   loading = 'lazy',
+  crop = 'fill',
   quality = 'auto',
-  crop = 'fill'
+  format = 'auto',
+  gravity,
+  responsive = true,
+  sizes: customSizes,
+  placeholder = true,
+  preset,
+  style = '',
+  decoding = 'async',
+  fetchpriority = 'auto',
+  dpr,
+  supportDpr = true,
+  errorFallback = true,
+  fallbackId,
+  skeleton = false,
+  observerLoading = true,
+  aspectRatio,
+  brightness,
+  contrast,
+  saturation,
+  blur,
+  sharpen,
+  sepia,
+  grayscale,
+  negate,
+  oilPaint,
+  pixelate,
+  border,
+  background,
+  angle,
+  customTransform,
+  progressive,
+  stripProfile,
+  onError,
+  onLoad
 } = Astro.props;
 
-// Generate optimized image URL
-const imageUrl = getOptimizedImage(publicId, { width, height, quality, crop });
+// Validate public ID
+const isValidPublicId = validatePublicId(publicId);
+
+// Apply preset configuration if specified
+let finalTransforms: CloudinaryTransforms = {
+  width,
+  height,
+  crop,
+  quality,
+  fetchFormat: format,
+  gravity,
+  dpr: dpr || (supportDpr ? 'auto' : undefined),
+  aspectRatio,
+  brightness,
+  contrast,
+  saturation,
+  blur,
+  sharpen,
+  sepia,
+  grayscale,
+  negate,
+  oilPaint,
+  pixelate,
+  border,
+  background,
+  angle,
+  customTransform,
+  progressive,
+  stripProfile
+};
+
+let finalSizes = customSizes;
+
+if (preset) {
+  const config = getImageConfig(preset);
+  finalTransforms = {
+    ...config,
+    ...finalTransforms,
+    // Keep explicit props as overrides
+    width: width || finalTransforms.width,
+    height: height || finalTransforms.height
+  };
+  if (!customSizes && 'sizes' in config) {
+    finalSizes = (config as any).sizes;
+  }
+}
+
+// Generate URLs
+let primaryUrl: string;
+let srcsetData: { srcset: string; sizes: string } | null = null;
+let placeholderUrl: string | null = null;
+let skeletonUrl: string | null = null;
+let fallbackUrl: string | null = null;
+
+if (isValidPublicId) {
+  // Generate primary image URL
+  primaryUrl = buildCloudinaryUrl(publicId, finalTransforms);
+
+  // Generate responsive srcset if enabled
+  if (responsive && width) {
+    if (supportDpr) {
+      srcsetData = getCloudinaryDprSrcset(publicId, {
+        ...finalTransforms,
+        height: undefined // Let height scale proportionally for responsive
+      }, supportDpr);
+    } else {
+      srcsetData = getCloudinaryResponsiveSet(publicId, {
+        ...finalTransforms,
+        height: undefined
+      });
+    }
+    
+    // Use custom sizes if provided, otherwise use generated sizes
+    if (finalSizes) {
+      srcsetData.sizes = finalSizes;
+    }
+  }
+
+  // Generate placeholder URL for lazy loading
+  if (placeholder) {
+    placeholderUrl = getPlaceholderUrl(publicId);
+  }
+} else {
+  // Use fallback for invalid public ID
+  if (errorFallback) {
+    if (fallbackId && validatePublicId(fallbackId)) {
+      primaryUrl = buildCloudinaryUrl(fallbackId, finalTransforms);
+    } else {
+      fallbackUrl = getFallbackImageUrl(width, height);
+      primaryUrl = fallbackUrl;
+    }
+  } else {
+    throw new Error(`Invalid Cloudinary public ID: ${publicId}`);
+  }
+}
+
+// Generate skeleton placeholder
+if (skeleton && width && height) {
+  skeletonUrl = getSkeletonDataUrl(width, height);
+}
+
+// Determine final image attributes
+const imgAttributes: Record<string, any> = {
+  src: primaryUrl,
+  alt,
+  loading,
+  decoding,
+  class: className,
+  style,
+};
+
+// Add dimensions if provided
+if (width) imgAttributes.width = width;
+if (height) imgAttributes.height = height;
+
+// Add responsive attributes
+if (srcsetData && responsive) {
+  imgAttributes.srcset = srcsetData.srcset;
+  imgAttributes.sizes = srcsetData.sizes;
+}
+
+// Add fetch priority for above-fold images
+if (loading === 'eager' || fetchpriority === 'high') {
+  imgAttributes.fetchpriority = 'high';
+}
+
+// Generate unique ID for this image instance
+const imageId = `cloudinary-img-${Math.random().toString(36).substr(2, 9)}`;
 ---
 
-<Image
-  src={imageUrl}
-  alt={alt}
-  width={width}
-  height={height}
-  loading={loading}
-  class={className}
-/>
+{/* Render image based on configuration */}
+{skeleton && skeletonUrl ? (
+  <!-- Skeleton loading state -->
+  <div class={`cloudinary-image-container ${className}`} style={style} data-loading="skeleton">
+    <img
+      id={imageId}
+      src={skeletonUrl}
+      alt=""
+      width={width}
+      height={height}
+      class="cloudinary-skeleton"
+      aria-hidden="true"
+    />
+  </div>
+) : placeholder && placeholderUrl && isValidPublicId ? (
+  <!-- Image with blur placeholder for smooth lazy loading -->
+  <div class={`cloudinary-image-container relative overflow-hidden ${className}`} style={style}>
+    <!-- Blur placeholder (loads immediately) -->
+    <img
+      src={placeholderUrl}
+      alt=""
+      width={width}
+      height={height}
+      class="cloudinary-placeholder absolute inset-0 w-full h-full object-cover transition-opacity duration-500"
+      style="filter: blur(20px); transform: scale(1.05);"
+      aria-hidden="true"
+    />
+    
+    <!-- Main image (lazy loaded) -->
+    <img
+      id={imageId}
+      {...imgAttributes}
+      class={`cloudinary-main relative z-10 w-full h-full object-cover transition-opacity duration-500 ${className}`}
+      style="opacity: 0;"
+      data-placeholder="true"
+    />
+  </div>
+) : (
+  <!-- Simple image without placeholder -->
+  <img 
+    id={imageId}
+    {...imgAttributes} 
+    data-cloudinary="simple"
+  />
+)}
+
+<style>
+  /* Enhanced image styles */
+  .cloudinary-image-container {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .cloudinary-image-container img {
+    max-width: 100%;
+    height: auto;
+    transition: opacity 0.5s ease, transform 0.3s ease;
+  }
+  
+  /* Skeleton animation */
+  .cloudinary-skeleton {
+    animation: skeleton-pulse 2s ease-in-out infinite alternate;
+  }
+  
+  @keyframes skeleton-pulse {
+    0% { opacity: 1; }
+    100% { opacity: 0.7; }
+  }
+  
+  /* Loading states - simplified for SVG skeleton */
+  .cloudinary-image-container[data-loading="skeleton"] .cloudinary-skeleton {
+    /* SVG handles its own animation, just ensure visibility */
+    opacity: 1;
+    display: block;
+  }
+  
+  /* Error state styling */
+  .cloudinary-error {
+    background: #f3f4f6;
+    border: 2px dashed #d1d5db;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6b7280;
+    font-size: 14px;
+  }
+  
+  /* Prevent layout shift during loading */
+  img[width][height] {
+    aspect-ratio: attr(width) / attr(height);
+  }
+  
+  /* Hover effects for interactive images */
+  .cloudinary-interactive:hover {
+    transform: scale(1.05);
+  }
+</style>
+
+<script define:vars={{ imageId, observerLoading, onError, onLoad }}>
+  // Enhanced image loading with intersection observer and error handling
+  (function() {
+    const img = document.getElementById(imageId);
+    if (!img) return;
+    
+    // Error handling
+    img.addEventListener('error', function() {
+      console.warn('Cloudinary image failed to load:', img.src);
+      
+      // Add error styling
+      img.classList.add('cloudinary-error');
+      
+      // Call custom error handler if provided
+      if (typeof onError === 'function') {
+        onError();
+      }
+      
+      // Try to show a fallback if available
+      const container = img.closest('.cloudinary-image-container');
+      if (container) {
+        container.innerHTML = `
+          <div class="cloudinary-error" style="width: ${img.width || 400}px; height: ${img.height || 300}px;">
+            <span>Image failed to load</span>
+          </div>
+        `;
+      }
+    });
+    
+    // Load success handling
+    img.addEventListener('load', function() {
+      // Fade in main image and fade out placeholder
+      if (img.dataset.placeholder === 'true') {
+        img.style.opacity = '1';
+        const placeholder = img.parentElement?.querySelector('.cloudinary-placeholder');
+        if (placeholder) {
+          placeholder.style.opacity = '0';
+        }
+      }
+      
+      // Call custom load handler if provided
+      if (typeof onLoad === 'function') {
+        onLoad();
+      }
+    });
+    
+    // Enhanced intersection observer for lazy loading
+    if (observerLoading && img.loading === 'lazy' && 'IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const targetImg = entry.target;
+            
+            // Add loading state
+            targetImg.classList.add('cloudinary-loading');
+            
+            // Preload the image
+            if (targetImg.dataset.src) {
+              targetImg.src = targetImg.dataset.src;
+            }
+            
+            observer.unobserve(targetImg);
+          }
+        });
+      }, {
+        // Start loading when image is 200px away from viewport
+        rootMargin: '200px'
+      });
+      
+      observer.observe(img);
+    }
+    
+    // Performance monitoring (optional)
+    if (typeof PerformanceObserver !== 'undefined') {
+      try {
+        const perfObserver = new PerformanceObserver((list) => {
+          for (const entry of list.getEntries()) {
+            if (entry.name === img.src && entry.duration > 1000) {
+              console.log(`Slow image load detected: ${entry.duration}ms for ${img.src}`);
+            }
+          }
+        });
+        
+        perfObserver.observe({ entryTypes: ['resource'] });
+      } catch (e) {
+        // Performance observer not supported or failed
+      }
+    }
+  })();
+</script>

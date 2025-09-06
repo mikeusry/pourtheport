@@ -1,0 +1,524 @@
+---
+/**
+ * CloudinaryGallery Component
+ * 
+ * Specialized component for image galleries with grid layouts,
+ * lightbox support, and masonry options.
+ */
+
+import CloudinaryImage from './CloudinaryImage.astro';
+
+export interface GalleryImage {
+  /** Cloudinary public ID */
+  publicId: string;
+  
+  /** Alt text for the image */
+  alt: string;
+  
+  /** Optional title/caption */
+  title?: string;
+  
+  /** Optional description */
+  description?: string;
+  
+  /** Custom width for masonry layout */
+  width?: number;
+  
+  /** Custom height for masonry layout */
+  height?: number;
+  
+  /** Image category/tag */
+  category?: string;
+}
+
+export interface Props {
+  /** Array of images to display */
+  images: GalleryImage[];
+  
+  /** Gallery layout type */
+  layout?: 'grid' | 'masonry' | 'carousel';
+  
+  /** Number of columns (for grid layout) */
+  columns?: number;
+  
+  /** Gap between images */
+  gap?: 'sm' | 'md' | 'lg';
+  
+  /** Image aspect ratio (for grid layout) */
+  aspectRatio?: string;
+  
+  /** Thumbnail size */
+  thumbnailSize?: number;
+  
+  /** Enable lightbox functionality */
+  lightbox?: boolean;
+  
+  /** Enable image captions */
+  captions?: boolean;
+  
+  /** Loading strategy */
+  loading?: 'lazy' | 'eager';
+  
+  /** CSS classes to apply */
+  class?: string;
+  
+  /** Gallery title */
+  title?: string;
+  
+  /** Enable category filtering */
+  enableFiltering?: boolean;
+  
+  /** Enable infinite scroll */
+  infiniteScroll?: boolean;
+  
+  /** Images per page (for infinite scroll) */
+  imagesPerPage?: number;
+}
+
+const {
+  images,
+  layout = 'grid',
+  columns = 3,
+  gap = 'md',
+  aspectRatio = '1:1',
+  thumbnailSize = 400,
+  lightbox = false,
+  captions = false,
+  loading = 'lazy',
+  class: className = '',
+  title,
+  enableFiltering = false,
+  infiniteScroll = false,
+  imagesPerPage = 12
+} = Astro.props;
+
+// Gallery container classes
+const containerClasses = [
+  'cloudinary-gallery',
+  className
+].filter(Boolean).join(' ');
+
+// Grid classes based on layout
+const gridClasses = {
+  grid: {
+    1: 'grid-cols-1',
+    2: 'grid-cols-1 md:grid-cols-2',
+    3: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3',
+    4: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-4',
+    5: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5',
+    6: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6'
+  }
+};
+
+// Gap classes
+const gapClasses = {
+  sm: 'gap-2',
+  md: 'gap-4',
+  lg: 'gap-6'
+};
+
+// Extract unique categories for filtering
+const categories = enableFiltering 
+  ? [...new Set(images.map(img => img.category).filter(Boolean))]
+  : [];
+
+// Generate gallery ID for unique identification
+const galleryId = `gallery-${Math.random().toString(36).substr(2, 9)}`;
+---
+
+<div class={containerClasses} data-gallery-id={galleryId}>
+  {title && (
+    <div class="gallery-header mb-8">
+      <h2 class="text-3xl font-bold text-gray-900 mb-4">{title}</h2>
+      
+      {enableFiltering && categories.length > 0 && (
+        <div class="gallery-filters flex flex-wrap gap-2 mb-6">
+          <button 
+            class="filter-btn active px-4 py-2 rounded-full bg-blue-500 text-white text-sm font-medium transition-colors"
+            data-filter="all"
+          >
+            All
+          </button>
+          {categories.map(category => (
+            <button 
+              class="filter-btn px-4 py-2 rounded-full bg-gray-200 text-gray-700 text-sm font-medium hover:bg-gray-300 transition-colors"
+              data-filter={category}
+            >
+              {category}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  )}
+  
+  <div 
+    class={`gallery-container ${layout === 'grid' ? `grid ${gridClasses.grid[columns]} ${gapClasses[gap]}` : layout === 'masonry' ? 'masonry-grid' : 'carousel-container'}`}
+    data-layout={layout}
+    data-lightbox={lightbox}
+  >
+    {images.slice(0, infiniteScroll ? imagesPerPage : images.length).map((image, index) => (
+      <div 
+        class={`gallery-item ${layout === 'masonry' ? 'masonry-item' : ''}`}
+        data-category={image.category || 'all'}
+        data-index={index}
+      >
+        {lightbox ? (
+          <button 
+            class="lightbox-trigger block w-full h-full cursor-pointer group"
+            data-image-id={image.publicId}
+            data-alt={image.alt}
+            data-title={image.title}
+            data-description={image.description}
+          >
+            <CloudinaryImage
+              publicId={image.publicId}
+              alt={image.alt}
+              width={thumbnailSize}
+              height={aspectRatio === '1:1' ? thumbnailSize : undefined}
+              aspectRatio={layout === 'grid' ? aspectRatio : undefined}
+              crop="fill"
+              quality="auto:good"
+              format="auto"
+              loading={index < 6 ? 'eager' : loading}
+              responsive={true}
+              sizes={`(max-width: 640px) 100vw, (max-width: 1024px) ${100/Math.min(columns, 2)}vw, ${100/columns}vw`}
+              class="gallery-image w-full h-full object-cover rounded-lg transition-transform duration-300 group-hover:scale-105"
+            />
+            
+            {captions && (image.title || image.description) && (
+              <div class="image-caption absolute bottom-0 left-0 right-0 bg-black/70 text-white p-3 rounded-b-lg opacity-0 group-hover:opacity-100 transition-opacity">
+                {image.title && <h3 class="font-semibold text-sm">{image.title}</h3>}
+                {image.description && <p class="text-xs mt-1">{image.description}</p>}
+              </div>
+            )}
+          </button>
+        ) : (
+          <div class="gallery-item-content relative">
+            <CloudinaryImage
+              publicId={image.publicId}
+              alt={image.alt}
+              width={thumbnailSize}
+              height={aspectRatio === '1:1' ? thumbnailSize : undefined}
+              aspectRatio={layout === 'grid' ? aspectRatio : undefined}
+              crop="fill"
+              quality="auto:good"
+              format="auto"
+              loading={index < 6 ? 'eager' : loading}
+              responsive={true}
+              sizes={`(max-width: 640px) 100vw, (max-width: 1024px) ${100/Math.min(columns, 2)}vw, ${100/columns}vw`}
+              class="gallery-image w-full h-full object-cover rounded-lg"
+            />
+            
+            {captions && (image.title || image.description) && (
+              <div class="image-caption absolute bottom-0 left-0 right-0 bg-black/70 text-white p-3 rounded-b-lg">
+                {image.title && <h3 class="font-semibold text-sm">{image.title}</h3>}
+                {image.description && <p class="text-xs mt-1">{image.description}</p>}
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+    ))}
+  </div>
+  
+  {infiniteScroll && images.length > imagesPerPage && (
+    <div class="gallery-loading text-center mt-8">
+      <button 
+        class="load-more-btn bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg transition-colors"
+        data-images-per-page={imagesPerPage}
+      >
+        Load More Images
+      </button>
+    </div>
+  )}
+  
+  {lightbox && (
+    <!-- Lightbox Modal -->
+    <div class="lightbox-modal fixed inset-0 bg-black/90 z-50 flex items-center justify-center opacity-0 invisible transition-all duration-300" id={`lightbox-${galleryId}`}>
+      <div class="lightbox-content relative max-w-4xl max-h-[90vh] mx-4">
+        <!-- Close button -->
+        <button class="lightbox-close absolute -top-10 right-0 text-white hover:text-gray-300 text-2xl z-10">
+          ✕
+        </button>
+        
+        <!-- Navigation arrows -->
+        <button class="lightbox-prev absolute left-4 top-1/2 -translate-y-1/2 text-white hover:text-gray-300 text-3xl z-10">
+          ←
+        </button>
+        <button class="lightbox-next absolute right-4 top-1/2 -translate-y-1/2 text-white hover:text-gray-300 text-3xl z-10">
+          →
+        </button>
+        
+        <!-- Image container -->
+        <div class="lightbox-image-container">
+          <CloudinaryImage
+            publicId=""
+            alt=""
+            width={1200}
+            height={800}
+            crop="fit"
+            quality="auto:best"
+            format="auto"
+            loading="eager"
+            class="lightbox-image max-w-full max-h-[80vh] object-contain rounded-lg"
+          />
+        </div>
+        
+        <!-- Caption -->
+        <div class="lightbox-caption text-center mt-4">
+          <h3 class="lightbox-title text-white text-lg font-semibold"></h3>
+          <p class="lightbox-description text-gray-300 text-sm mt-2"></p>
+        </div>
+      </div>
+    </div>
+  )}
+</div>
+
+<style>
+  .cloudinary-gallery {
+    position: relative;
+  }
+  
+  .gallery-item {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .gallery-image {
+    transition: transform 0.3s ease, filter 0.3s ease;
+  }
+  
+  .gallery-item:hover .gallery-image {
+    filter: brightness(1.1);
+  }
+  
+  /* Masonry layout */
+  .masonry-grid {
+    columns: 1;
+    column-gap: 1rem;
+  }
+  
+  @media (min-width: 640px) {
+    .masonry-grid {
+      columns: 2;
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .masonry-grid {
+      columns: 3;
+    }
+  }
+  
+  .masonry-item {
+    break-inside: avoid;
+    margin-bottom: 1rem;
+  }
+  
+  /* Filter animations */
+  .gallery-item.filtered-out {
+    opacity: 0;
+    transform: scale(0.8);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  
+  .gallery-item.filtered-in {
+    opacity: 1;
+    transform: scale(1);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  
+  /* Lightbox styles */
+  .lightbox-modal.active {
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  .lightbox-content {
+    animation: lightboxZoom 0.3s ease;
+  }
+  
+  @keyframes lightboxZoom {
+    from {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+  /* Filter button styles */
+  .filter-btn.active {
+    background-color: #3b82f6;
+    color: white;
+  }
+  
+  /* Loading states */
+  .gallery-loading {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.5s ease forwards;
+  }
+  
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+
+<script define:vars={{ galleryId, lightbox, enableFiltering, infiniteScroll, imagesPerPage }}>
+  // Gallery functionality
+  (function() {
+    const gallery = document.querySelector(`[data-gallery-id="${galleryId}"]`);
+    if (!gallery) return;
+    
+    // Category filtering
+    if (enableFiltering) {
+      const filterButtons = gallery.querySelectorAll('.filter-btn');
+      const galleryItems = gallery.querySelectorAll('.gallery-item');
+      
+      filterButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const filter = btn.dataset.filter;
+          
+          // Update active button
+          filterButtons.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          
+          // Filter items
+          galleryItems.forEach(item => {
+            const category = item.dataset.category;
+            if (filter === 'all' || category === filter) {
+              item.classList.remove('filtered-out');
+              item.classList.add('filtered-in');
+            } else {
+              item.classList.remove('filtered-in');
+              item.classList.add('filtered-out');
+            }
+          });
+        });
+      });
+    }
+    
+    // Lightbox functionality
+    if (lightbox) {
+      const lightboxModal = document.getElementById(`lightbox-${galleryId}`);
+      const lightboxTriggers = gallery.querySelectorAll('.lightbox-trigger');
+      const lightboxImage = lightboxModal.querySelector('.lightbox-image');
+      const lightboxTitle = lightboxModal.querySelector('.lightbox-title');
+      const lightboxDescription = lightboxModal.querySelector('.lightbox-description');
+      const closeBtn = lightboxModal.querySelector('.lightbox-close');
+      const prevBtn = lightboxModal.querySelector('.lightbox-prev');
+      const nextBtn = lightboxModal.querySelector('.lightbox-next');
+      
+      let currentImageIndex = 0;
+      const images = Array.from(lightboxTriggers);
+      
+      function openLightbox(index) {
+        currentImageIndex = index;
+        const trigger = images[index];
+        const publicId = trigger.dataset.imageId;
+        const alt = trigger.dataset.alt;
+        const title = trigger.dataset.title;
+        const description = trigger.dataset.description;
+        
+        lightboxImage.src = `https://res.cloudinary.com/southland-organics/image/upload/c_fit,w_1200,h_800,q_auto:best,f_auto/${publicId}`;
+        lightboxImage.alt = alt;
+        lightboxTitle.textContent = title || '';
+        lightboxDescription.textContent = description || '';
+        
+        lightboxModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+      
+      function closeLightbox() {
+        lightboxModal.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+      
+      function showNext() {
+        currentImageIndex = (currentImageIndex + 1) % images.length;
+        openLightbox(currentImageIndex);
+      }
+      
+      function showPrev() {
+        currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+        openLightbox(currentImageIndex);
+      }
+      
+      // Event listeners
+      lightboxTriggers.forEach((trigger, index) => {
+        trigger.addEventListener('click', () => openLightbox(index));
+      });
+      
+      closeBtn.addEventListener('click', closeLightbox);
+      prevBtn.addEventListener('click', showPrev);
+      nextBtn.addEventListener('click', showNext);
+      
+      // Close on backdrop click
+      lightboxModal.addEventListener('click', (e) => {
+        if (e.target === lightboxModal) closeLightbox();
+      });
+      
+      // Keyboard navigation
+      document.addEventListener('keydown', (e) => {
+        if (lightboxModal.classList.contains('active')) {
+          switch(e.key) {
+            case 'Escape':
+              closeLightbox();
+              break;
+            case 'ArrowLeft':
+              showPrev();
+              break;
+            case 'ArrowRight':
+              showNext();
+              break;
+          }
+        }
+      });
+    }
+    
+    // Infinite scroll
+    if (infiniteScroll) {
+      const loadMoreBtn = gallery.querySelector('.load-more-btn');
+      let currentPage = 1;
+      
+      if (loadMoreBtn) {
+        loadMoreBtn.addEventListener('click', () => {
+          // This would typically load more images from an API
+          console.log('Loading more images...', currentPage + 1);
+          currentPage++;
+          
+          // Hide button if no more images
+          if (currentPage * imagesPerPage >= gallery.querySelectorAll('.gallery-item').length) {
+            loadMoreBtn.style.display = 'none';
+          }
+        });
+      }
+    }
+    
+    // Lazy loading enhancement with intersection observer
+    if ('IntersectionObserver' in window) {
+      const imageObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const img = entry.target;
+            img.classList.add('animate-fadeIn');
+            imageObserver.unobserve(img);
+          }
+        });
+      }, {
+        rootMargin: '50px'
+      });
+      
+      gallery.querySelectorAll('.gallery-image').forEach(img => {
+        imageObserver.observe(img);
+      });
+    }
+  })();
+</script>

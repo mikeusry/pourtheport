@@ -1,0 +1,112 @@
+---
+/**
+ * CloudinaryAvatar Component
+ * 
+ * Specialized component for user avatar/profile images with face detection
+ * and optimized settings for profile pictures.
+ */
+
+import CloudinaryImage from './CloudinaryImage.astro';
+
+export interface Props {
+  /** Cloudinary public ID of the avatar image */
+  publicId: string;
+  
+  /** Alt text for the avatar */
+  alt: string;
+  
+  /** Size of the avatar (both width and height) */
+  size?: number;
+  
+  /** CSS classes to apply */
+  class?: string;
+  
+  /** Additional styles */
+  style?: string;
+  
+  /** Loading strategy */
+  loading?: 'lazy' | 'eager';
+  
+  /** Enable border/ring styling */
+  ring?: boolean;
+  
+  /** Ring color (Tailwind class) */
+  ringColor?: string;
+  
+  /** Enable hover effects */
+  interactive?: boolean;
+  
+  /** Fallback avatar if image fails */
+  fallbackId?: string;
+  
+  /** Custom error handler */
+  onError?: () => void;
+  
+  /** Enable loading skeleton */
+  skeleton?: boolean;
+}
+
+const {
+  publicId,
+  alt,
+  size = 64,
+  class: className = '',
+  style = '',
+  loading = 'lazy',
+  ring = false,
+  ringColor = 'ring-white',
+  interactive = false,
+  fallbackId,
+  onError,
+  skeleton = false
+} = Astro.props;
+
+// Avatar-specific styles
+const avatarClasses = [
+  'rounded-full',
+  'object-cover',
+  className,
+  ring && `ring-2 ${ringColor}`,
+  interactive && 'cursor-pointer hover:opacity-80 transition-opacity'
+].filter(Boolean).join(' ');
+---
+
+<CloudinaryImage
+  publicId={publicId}
+  alt={alt}
+  width={size}
+  height={size}
+  crop="fill"
+  gravity="face"
+  quality="auto:good"
+  format="auto"
+  responsive={false}
+  placeholder={false}
+  skeleton={skeleton}
+  class={avatarClasses}
+  style={style}
+  loading={loading}
+  fallbackId={fallbackId}
+  onError={onError}
+  supportDpr={true}
+/>
+
+<style>
+  /* Avatar-specific enhancements */
+  .cloudinary-avatar {
+    display: inline-block;
+    flex-shrink: 0;
+  }
+  
+  .cloudinary-avatar img {
+    border-radius: 50%;
+  }
+  
+  /* Avatar size variants */
+  .avatar-xs { width: 32px; height: 32px; }
+  .avatar-sm { width: 40px; height: 40px; }
+  .avatar-md { width: 64px; height: 64px; }
+  .avatar-lg { width: 80px; height: 80px; }
+  .avatar-xl { width: 96px; height: 96px; }
+  .avatar-2xl { width: 128px; height: 128px; }
+</style>

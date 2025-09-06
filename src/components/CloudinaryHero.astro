@@ -1,0 +1,308 @@
+---
+/**
+ * CloudinaryHero Component
+ * 
+ * Specialized component for hero/banner images with background overlay support
+ * and optimized settings for large, above-fold images.
+ */
+
+import CloudinaryImage from './CloudinaryImage.astro';
+import { buildCloudinaryUrl } from '../lib/cloudinary';
+
+export interface Props {
+  /** Cloudinary public ID of the hero image */
+  publicId: string;
+  
+  /** Alt text for the hero image */
+  alt: string;
+  
+  /** Hero width (default: 1920) */
+  width?: number;
+  
+  /** Hero height (default: 1080) */
+  height?: number;
+  
+  /** CSS classes to apply */
+  class?: string;
+  
+  /** Additional styles */
+  style?: string;
+  
+  /** Display mode: 'background' or 'image' */
+  mode?: 'background' | 'image';
+  
+  /** Background overlay opacity (0-100) */
+  overlayOpacity?: number;
+  
+  /** Overlay color */
+  overlayColor?: string;
+  
+  /** Custom overlay gradient */
+  overlayGradient?: string;
+  
+  /** Content alignment */
+  contentAlign?: 'left' | 'center' | 'right';
+  
+  /** Minimum height */
+  minHeight?: string;
+  
+  /** Enable parallax effect */
+  parallax?: boolean;
+  
+  /** Custom transformation string */
+  customTransform?: string;
+  
+  /** Fallback image if hero fails */
+  fallbackId?: string;
+}
+
+const {
+  publicId,
+  alt,
+  width = 1920,
+  height = 1080,
+  class: className = '',
+  style = '',
+  mode = 'background',
+  overlayOpacity = 50,
+  overlayColor = 'black',
+  overlayGradient,
+  contentAlign = 'center',
+  minHeight = '100vh',
+  parallax = false,
+  customTransform,
+  fallbackId
+} = Astro.props;
+
+// Generate hero image URL for background mode
+let heroBackgroundUrl: string | null = null;
+if (mode === 'background') {
+  heroBackgroundUrl = buildCloudinaryUrl(publicId, {
+    width,
+    height,
+    crop: 'fill',
+    quality: 'auto:good',
+    fetchFormat: 'auto',
+    gravity: 'auto',
+    customTransform
+  });
+}
+
+// Hero container classes
+const containerClasses = [
+  'cloudinary-hero',
+  'relative',
+  'overflow-hidden',
+  mode === 'background' && 'bg-cover bg-center bg-no-repeat',
+  parallax && 'parallax-container',
+  className
+].filter(Boolean).join(' ');
+
+// Content alignment classes
+const contentClasses = {
+  left: 'text-left items-start justify-start',
+  center: 'text-center items-center justify-center',
+  right: 'text-right items-end justify-end'
+}[contentAlign];
+
+// Generate overlay styles
+let overlayStyles = '';
+if (overlayGradient) {
+  overlayStyles = `background: ${overlayGradient};`;
+} else if (overlayOpacity > 0) {
+  overlayStyles = `background-color: ${overlayColor}; opacity: ${overlayOpacity / 100};`;
+}
+
+const containerStyle = mode === 'background' 
+  ? `background-image: url('${heroBackgroundUrl}'); min-height: ${minHeight}; ${style}`
+  : `min-height: ${minHeight}; ${style}`;
+---
+
+<section 
+  class={containerClasses}
+  style={containerStyle}
+  data-hero-mode={mode}
+  data-parallax={parallax}
+>
+  {mode === 'image' && (
+    <!-- Image mode: Use CloudinaryImage component -->
+    <CloudinaryImage
+      publicId={publicId}
+      alt={alt}
+      width={width}
+      height={height}
+      crop="fill"
+      gravity="auto"
+      quality="auto:good"
+      format="auto"
+      loading="eager"
+      fetchpriority="high"
+      responsive={true}
+      sizes="100vw"
+      class="hero-image absolute inset-0 w-full h-full object-cover"
+      customTransform={customTransform}
+      fallbackId={fallbackId}
+    />
+  )}
+  
+  {overlayOpacity > 0 && (
+    <!-- Background overlay -->
+    <div 
+      class="hero-overlay absolute inset-0 z-10"
+      style={overlayStyles}
+    ></div>
+  )}
+  
+  <!-- Content container -->
+  <div class={`hero-content relative z-20 container mx-auto px-4 h-full min-h-full flex flex-col ${contentClasses}`}>
+    <slot />
+  </div>
+</section>
+
+<style>
+  .cloudinary-hero {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  
+  .hero-image {
+    object-position: center;
+    filter: contrast(1.05) saturate(1.1);
+  }
+  
+  .hero-overlay {
+    transition: opacity 0.3s ease;
+  }
+  
+  .hero-content {
+    z-index: 20;
+    position: relative;
+  }
+  
+  /* Parallax effect */
+  .parallax-container {
+    background-attachment: fixed;
+  }
+  
+  @media (max-width: 768px) {
+    .parallax-container {
+      background-attachment: scroll;
+    }
+  }
+  
+  /* Hover effects for interactive heroes */
+  .cloudinary-hero.interactive:hover .hero-overlay {
+    opacity: 0.7;
+  }
+  
+  .cloudinary-hero.interactive:hover .hero-image {
+    transform: scale(1.02);
+    transition: transform 0.5s ease;
+  }
+  
+  /* Content animation */
+  .hero-content > * {
+    animation: fadeInUp 1s ease-out;
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 640px) {
+    .cloudinary-hero {
+      min-height: 70vh;
+    }
+  }
+  
+  /* Loading state */
+  .cloudinary-hero[data-loading="true"] {
+    background-color: #f3f4f6;
+  }
+  
+  .cloudinary-hero[data-loading="true"]::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    animation: shimmer 1.5s infinite;
+  }
+  
+  @keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+</style>
+
+<script define:vars={{ parallax }}>
+  // Enhanced hero functionality
+  (function() {
+    const heroElement = document.querySelector('.cloudinary-hero');
+    if (!heroElement) return;
+    
+    // Parallax scrolling effect
+    if (parallax && window.innerWidth > 768) {
+      let ticking = false;
+      
+      function updateParallax() {
+        const scrolled = window.pageYOffset;
+        const parallaxElement = heroElement;
+        const speed = 0.5;
+        
+        parallaxElement.style.transform = `translateY(${scrolled * speed}px)`;
+        ticking = false;
+      }
+      
+      function requestParallaxUpdate() {
+        if (!ticking) {
+          requestAnimationFrame(updateParallax);
+          ticking = true;
+        }
+      }
+      
+      window.addEventListener('scroll', requestParallaxUpdate);
+    }
+    
+    // Loading state management
+    const heroImg = heroElement.querySelector('.hero-image');
+    if (heroImg) {
+      heroElement.setAttribute('data-loading', 'true');
+      
+      heroImg.addEventListener('load', function() {
+        heroElement.removeAttribute('data-loading');
+      });
+      
+      heroImg.addEventListener('error', function() {
+        heroElement.removeAttribute('data-loading');
+        console.warn('Hero image failed to load');
+      });
+    }
+    
+    // Intersection observer for animation triggers
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('hero-visible');
+          }
+        });
+      }, {
+        threshold: 0.1
+      });
+      
+      observer.observe(heroElement);
+    }
+  })();
+</script>

@@ -1,16 +1,43 @@
 ---
 import CloudinaryImage from './CloudinaryImage.astro';
 
-// Environment variables for all logos
-const usdaLogoId = import.meta.env.PUBLIC_USDA_LOGO_ID || '7279de27c7fd68bf4f8abeb922ee74ca';
-const nationalParksLogoId = import.meta.env.PUBLIC_NATIONAL_PARKS_LOGO_ID || 'pour-the-port/logos/national-parks-service';
-const forestServiceLogoId = import.meta.env.PUBLIC_FOREST_SERVICE_LOGO_ID || 'pour-the-port/logos/forest-service';
-const universityGeorgiaLogoId = import.meta.env.PUBLIC_UNIVERSITY_GEORGIA_ID || 'pour-the-port/logos/university-of-georgia';
+// Trust logos data array with correct public IDs
+const trustLogos = [
+  {
+    publicId: 'pour-the-port/logos/NPS_768_mqklvq',
+    alt: 'National Parks Service logo'
+  },
+  {
+    publicId: 'pour-the-port/logos/JoshuaTree',
+    alt: 'Joshua Tree National Park logo'
+  },
+  {
+    publicId: 'pour-the-port/logos/Georgia-State-Parks_ddirbg',
+    alt: 'Georgia State Parks logo'
+  },
+  {
+    publicId: 'pour-the-port/logos/BLM_hy8gev',
+    alt: 'Bureau of Land Management logo'
+  },
+  {
+    publicId: 'pour-the-port/logos/UGA_xkrnsx',
+    alt: 'University of Georgia logo'
+  },
+  {
+    publicId: 'pour-the-port/logos/USFS_mhiaqm',
+    alt: 'US Forest Service logo'
+  },
+  {
+    publicId: 'pour-the-port/logos/colorado_tw78fk',
+    alt: 'Colorado Parks logo'
+  }
+];
 ---
 
 <section class="py-16 bg-gray-50">
-  <div class="container mx-auto px-4">
-    <div class="max-w-6xl mx-auto">
+  <div class="w-full">
+    <div class="container mx-auto px-4 mb-12">
+      <div class="max-w-6xl mx-auto">
       
       <div class="text-center mb-12">
         <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
@@ -21,103 +48,50 @@ const universityGeorgiaLogoId = import.meta.env.PUBLIC_UNIVERSITY_GEORGIA_ID || 
           Now you can experience the same high-quality, safe product in your own home.
         </p>
       </div>
+      </div>
+    </div>
 
-      <!-- Scrolling Logo Carousel -->
+    <!-- Scrolling Logo Carousel - Full Browser Width -->
+    <div class="w-full">
       <div class="logo-carousel-container overflow-hidden mb-16">
         <div class="logo-carousel-track">
-          <!-- First set of logos with correct paths -->
-          <div class="trust-logo">
-            <img
-              src="https://res.cloudinary.com/southland-organics/image/upload/w_160,h_90,c_fit/pour-the-port/logos/Army_Corp_mr5dfw"
-              alt="Army Corp logo"
-              width="160"
-              height="90"
-              loading="eager"
-              class="max-w-full max-h-full object-contain"
-            />
-          </div>
-
-          <div class="trust-logo">
-            <img
-              src="https://res.cloudinary.com/southland-organics/image/upload/w_160,h_90,c_fit/pour-the-port/logos/USDA_Certified_BioBased"
-              alt="USDA Certified Biobased logo"
-              width="160"
-              height="90"
-              loading="eager"
-              class="max-w-full max-h-full object-contain"
-            />
-          </div>
-
-          <div class="trust-logo">
-            <img
-              src="https://res.cloudinary.com/southland-organics/image/upload/w_160,h_90,c_fit/pour-the-port/logos/national-parks-service"
-              alt="National Parks Service logo"
-              width="160"
-              height="90"
-              loading="eager"
-              class="max-w-full max-h-full object-contain"
-            />
-          </div>
-
-          <div class="trust-logo">
-            <img
-              src="https://res.cloudinary.com/southland-organics/image/upload/w_160,h_90,c_fit/pour-the-port/logos/forest-service"
-              alt="US Forest Service logo"
-              width="160"
-              height="90"
-              loading="eager"
-              class="max-w-full max-h-full object-contain"
-            />
-          </div>
+          <!-- First set of all 5 logos -->
+          {trustLogos.map((logo) => (
+            <div class="trust-logo">
+              <CloudinaryImage
+                publicId={logo.publicId}
+                alt={logo.alt}
+                width={160}
+                height={90}
+                preset="thumbnail"
+                loading="eager"
+                class="max-w-full max-h-full object-contain"
+              />
+            </div>
+          ))}
 
           <!-- Duplicate set for seamless loop -->
-          <div class="trust-logo">
-            <img
-              src="https://res.cloudinary.com/southland-organics/image/upload/w_160,h_90,c_fit/pour-the-port/logos/Army_Corp_mr5dfw"
-              alt="Army Corp logo"
-              width="160"
-              height="90"
-              loading="eager"
-              class="max-w-full max-h-full object-contain"
-            />
-          </div>
-
-          <div class="trust-logo">
-            <img
-              src="https://res.cloudinary.com/southland-organics/image/upload/w_160,h_90,c_fit/pour-the-port/logos/USDA_Certified_BioBased"
-              alt="USDA Certified Biobased logo"
-              width="160"
-              height="90"
-              loading="eager"
-              class="max-w-full max-h-full object-contain"
-            />
-          </div>
-
-          <div class="trust-logo">
-            <img
-              src="https://res.cloudinary.com/southland-organics/image/upload/w_160,h_90,c_fit/pour-the-port/logos/national-parks-service"
-              alt="National Parks Service logo"
-              width="160"
-              height="90"
-              loading="eager"
-              class="max-w-full max-h-full object-contain"
-            />
-          </div>
-
-          <div class="trust-logo">
-            <img
-              src="https://res.cloudinary.com/southland-organics/image/upload/w_160,h_90,c_fit/pour-the-port/logos/forest-service"
-              alt="US Forest Service logo"
-              width="160"
-              height="90"
-              loading="eager"
-              class="max-w-full max-h-full object-contain"
-            />
-          </div>
+          {trustLogos.map((logo) => (
+            <div class="trust-logo">
+              <CloudinaryImage
+                publicId={logo.publicId}
+                alt={logo.alt}
+                width={160}
+                height={90}
+                preset="thumbnail"
+                loading="eager"
+                class="max-w-full max-h-full object-contain"
+              />
+            </div>
+          ))}
         </div>
       </div>
+    </div>
 
-      <div class="bg-white rounded-xl shadow-lg p-8 md:p-12">
+    <!-- Rest of content back in container -->
+    <div class="container mx-auto px-4">
+      <div class="max-w-6xl mx-auto">
+        <div class="bg-white rounded-xl shadow-lg p-8 md:p-12">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
           
           <div class="border-r border-gray-200 last:border-r-0 lg:border-r lg:last:border-r-0 md:border-r-0">
@@ -177,6 +151,7 @@ const universityGeorgiaLogoId = import.meta.env.PUBLIC_UNIVERSITY_GEORGIA_ID || 
         </div>
       </div>
 
+      </div>
     </div>
   </div>
 </section>
@@ -190,8 +165,8 @@ const universityGeorgiaLogoId = import.meta.env.PUBLIC_UNIVERSITY_GEORGIA_ID || 
   .logo-carousel-track {
     display: flex;
     align-items: center;
-    gap: 60px;
-    animation: scroll 25s linear infinite;
+    gap: 80px;
+    animation: scroll 35s linear infinite;
     width: max-content;
   }
   

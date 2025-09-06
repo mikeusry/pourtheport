@@ -1,9 +1,18 @@
 ---
-// Hex background for this section
-const hexBackgroundUrl = `https://res.cloudinary.com/southland-organics/image/upload/w_1920,h_1080,c_fill,q_auto/Southland%20Website/hex`;
+import { buildCloudinaryUrl } from '../lib/cloudinary';
+
+// Hex background for this section positioned to the right
+const hexBackgroundId = 'Southland Website/hex';
+const hexBackgroundUrl = buildCloudinaryUrl(hexBackgroundId, {
+  width: 800,
+  height: 600,
+  crop: 'fit',
+  quality: 'auto:good',
+  fetchFormat: 'auto'
+});
 ---
 
-<section id="solution" class="py-20 relative overflow-hidden" style={`background-image: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.95)), url('${hexBackgroundUrl}'); background-size: cover; background-position: center;`}>
+<section id="solution" class="py-20 relative overflow-hidden" style={`background-image: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.95)), url('${hexBackgroundUrl}'); background-size: contain; background-repeat: no-repeat; background-position: right center;`}>
   <div class="container mx-auto px-4">
     <div class="max-w-6xl mx-auto">
       

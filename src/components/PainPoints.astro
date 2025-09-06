@@ -1,14 +1,16 @@
 ---
-import { getOptimizedImage } from '../utils/cloudinary.js';
+import { buildCloudinaryUrl } from '../lib/cloudinary';
 
-// Environment variable for septic overflow background
-const septicOverflowImageId = import.meta.env.PUBLIC_SEPTIC_OVERFLOW_ID || 'aad913896bf00292b3e56e473829c259';
+// Use septic overflow background image
+const septicOverflowImageId = 'pour-the-port/septic_l9n82v';
 
 // Generate optimized background image URL
-const backgroundImageUrl = getOptimizedImage(septicOverflowImageId, {
+const backgroundImageUrl = buildCloudinaryUrl(septicOverflowImageId, {
   width: 1920,
   height: 1080,
-  quality: 'auto'
+  crop: 'fill',
+  quality: 'auto:good',
+  fetchFormat: 'auto'
 });
 ---
 

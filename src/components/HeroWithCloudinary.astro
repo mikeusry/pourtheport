@@ -1,25 +1,27 @@
 ---
 import CloudinaryImage from './CloudinaryImage.astro';
+import { buildCloudinaryUrl } from '../lib/cloudinary';
 
-// Environment variables for Cloudinary image IDs
-const heroBackgroundId = import.meta.env.PUBLIC_HERO_BACKGROUND_ID || 'samples/landscapes/nature-mountains';
-const productImageId = import.meta.env.PUBLIC_PRODUCT_IMAGE_ID || '4d17f98791f234077fba646f790aa3ac';
+// Cloudinary public IDs  
+const heroBackgroundId = 'pour-the-port/nature-mountains'; // Nature mountains background for hero
+const productImageId = 'pour-the-port/Pour_the_Port_product';
+
+// Generate background URL for CSS
+const heroBackgroundUrl = buildCloudinaryUrl(heroBackgroundId, {
+  width: 1920,
+  height: 1080,
+  crop: 'fill',
+  quality: 'auto:good',
+  fetchFormat: 'auto'
+});
 ---
 
 <section class="relative min-h-screen overflow-hidden">
   <!-- Hero Background Image with Cloudinary optimization -->
-  <div class="absolute inset-0">
-    <CloudinaryImage
-      publicId={heroBackgroundId}
-      alt="Pristine meadow background - natural septic treatment environment"
-      width={1920}
-      height={1080}
-      loading="eager"
-      className="hero-background"
-      quality="auto:good"
-      crop="fill"
-      placeholder={false}
-    />
+  <div 
+    class="absolute inset-0 bg-cover bg-center bg-no-repeat"
+    style={`background-image: url('${heroBackgroundUrl}');`}
+  >
     <div class="absolute inset-0 bg-black/60"></div>
   </div>
   
@@ -80,13 +82,14 @@ const productImageId = import.meta.env.PUBLIC_PRODUCT_IMAGE_ID || '4d17f98791f23
               <CloudinaryImage
                 publicId={productImageId}
                 alt="Pour the PORT septic tank treatment packet - USDA Certified Biobased"
+                preset="product"
                 width={1035}
                 height={1035}
                 loading="eager"
-                className="product-showcase rounded-2xl shadow-2xl"
-                quality="auto:best"
-                crop="fit"
-                placeholder={false}
+                fetchpriority="high"
+                responsive={true}
+                sizes="(max-width: 768px) 100vw, 50vw"
+                class="product-showcase rounded-2xl shadow-2xl"
               />
             </div>
             

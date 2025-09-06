@@ -1,0 +1,465 @@
+---
+/**
+ * CloudinaryImage Component Test Page
+ * 
+ * TODO: REMOVE LATER - Development/testing page only
+ * 
+ * This page demonstrates various use cases and configurations
+ * for the custom CloudinaryImage component.
+ */
+import CloudinaryImage from '../components/CloudinaryImage.astro';
+import CloudinaryAvatar from '../components/CloudinaryAvatar.astro';
+import '../styles/global.css';
+
+const title = "CloudinaryImage Component Test - Pour the PORT";
+const description = "Testing the custom CloudinaryImage component with various configurations and use cases.";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+  </head>
+  <body class="bg-gray-50">
+    <div class="container mx-auto px-4 py-12">
+      
+      <!-- Header -->
+      <div class="text-center mb-12">
+        <h1 class="text-4xl font-bold text-gray-900 mb-4">CloudinaryImage Component Test</h1>
+        <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+          This page demonstrates the custom CloudinaryImage component with various configurations,
+          presets, and use cases for the Pour the PORT project.
+        </p>
+      </div>
+
+      <!-- Test Section 1: Basic Usage -->
+      <section class="mb-16">
+        <h2 class="text-2xl font-bold text-gray-800 mb-6">Basic Usage</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <!-- Simple image -->
+          <div class="bg-white p-6 rounded-lg shadow">
+            <h3 class="text-lg font-semibold mb-4">Simple Image (No Preset)</h3>
+            <CloudinaryImage
+              publicId="pour-the-port/Pour_the_Port_product"
+              alt="Pour the PORT product - basic example"
+              width={400}
+              height={400}
+              class="rounded-lg"
+            />
+            <p class="text-sm text-gray-600 mt-2">Using direct publicId with width/height</p>
+          </div>
+
+          <!-- With responsive -->
+          <div class="bg-white p-6 rounded-lg shadow">
+            <h3 class="text-lg font-semibold mb-4">Responsive Image</h3>
+            <CloudinaryImage
+              publicId="pour-the-port/Pour_the_Port_product"
+              alt="Pour the PORT product - responsive"
+              width={400}
+              height={400}
+              responsive={true}
+              sizes="(max-width: 768px) 100vw, 400px"
+              class="rounded-lg"
+            />
+            <p class="text-sm text-gray-600 mt-2">With responsive srcset and custom sizes</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Test Section 2: Preset Configurations -->
+      <section class="mb-16">
+        <h2 class="text-2xl font-bold text-gray-800 mb-6">Preset Configurations</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Hero preset -->
+          <div class="bg-white p-6 rounded-lg shadow">
+            <h3 class="text-lg font-semibold mb-4">Hero Preset</h3>
+            <CloudinaryImage
+              publicId="pour-the-port/septic_l9n82v"
+              alt="Septic background"
+              preset="hero"
+              width={600}
+              height={300}
+              class="rounded-lg"
+            />
+            <p class="text-sm text-gray-600 mt-2">preset="hero" - high quality, fill crop</p>
+          </div>
+
+          <!-- Product preset -->
+          <div class="bg-white p-6 rounded-lg shadow">
+            <h3 class="text-lg font-semibold mb-4">Product Preset</h3>
+            <CloudinaryImage
+              publicId="pour-the-port/Pour_the_Port_product"
+              alt="Product showcase"
+              preset="product"
+              width={300}
+              height={300}
+              class="rounded-lg"
+            />
+            <p class="text-sm text-gray-600 mt-2">preset="product" - best quality, fit crop</p>
+          </div>
+
+          <!-- Thumbnail preset -->
+          <div class="bg-white p-6 rounded-lg shadow">
+            <h3 class="text-lg font-semibold mb-4">Thumbnail Preset</h3>
+            <CloudinaryImage
+              publicId="pour-the-port/Pour_the_Port_product"
+              alt="Thumbnail example"
+              preset="thumbnail"
+              width={150}
+              height={150}
+              class="rounded-lg"
+            />
+            <p class="text-sm text-gray-600 mt-2">preset="thumbnail" - standard quality, fill crop</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Test Section 3: Loading Strategies -->
+      <section class="mb-16">
+        <h2 class="text-2xl font-bold text-gray-800 mb-6">Loading Strategies</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <!-- Eager loading -->
+          <div class="bg-white p-6 rounded-lg shadow">
+            <h3 class="text-lg font-semibold mb-4">Eager Loading (Above Fold)</h3>
+            <CloudinaryImage
+              publicId="pour-the-port/logos/USDA_Certified_BioBased"
+              alt="USDA logo - eager loaded"
+              width={400}
+              height={300}
+              loading="eager"
+              fetchpriority="high"
+              placeholder={false}
+              class="rounded-lg"
+            />
+            <p class="text-sm text-gray-600 mt-2">loading="eager" + fetchpriority="high"</p>
+          </div>
+
+          <!-- Lazy loading with placeholder -->
+          <div class="bg-white p-6 rounded-lg shadow">
+            <h3 class="text-lg font-semibold mb-4">Lazy Loading with Blur Placeholder</h3>
+            <CloudinaryImage
+              publicId="pour-the-port/septic_l9n82v"
+              alt="Septic background - lazy loaded with placeholder"
+              width={400}
+              height={300}
+              loading="lazy"
+              placeholder={true}
+              class="rounded-lg"
+            />
+            <p class="text-sm text-gray-600 mt-2">loading="lazy" + placeholder={true}</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Test Section 4: Crop and Quality Options -->
+      <section class="mb-16">
+        <h2 class="text-2xl font-bold text-gray-800 mb-6">Crop and Quality Options</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <!-- Fill crop -->
+          <div class="bg-white p-4 rounded-lg shadow">
+            <h3 class="text-base font-semibold mb-2">Fill Crop</h3>
+            <CloudinaryImage
+              publicId="pour-the-port/Pour_the_Port_product"
+              alt="Fill crop example"
+              width={250}
+              height={200}
+              crop="fill"
+              quality="auto:good"
+              class="rounded"
+            />
+            <p class="text-xs text-gray-600 mt-1">crop="fill"</p>
+          </div>
+
+          <!-- Fit crop -->
+          <div class="bg-white p-4 rounded-lg shadow">
+            <h3 class="text-base font-semibold mb-2">Fit Crop</h3>
+            <CloudinaryImage
+              publicId="pour-the-port/Pour_the_Port_product"
+              alt="Fit crop example"
+              width={250}
+              height={200}
+              crop="fit"
+              quality="auto:good"
+              class="rounded"
+            />
+            <p class="text-xs text-gray-600 mt-1">crop="fit"</p>
+          </div>
+
+          <!-- Scale crop -->
+          <div class="bg-white p-4 rounded-lg shadow">
+            <h3 class="text-base font-semibold mb-2">Scale Crop</h3>
+            <CloudinaryImage
+              publicId="pour-the-port/Pour_the_Port_product"
+              alt="Scale crop example"
+              width={250}
+              height={200}
+              crop="scale"
+              quality="auto:best"
+              class="rounded"
+            />
+            <p class="text-xs text-gray-600 mt-1">crop="scale"</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Test Section 5: Advanced Effects -->
+      <section class="mb-16">
+        <h2 class="text-2xl font-bold text-gray-800 mb-6">Advanced Effects & Transformations</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <!-- Blur Effect -->
+          <div class="bg-white p-4 rounded-lg shadow">
+            <h3 class="text-base font-semibold mb-2">Blur Effect</h3>
+            <CloudinaryImage
+              publicId="pour-the-port/Pour_the_Port_product"
+              alt="Product with blur effect"
+              width={200}
+              height={200}
+              blur={150}
+              crop="fill"
+              class="rounded"
+            />
+            <p class="text-xs text-gray-600 mt-1">blur={150}</p>
+          </div>
+
+          <!-- Sepia Effect -->
+          <div class="bg-white p-4 rounded-lg shadow">
+            <h3 class="text-base font-semibold mb-2">Sepia Effect</h3>
+            <CloudinaryImage
+              publicId="pour-the-port/septic_l9n82v"
+              alt="Background with sepia effect"
+              width={200}
+              height={200}
+              sepia={80}
+              crop="fill"
+              class="rounded"
+            />
+            <p class="text-xs text-gray-600 mt-1">sepia={80}</p>
+          </div>
+
+          <!-- Grayscale Effect -->
+          <div class="bg-white p-4 rounded-lg shadow">
+            <h3 class="text-base font-semibold mb-2">Grayscale</h3>
+            <CloudinaryImage
+              publicId="pour-the-port/Pour_the_Port_product"
+              alt="Product in grayscale"
+              width={200}
+              height={200}
+              grayscale={true}
+              crop="fill"
+              class="rounded"
+            />
+            <p class="text-xs text-gray-600 mt-1">grayscale={true}</p>
+          </div>
+
+          <!-- Brightness & Contrast -->
+          <div class="bg-white p-4 rounded-lg shadow">
+            <h3 class="text-base font-semibold mb-2">Brightness & Contrast</h3>
+            <CloudinaryImage
+              publicId="pour-the-port/Pour_the_Port_product"
+              alt="Product with brightness and contrast"
+              width={200}
+              height={200}
+              brightness={20}
+              contrast={30}
+              crop="fill"
+              class="rounded"
+            />
+            <p class="text-xs text-gray-600 mt-1">brightness={20}, contrast={30}</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Test Section 6: Avatar Component -->
+      <section class="mb-16">
+        <h2 class="text-2xl font-bold text-gray-800 mb-6">CloudinaryAvatar Component</h2>
+        
+        <div class="bg-white p-6 rounded-lg shadow">
+          <div class="flex flex-wrap items-center gap-8 justify-center">
+            
+            <!-- Small Avatar -->
+            <div class="text-center">
+              <CloudinaryAvatar
+                publicId="pour-the-port/logos/USDA_Certified_BioBased"
+                alt="Small avatar example"
+                size={64}
+                ring={true}
+                ringColor="ring-blue-500"
+                class="mb-2"
+              />
+              <p class="text-sm text-gray-600">Small (64px)</p>
+            </div>
+            
+            <!-- Medium Avatar -->
+            <div class="text-center">
+              <CloudinaryAvatar
+                publicId="pour-the-port/logos/national-parks-service"
+                alt="Medium avatar example"
+                size={96}
+                ring={true}
+                ringColor="ring-green-500"
+                interactive={true}
+                class="mb-2"
+              />
+              <p class="text-sm text-gray-600">Medium (96px)</p>
+            </div>
+            
+            <!-- Large Avatar -->
+            <div class="text-center">
+              <CloudinaryAvatar
+                publicId="pour-the-port/logos/university-of-georgia"
+                alt="Large avatar example"
+                size={128}
+                ring={true}
+                ringColor="ring-purple-500"
+                skeleton={true}
+                class="mb-2"
+              />
+              <p class="text-sm text-gray-600">Large (128px)</p>
+            </div>
+            
+          </div>
+        </div>
+      </section>
+
+      <!-- Test Section 7: Performance Features -->
+      <section class="mb-16">
+        <h2 class="text-2xl font-bold text-gray-800 mb-6">Performance Features</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <!-- DPR Support -->
+          <div class="bg-white p-6 rounded-lg shadow">
+            <h3 class="text-lg font-semibold mb-4">Device Pixel Ratio Support</h3>
+            <CloudinaryImage
+              publicId="pour-the-port/Pour_the_Port_product"
+              alt="High-DPI optimized product image"
+              width={300}
+              height={300}
+              supportDpr={true}
+              responsive={true}
+              sizes="300px"
+              class="rounded-lg"
+            />
+            <p class="text-sm text-gray-600 mt-2">supportDpr={true} - Serves 2x, 3x images for high-density displays</p>
+          </div>
+
+          <!-- Skeleton Loading -->
+          <div class="bg-white p-6 rounded-lg shadow">
+            <h3 class="text-lg font-semibold mb-4">Skeleton Loading</h3>
+            <CloudinaryImage
+              publicId="pour-the-port/Pour_the_Port_product"
+              alt="Skeleton loading example"
+              width={300}
+              height={300}
+              skeleton={true}
+              loading="lazy"
+              class="rounded-lg"
+            />
+            <p class="text-sm text-gray-600 mt-2">skeleton={true} - Shows animated skeleton while image loads</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Test Section 8: Real-world Use Cases -->
+      <section class="mb-16">
+        <h2 class="text-2xl font-bold text-gray-800 mb-6">Real-world Use Cases</h2>
+        
+        <!-- Hero banner simulation -->
+        <div class="mb-8">
+          <h3 class="text-lg font-semibold mb-4">Hero Banner</h3>
+          <div class="relative h-96 overflow-hidden rounded-lg">
+            <CloudinaryImage
+              publicId="pour-the-port/septic_l9n82v"
+              alt="Hero banner background"
+              preset="hero"
+              width={1200}
+              height={400}
+              loading="eager"
+              fetchpriority="high"
+              class="w-full h-full object-cover"
+            />
+            <div class="absolute inset-0 bg-black/50 flex items-center justify-center">
+              <div class="text-center text-white">
+                <h2 class="text-3xl font-bold mb-2">Sample Hero Content</h2>
+                <p class="text-lg">With optimized background image</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product gallery simulation -->
+        <div>
+          <h3 class="text-lg font-semibold mb-4">Product Gallery</h3>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <CloudinaryImage
+              publicId="pour-the-port/Pour_the_Port_product"
+              alt="Product showcase 1"
+              preset="thumbnail"
+              width={200}
+              height={200}
+              class="rounded-lg hover:scale-105 transition-transform"
+            />
+            <CloudinaryImage
+              publicId="pour-the-port/logos/USDA_Certified_BioBased"
+              alt="USDA logo showcase"
+              preset="thumbnail"
+              width={200}
+              height={200}
+              class="rounded-lg hover:scale-105 transition-transform"
+            />
+            <CloudinaryImage
+              publicId="pour-the-port/logos/national-parks-service"
+              alt="National Parks logo showcase"
+              preset="thumbnail"
+              width={200}
+              height={200}
+              class="rounded-lg hover:scale-105 transition-transform"
+            />
+            <CloudinaryImage
+              publicId="pour-the-port/logos/university-of-georgia"
+              alt="University logo showcase"
+              preset="thumbnail"
+              width={200}
+              height={200}
+              class="rounded-lg hover:scale-105 transition-transform"
+            />
+          </div>
+        </div>
+      </section>
+
+      <!-- Component Info -->
+      <section class="bg-white p-6 rounded-lg shadow">
+        <h2 class="text-2xl font-bold text-gray-800 mb-4">Component Features</h2>
+        <ul class="list-disc list-inside text-gray-700 space-y-2">
+          <li><strong>Responsive Images:</strong> Automatic srcset generation for multiple screen sizes</li>
+          <li><strong>Smart Loading:</strong> Lazy loading with blur placeholders for smooth UX</li>
+          <li><strong>Preset Configurations:</strong> Pre-configured settings for common use cases</li>
+          <li><strong>No Conflicts:</strong> Custom component that doesn't interfere with Astro's Image component</li>
+          <li><strong>Modern Standards:</strong> Support for fetchpriority, decoding, and other modern attributes</li>
+          <li><strong>TypeScript Support:</strong> Full type safety with comprehensive prop interfaces</li>
+          <li><strong>Cloudinary Optimization:</strong> Automatic format selection, quality optimization, and transformations</li>
+          <li><strong>Advanced Effects:</strong> Blur, sepia, grayscale, brightness, contrast, and artistic effects</li>
+          <li><strong>Error Handling:</strong> Fallback images and graceful error states</li>
+          <li><strong>Performance Optimization:</strong> DPR support, intersection observer, and skeleton loading</li>
+        </ul>
+      </section>
+
+      <!-- Navigation -->
+      <div class="mt-12 text-center">
+        <a 
+          href="/" 
+          class="inline-block bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-full transition-colors"
+        >
+          ← Back to Main Site
+        </a>
+      </div>
+    </div>
+  </body>
+</html>
