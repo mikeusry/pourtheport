@@ -4,10 +4,13 @@ import PainPoints from '../components/PainPoints.astro';
 import Solution from '../components/Solution.astro';
 import ScientificBenefits from '../components/ScientificBenefits.astro';
 import TrustLogos from '../components/TrustLogos.astro';
+import KlaviyoReviews from '../components/KlaviyoReviews.astro';
 import HowItWorks from '../components/HowItWorks.astro';
 import Pricing from '../components/Pricing.astro';
 import FAQ from '../components/FAQ.astro';
 import StickyCAT from '../components/StickyCAT.astro';
+import GoogleAnalytics from '../components/GoogleAnalytics.astro';
+import ConversionTracking from '../components/ConversionTracking.astro';
 import '../styles/global.css';
 
 const title = "Pour the PORT - Prevent $15,000 Septic Disasters for $84/Year";
@@ -127,6 +130,9 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://pourthep
 		<!-- Performance & Analytics -->
 		<link rel="dns-prefetch" href="//fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+		
+		<!-- Google Analytics 4 -->
+		<GoogleAnalytics />
 	</head>
 	<body class="antialiased">
 		<!-- Main Content -->
@@ -138,6 +144,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://pourthep
 			<ScientificBenefits />
 			<HowItWorks />
 			<Pricing />
+			<KlaviyoReviews />
 			<FAQ />
 		</main>
 		
@@ -168,5 +175,8 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://pourthep
 				background: #16a34a;
 			}
 		</style>
+		
+		<!-- Conversion Tracking -->
+		<ConversionTracking />
 	</body>
 </html>

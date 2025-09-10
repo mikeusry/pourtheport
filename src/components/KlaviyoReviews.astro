@@ -1,0 +1,144 @@
+---
+const klaviyoApiKey = import.meta.env.PUBLIC_KLAVIYO_API_KEY;
+const productId = import.meta.env.PUBLIC_SHOPIFY_PRODUCT_ID || '9943643023';
+const isProduction = import.meta.env.PROD;
+
+// Only load Klaviyo if API key is configured
+const enableKlaviyo = klaviyoApiKey && klaviyoApiKey !== 'your-klaviyo-api-key-here';
+---
+
+{enableKlaviyo && (
+  <>
+    <!-- Klaviyo.js Script -->
+    <script type="text/javascript" async src={`https://static.klaviyo.com/onsite/js/${klaviyoApiKey}/klaviyo.js`}></script>
+    
+    <!-- Reviews Container -->
+    <div class="klaviyo-reviews-container">
+      <!-- Star Rating Widget -->
+      <div class="klaviyo-star-rating-widget" 
+           data-id={productId} 
+           data-product-title="Pour the PORT Septic Treatment" 
+           data-product-type="septic_maintenance">
+      </div>
+      
+      <!-- Reviews Summary and List Combined -->
+      <div id="klaviyo-reviews-all" data-id={productId}></div>
+    </div>
+  </>
+)}
+
+{!enableKlaviyo && isProduction && (
+  <div class="klaviyo-fallback bg-gray-50 border border-gray-200 rounded-lg p-6 text-center">
+    <div class="text-gray-600">
+      <svg class="w-12 h-12 mx-auto mb-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
+      </svg>
+      <p class="text-lg font-medium mb-2">Customer Reviews</p>
+      <p class="text-sm">Reviews are loading...</p>
+    </div>
+  </div>
+)}
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const klaviyoApiKey = import.meta.env.PUBLIC_KLAVIYO_API_KEY;
+  const isProduction = import.meta.env.PROD;
+  
+  if (!klaviyoApiKey || klaviyoApiKey === 'your-klaviyo-api-key-here') {
+    if (!isProduction) {
+      console.log('🔍 Klaviyo Reviews: Disabled - API key not configured');
+    }
+    return;
+  }
+
+  // Wait for Klaviyo to load
+  let klaviyoRetries = 0;
+  const maxRetries = 10;
+  
+  function waitForKlaviyo() {
+    if (typeof window.klaviyo !== 'undefined') {
+      // Klaviyo is loaded, initialize reviews
+      if (!isProduction) {
+        console.log('📊 Klaviyo Reviews: Initialized successfully');
+      }
+      
+      // Track reviews interactions for GA4
+      if (typeof gtag !== 'undefined') {
+        // Listen for review widget interactions
+        document.addEventListener('click', function(e) {
+          if (e.target.closest('.klaviyo-star-rating-widget') || 
+              e.target.closest('#klaviyo-reviews-all')) {
+            gtag('event', 'klaviyo_review_interaction', {
+              event_category: 'engagement',
+              event_label: 'review_widget_click'
+            });
+          }
+        });
+      }
+      
+    } else if (klaviyoRetries < maxRetries) {
+      klaviyoRetries++;
+      setTimeout(waitForKlaviyo, 500);
+    } else {
+      if (!isProduction) {
+        console.warn('⚠️ Klaviyo Reviews: Failed to load after 5 seconds');
+      }
+    }
+  }
+  
+  // Start checking for Klaviyo
+  waitForKlaviyo();
+});
+</script>
+
+<style>
+.klaviyo-reviews-container {
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+/* Star Rating Widget Styling */
+.klaviyo-star-rating-widget {
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+/* Reviews Widget Styling */
+#klaviyo-reviews-all {
+  min-height: 200px;
+}
+
+/* Fallback styling */
+.klaviyo-fallback {
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .klaviyo-reviews-container {
+    padding: 0 1rem;
+  }
+}
+
+/* Custom styling for Klaviyo widgets (when they load) */
+:global(.klaviyo-reviews-all) {
+  font-family: inherit;
+}
+
+:global(.klaviyo-star-rating-widget) {
+  font-family: inherit;
+}
+
+/* Loading state */
+.klaviyo-reviews-container:empty::after {
+  content: "Loading reviews...";
+  display: block;
+  text-align: center;
+  padding: 2rem;
+  color: #666;
+  font-style: italic;
+}
+</style>

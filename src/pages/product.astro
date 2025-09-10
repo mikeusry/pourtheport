@@ -1,6 +1,9 @@
 ---
 import CloudinaryImage from '../components/CloudinaryImage.astro';
 import ShopifyBuyButtonProduct from '../components/ShopifyBuyButtonProduct.astro';
+import GoogleAnalytics from '../components/GoogleAnalytics.astro';
+import ConversionTracking from '../components/ConversionTracking.astro';
+import KlaviyoReviews from '../components/KlaviyoReviews.astro';
 import { getProduct, mockProduct, isShopifyConfigured, getDefaultVariant, formatPrice } from '../lib/shopify';
 import '../styles/global.css';
 
@@ -63,6 +66,9 @@ const description = `${product.description} Professional-grade septic system pro
         }
       }
     </script>
+    
+    <!-- Google Analytics 4 -->
+    <GoogleAnalytics />
   </head>
 
   <body class="bg-gray-50">
@@ -351,54 +357,7 @@ const description = `${product.description} Professional-grade septic system pro
 
           <!-- Reviews Tab -->
           <div id="reviews-content" class="tab-content hidden">
-            <div class="mb-8">
-              <div class="flex items-center mb-4">
-                <div class="flex items-center">
-                  <span class="text-3xl font-bold text-gray-900 mr-2">4.8</span>
-                  <div class="flex text-yellow-400">
-                    <svg class="w-6 h-6 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
-                    <svg class="w-6 h-6 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
-                    <svg class="w-6 h-6 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
-                    <svg class="w-6 h-6 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
-                    <svg class="w-6 h-6 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
-                  </div>
-                  <span class="ml-2 text-gray-600">(127 reviews)</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Sample Reviews -->
-            <div class="space-y-6">
-              <div class="border-b border-gray-200 pb-6">
-                <div class="flex items-center mb-2">
-                  <div class="flex text-yellow-400 mr-2">
-                    <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
-                    <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
-                    <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
-                    <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
-                    <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
-                  </div>
-                  <span class="font-medium text-gray-900">Sarah M.</span>
-                  <span class="text-gray-500 text-sm ml-2">Verified Purchase</span>
-                </div>
-                <p class="text-gray-700">"After spending $8,000 on septic repairs last year, I was skeptical. But Pour the PORT actually works! No more odors, no more backups. Wish I had found this years ago."</p>
-              </div>
-              
-              <div class="border-b border-gray-200 pb-6">
-                <div class="flex items-center mb-2">
-                  <div class="flex text-yellow-400 mr-2">
-                    <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
-                    <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
-                    <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
-                    <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
-                    <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
-                  </div>
-                  <span class="font-medium text-gray-900">Mike R.</span>
-                  <span class="text-gray-500 text-sm ml-2">Verified Purchase</span>
-                </div>
-                <p class="text-gray-700">"As a home inspector, I see septic disasters all the time. I recommend Pour the PORT to all my clients now. It's the only product I trust to actually prevent problems."</p>
-              </div>
-            </div>
+            <KlaviyoReviews />
           </div>
 
           <!-- Shipping Tab -->
@@ -527,5 +486,8 @@ const description = `${product.description} Professional-grade septic system pro
         }
       });
     </script>
+    
+    <!-- Conversion Tracking -->
+    <ConversionTracking />
   </body>
 </html>

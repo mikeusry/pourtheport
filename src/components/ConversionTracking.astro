@@ -1,0 +1,152 @@
+---
+// Conversion tracking for Subscribe Now buttons and key actions
+---
+
+<script is:inline>
+  // Enhanced conversion tracking for Pour the PORT
+  document.addEventListener('DOMContentLoaded', function() {
+    // Check if gtag is available
+    if (typeof gtag === 'undefined') {
+      console.log('📊 Conversion Tracking: Google Analytics not loaded');
+      return;
+    }
+
+    // Track Subscribe Now button clicks
+    const subscribeButtons = document.querySelectorAll('.shopify-buy-button, .shopify-product-buy-button');
+    subscribeButtons.forEach(function(button, index) {
+      button.addEventListener('click', function(e) {
+        const buttonText = this.querySelector('.button-text')?.textContent || 'Subscribe Now';
+        const buttonLocation = this.closest('section')?.id || 'unknown_section';
+        
+        // Track the conversion event
+        gtag('event', 'begin_checkout', {
+          event_category: 'ecommerce',
+          event_label: buttonText,
+          value: 84.00,
+          currency: 'USD',
+          items: [{
+            item_id: '42616731533557',
+            item_name: 'Pour the PORT Septic Treatment',
+            category: 'septic_maintenance',
+            quantity: 1,
+            price: 84.00
+          }],
+          // Custom dimensions
+          custom_parameter_1: 'subscription',
+          custom_parameter_2: '3_times_yearly',
+          button_location: buttonLocation,
+          button_index: index
+        });
+
+        // Track as custom conversion for optimization
+        gtag('event', 'subscribe_now_click', {
+          event_category: 'conversion',
+          event_label: buttonText,
+          value: 84.00,
+          button_position: buttonLocation,
+          product_type: 'septic_treatment'
+        });
+
+        console.log('📊 Tracked Subscribe Now click:', buttonText, 'at', buttonLocation);
+      });
+    });
+
+    // Track form interactions (if any forms exist)
+    const forms = document.querySelectorAll('form');
+    forms.forEach(function(form) {
+      form.addEventListener('submit', function(e) {
+        const formType = this.getAttribute('data-form-type') || 'contact';
+        
+        gtag('event', 'form_submit', {
+          event_category: 'engagement',
+          event_label: formType,
+          form_type: formType
+        });
+      });
+    });
+
+    // Track email/phone clicks
+    const contactLinks = document.querySelectorAll('a[href^="mailto:"], a[href^="tel:"]');
+    contactLinks.forEach(function(link) {
+      link.addEventListener('click', function(e) {
+        const contactType = this.href.startsWith('mailto:') ? 'email' : 'phone';
+        const contactValue = this.href.replace(/^(mailto:|tel:)/, '');
+        
+        gtag('event', 'contact_click', {
+          event_category: 'engagement',
+          event_label: contactType,
+          contact_method: contactType,
+          contact_value: contactValue
+        });
+      });
+    });
+
+    // Track scroll depth for engagement
+    let scrollTracked = false;
+    let maxScroll = 0;
+    
+    window.addEventListener('scroll', function() {
+      const scrollPercent = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+      
+      if (scrollPercent > maxScroll) {
+        maxScroll = scrollPercent;
+        
+        // Track milestone scroll depths
+        if (!scrollTracked && scrollPercent >= 75) {
+          gtag('event', 'scroll_depth', {
+            event_category: 'engagement',
+            event_label: '75_percent',
+            scroll_depth: 75
+          });
+          scrollTracked = true;
+        }
+      }
+    });
+
+    // Track time on page engagement
+    let timeOnPage = 0;
+    const startTime = Date.now();
+    
+    setInterval(function() {
+      timeOnPage = Math.round((Date.now() - startTime) / 1000);
+      
+      // Track engagement milestones
+      if (timeOnPage === 30) {
+        gtag('event', 'engagement_time', {
+          event_category: 'engagement',
+          event_label: '30_seconds',
+          engagement_time: 30
+        });
+      } else if (timeOnPage === 60) {
+        gtag('event', 'engagement_time', {
+          event_category: 'engagement',
+          event_label: '1_minute',
+          engagement_time: 60
+        });
+      } else if (timeOnPage === 180) {
+        gtag('event', 'engagement_time', {
+          event_category: 'engagement',
+          event_label: '3_minutes',
+          engagement_time: 180
+        });
+      }
+    }, 1000);
+
+    // Track video interactions (for Wistia videos)
+    window.addEventListener('message', function(event) {
+      if (event.origin !== 'https://fast.wistia.net') return;
+      
+      const data = event.data;
+      if (data && data.event) {
+        gtag('event', 'video_' + data.event, {
+          event_category: 'video',
+          event_label: 'product_demo',
+          video_title: 'Pour the PORT Demo',
+          video_provider: 'wistia'
+        });
+      }
+    });
+
+    console.log('📊 Conversion tracking initialized for Pour the PORT');
+  });
+</script>

@@ -65,3 +65,4 @@ Thumbs.db
 # local development
 .cache/
 .parcel-cache/
+.vercel
