@@ -8,10 +8,10 @@ const { measurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID } = Astro.props
 // Only load analytics in production or when explicitly enabled
 const isProduction = import.meta.env.PROD;
 const isDevelopment = import.meta.env.DEV;
-const enableAnalytics = measurementId && (isProduction || import.meta.env.PUBLIC_GA_DEBUG === 'true');
+const enableAnalytics = measurementId && measurementId !== 'your-ga4-measurement-id-here' && (isProduction || import.meta.env.PUBLIC_GA_DEBUG === 'true');
 ---
 
-{enableAnalytics && (
+{enableAnalytics ? (
   <>
     <!-- Google tag (gtag.js) -->
     <script async src={`https://www.googletagmanager.com/gtag/js?id=${measurementId}`}></script>
@@ -20,46 +20,22 @@ const enableAnalytics = measurementId && (isProduction || import.meta.env.PUBLIC
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       
-      // Configure GA4 with enhanced settings
+      // Configure GA4 with basic settings that work reliably
       gtag('config', measurementId, {
-        // Enhanced ecommerce and user engagement
         send_page_view: true,
         allow_google_signals: true,
-        allow_ad_personalization_signals: true,
-        
-        // Custom parameters for septic treatment business
-        custom_map: {
-          'custom_parameter_1': 'subscription_type',
-          'custom_parameter_2': 'treatment_frequency'
-        },
-        
-        // Enhanced conversion tracking
-        enhanced_conversions: true,
-        
-        // Debug mode for development
-        debug_mode: window.location.hostname === 'localhost'
+        enhanced_conversions: true
       });
 
-      // Track page views with custom dimensions
-      gtag('event', 'page_view', {
-        page_title: document.title,
-        page_location: window.location.href,
-        content_group1: 'Pour the PORT Landing Page'
-      });
-
-      // Custom event for septic treatment interests
-      gtag('event', 'audience_engagement', {
-        event_category: 'septic_treatment',
-        event_label: 'landing_page_visit',
-        content_group1: 'septic_maintenance'
-      });
+      // Initialize confirmation
+      console.log('📊 Google Analytics 4 initialized:', measurementId);
     </script>
   </>
-)}
-
-{isDevelopment && !enableAnalytics && (
+) : (
   <script is:inline>
-    console.log('🔍 Google Analytics: Disabled in development mode');
-    console.log('💡 To enable: Set PUBLIC_GA_MEASUREMENT_ID and PUBLIC_GA_DEBUG=true in .env');
+    if (window.location.hostname === 'localhost') {
+      console.log('🔍 Google Analytics: Disabled in development mode');
+      console.log('💡 To enable: Set PUBLIC_GA_DEBUG=true in .env');
+    }
   </script>
 )}
