@@ -1,0 +1,250 @@
+---
+import { getShopInfo, getRecentOrders, getPourThePortOrders, formatOrderSummary, isAdminApiConfigured } from '../lib/shopify-admin';
+
+// This page demonstrates Admin API capabilities
+// In production, you'd add authentication/authorization here
+
+let shopInfo = null;
+let recentOrders = [];
+let pourThePortOrders = [];
+let error = '';
+
+if (isAdminApiConfigured()) {
+  try {
+    // Fetch data from Admin API
+    shopInfo = await getShopInfo();
+    recentOrders = await getRecentOrders(10);
+    pourThePortOrders = await getPourThePortOrders();
+  } catch (err) {
+    error = err.message;
+    console.error('Admin Dashboard error:', err);
+  }
+} else {
+  error = 'Admin API not configured. Please check your SHOPIFY_ADMIN_ACCESS_TOKEN in .env file.';
+}
+
+const title = 'Admin Dashboard - Pour the PORT';
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>{title}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <meta name="robots" content="noindex, nofollow" />
+  </head>
+  
+  <body class="bg-gray-50">
+    <div class="min-h-screen py-8">
+      <div class="max-w-7xl mx-auto px-4">
+        
+        <!-- Header -->
+        <div class="mb-8">
+          <h1 class="text-3xl font-bold text-gray-900 mb-2">Admin Dashboard</h1>
+          <p class="text-gray-600">Shopify Admin API Integration for Pour the PORT</p>
+          
+          <div class="mt-4 flex space-x-4">
+            <a href="/" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">
+              ← Back to Site
+            </a>
+            <a href="/test-api" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
+              Storefront API Test
+            </a>
+          </div>
+        </div>
+
+        {error && (
+          <div class="bg-red-50 border border-red-200 rounded-lg p-6 mb-8">
+            <h3 class="text-lg font-semibold text-red-800 mb-2">Configuration Error</h3>
+            <p class="text-red-700">{error}</p>
+            <div class="mt-4 text-sm text-red-600">
+              <p>To fix this:</p>
+              <ol class="list-decimal list-inside mt-2 space-y-1">
+                <li>Make sure SHOPIFY_ADMIN_ACCESS_TOKEN is set in your .env file</li>
+                <li>Ensure the token has the required Admin API permissions</li>
+                <li>Restart your development server</li>
+              </ol>
+            </div>
+          </div>
+        )}
+
+        {!error && shopInfo && (
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <!-- Shop Info -->
+            <div class="bg-white rounded-lg shadow p-6">
+              <h2 class="text-xl font-semibold mb-4 text-gray-900">Shop Information</h2>
+              <div class="space-y-3 text-sm">
+                <div>
+                  <span class="font-medium text-gray-700">Shop Name:</span>
+                  <span class="ml-2 text-gray-900">{shopInfo.name}</span>
+                </div>
+                <div>
+                  <span class="font-medium text-gray-700">Domain:</span>
+                  <span class="ml-2 text-blue-600">{shopInfo.domain}</span>
+                </div>
+                <div>
+                  <span class="font-medium text-gray-700">Currency:</span>
+                  <span class="ml-2 text-gray-900">{shopInfo.currency}</span>
+                </div>
+                <div>
+                  <span class="font-medium text-gray-700">Plan:</span>
+                  <span class="ml-2 text-green-600 capitalize">{shopInfo.plan_name}</span>
+                </div>
+                <div>
+                  <span class="font-medium text-gray-700">Timezone:</span>
+                  <span class="ml-2 text-gray-900">{shopInfo.timezone}</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Recent Orders Overview -->
+            <div class="bg-white rounded-lg shadow p-6">
+              <h2 class="text-xl font-semibold mb-4 text-gray-900">Recent Orders</h2>
+              <div class="space-y-3">
+                <div class="text-2xl font-bold text-green-600">
+                  {recentOrders.length}
+                </div>
+                <p class="text-gray-600">Orders in last batch</p>
+                
+                {recentOrders.length > 0 && (
+                  <div class="pt-3 border-t">
+                    <div class="text-sm">
+                      <div class="font-medium text-gray-700">Latest Order:</div>
+                      <div class="text-gray-900">#{recentOrders[0].order_number}</div>
+                      <div class="text-gray-600">${recentOrders[0].total_price}</div>
+                      <div class="text-xs text-gray-500 mt-1">
+                        {new Date(recentOrders[0].created_at).toLocaleDateString()}
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <!-- Pour the PORT Orders -->
+            <div class="bg-white rounded-lg shadow p-6">
+              <h2 class="text-xl font-semibold mb-4 text-gray-900">Pour the PORT Orders</h2>
+              <div class="space-y-3">
+                <div class="text-2xl font-bold text-blue-600">
+                  {pourThePortOrders.length}
+                </div>
+                <p class="text-gray-600">Product-specific orders</p>
+                
+                {pourThePortOrders.length > 0 && (
+                  <div class="pt-3 border-t">
+                    <div class="text-sm">
+                      <div class="font-medium text-gray-700">Recent Purchase:</div>
+                      <div class="text-gray-900">#{pourThePortOrders[0].order_number}</div>
+                      <div class="text-gray-600">${pourThePortOrders[0].total_price}</div>
+                      {pourThePortOrders[0].customer && (
+                        <div class="text-xs text-gray-500 mt-1">
+                          {pourThePortOrders[0].customer.first_name} {pourThePortOrders[0].customer.last_name}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {!error && recentOrders.length > 0 && (
+          <div class="mt-8">
+            <div class="bg-white rounded-lg shadow overflow-hidden">
+              <div class="px-6 py-4 bg-gray-50 border-b">
+                <h2 class="text-xl font-semibold text-gray-900">Recent Orders Detail</h2>
+                <p class="text-gray-600 text-sm mt-1">Last {recentOrders.length} orders from your store</p>
+              </div>
+              
+              <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                  <thead class="bg-gray-50">
+                    <tr>
+                      <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Order</th>
+                      <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Customer</th>
+                      <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total</th>
+                      <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                      <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                    </tr>
+                  </thead>
+                  <tbody class="bg-white divide-y divide-gray-200">
+                    {recentOrders.map(order => (
+                      <tr key={order.id} class="hover:bg-gray-50">
+                        <td class="px-6 py-4 whitespace-nowrap">
+                          <div class="text-sm font-medium text-gray-900">#{order.order_number}</div>
+                          <div class="text-xs text-gray-500">{order.name}</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                          {order.customer ? (
+                            <div class="text-sm text-gray-900">
+                              {order.customer.first_name} {order.customer.last_name}
+                              <div class="text-xs text-gray-500">{order.customer.email}</div>
+                            </div>
+                          ) : (
+                            <span class="text-sm text-gray-500">Guest</span>
+                          )}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                          ${order.total_price} {order.currency}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                          <span class={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
+                            order.financial_status === 'paid' 
+                              ? 'bg-green-100 text-green-800' 
+                              : order.financial_status === 'pending'
+                              ? 'bg-yellow-100 text-yellow-800'
+                              : 'bg-gray-100 text-gray-800'
+                          }`}>
+                            {order.financial_status}
+                          </span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                          {new Date(order.created_at).toLocaleDateString()}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        )}
+
+        <!-- API Capabilities Info -->
+        <div class="mt-8 bg-blue-50 border border-blue-200 rounded-lg p-6">
+          <h3 class="text-lg font-semibold text-blue-800 mb-3">Admin API Capabilities</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+            <div>
+              <h4 class="font-medium text-blue-700 mb-2">✅ Currently Working:</h4>
+              <ul class="space-y-1 text-blue-600">
+                <li>• Shop information retrieval</li>
+                <li>• Order data and processing</li>
+                <li>• Customer order history</li>
+                <li>• Product-specific analytics</li>
+              </ul>
+            </div>
+            <div>
+              <h4 class="font-medium text-blue-700 mb-2">🚀 Potential Features:</h4>
+              <ul class="space-y-1 text-blue-600">
+                <li>• Automated order fulfillment</li>
+                <li>• Customer segmentation</li>
+                <li>• Inventory management</li>
+                <li>• Webhook processing</li>
+              </ul>
+            </div>
+          </div>
+          
+          <div class="mt-4 p-4 bg-blue-100 rounded">
+            <p class="text-blue-800 text-sm">
+              <strong>Security Note:</strong> This Admin API integration should only be used server-side. 
+              In production, add proper authentication and authorization before exposing admin functions.
+            </p>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </body>
+</html>

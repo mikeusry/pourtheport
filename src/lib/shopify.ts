@@ -344,26 +344,41 @@ export async function createCart(variantId: string, quantity: number = 1): Promi
     return null;
   }
 
+  console.log('Creating cart with:', { variantId, quantity });
+
   try {
-    const response = await shopifyClient.request(CREATE_CART_MUTATION, {
-      variables: {
-        input: {
-          lines: [
-            {
-              merchandiseId: variantId,
-              quantity: quantity
-            }
-          ]
+    const cartInput = {
+      lines: [
+        {
+          merchandiseId: variantId,
+          quantity: quantity
         }
-      }
+      ]
+    };
+
+    console.log('Cart input:', JSON.stringify(cartInput, null, 2));
+
+    const response = await shopifyClient.request(CREATE_CART_MUTATION, {
+      variables: { input: cartInput }
     });
 
+    console.log('Full cart response:', JSON.stringify(response, null, 2));
+
     if (response.data?.cartCreate?.cart) {
+      console.log('✅ Cart created successfully:', response.data.cartCreate.cart.id);
       return response.data.cartCreate.cart as ShopifyCart;
     }
     
     if (response.data?.cartCreate?.userErrors?.length > 0) {
-      console.error('Cart creation errors:', response.data.cartCreate.userErrors);
+      console.error('❌ Cart creation user errors:', response.data.cartCreate.userErrors);
+      response.data.cartCreate.userErrors.forEach(error => {
+        console.error(`  - [${error.code}] ${error.field}: ${error.message}`);
+      });
+    } else {
+      console.error('❌ Cart creation returned null with no errors - this usually means:');
+      console.error('  1. Variant is not available for sale');
+      console.error('  2. Product requires special checkout (subscription)');
+      console.error('  3. Store settings prevent cart creation');
     }
     
     return null;

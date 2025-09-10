@@ -1,6 +1,6 @@
 ---
 import CloudinaryImage from '../components/CloudinaryImage.astro';
-import ShopifyBuyButton from '../components/ShopifyBuyButton.astro';
+import ShopifyBuyButtonProduct from '../components/ShopifyBuyButtonProduct.astro';
 import { getProduct, mockProduct, isShopifyConfigured, getDefaultVariant, formatPrice } from '../lib/shopify';
 import '../styles/global.css';
 
@@ -202,7 +202,7 @@ const description = `${product.description} Professional-grade septic system pro
 
             <!-- Add to Cart Buttons -->
             <div class="space-y-3">
-              <ShopifyBuyButton 
+              <ShopifyBuyButtonProduct 
                 variantId={variantId}
                 quantity={1}
                 text="Add to Cart - Buy Now"
