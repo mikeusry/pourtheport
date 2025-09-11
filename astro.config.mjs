@@ -8,16 +8,34 @@ export default defineConfig({
   site: 'https://www.pourtheport.com',
   output: 'static',
   adapter: vercel({
-    webAnalytics: { enabled: true }
+    webAnalytics: { enabled: true },
+    imageService: true,
+    imagesConfig: {
+      sizes: [320, 640, 1024, 1280, 1600],
+      formats: ['webp', 'avif'],
+    }
   }),
   integrations: [tailwind()],
+  build: {
+    inlineStylesheets: 'always',
+  },
   vite: {
     build: {
+      minify: 'esbuild',
+      cssMinify: true,
       rollupOptions: {
         output: {
-          manualChunks: undefined,
+          manualChunks: {
+            vendor: ['astro'],
+          },
+          assetFileNames: 'assets/[name].[hash][extname]',
+          chunkFileNames: 'chunks/[name].[hash].js',
+          entryFileNames: 'entry/[name].[hash].js',
         },
       },
+    },
+    ssr: {
+      external: ['@astrojs/tailwind'],
     },
   },
 });
