@@ -1,5 +1,5 @@
 ---
-import WistiaVideo from './WistiaVideo.astro';
+import CloudinaryImage from './CloudinaryImage.astro';
 
 // Hex background for this section
 const hexBackgroundUrl = `https://res.cloudinary.com/southland-organics/image/upload/w_1920,h_1080,c_fill,q_auto/Southland%20Website/hex`;
@@ -154,18 +154,28 @@ const hexBackgroundUrl = `https://res.cloudinary.com/southland-organics/image/up
         </div>
         
         <div class="max-w-4xl mx-auto">
-          <WistiaVideo 
-            videoId="0oizgyr5y2"
-            responsive={true}
-            width={800}
-            aspectRatio="16:9"
-            autoplay={false}
-            muted={false}
-            caption="See how Pour the PORT's simple 3-step process protects your septic system"
-            loading="lazy"
-            playerColor="#22c55e"
-            class="shadow-2xl border border-gray-100"
-          />
+          <!-- Video Placeholder - No Heavy Scripts -->
+          <div class="relative bg-gray-100 rounded-lg shadow-2xl border border-gray-100 overflow-hidden" style="aspect-ratio: 16/9;">
+            <CloudinaryImage
+              publicId="pour-the-port/Pour_the_Port_product"
+              alt="Pour the PORT septic treatment process demonstration"
+              width={800}
+              height={450}
+              loading="lazy"
+              class="w-full h-full object-cover"
+            />
+            <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+              <div class="text-center text-white">
+                <div class="w-20 h-20 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <svg class="w-8 h-8 text-white ml-1" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M8.445 14.832A1 1 0 0010 14v-2.798l5.445 3.63A1 1 0 0017 14V6a1 1 0 00-1.555-.832L10 8.798V6a1 1 0 00-1.555-.832l-6 4a1 1 0 000 1.664l6 4z"/>
+                  </svg>
+                </div>
+                <p class="text-lg font-semibold">Simple 3-Step Process</p>
+                <p class="text-sm opacity-90">Protecting Your Septic System</p>
+              </div>
+            </div>
+          </div>
         </div>
         
         <!-- Call to Action after video -->

@@ -88,31 +88,6 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://www.pour
 			@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 		</style>
 		
-		<!-- Performance monitoring -->
-		<script>
-			// Monitor Core Web Vitals
-			if ('web-vital' in window || typeof PerformanceObserver !== 'undefined') {
-				// LCP monitoring
-				new PerformanceObserver((entryList) => {
-					for (const entry of entryList.getEntries()) {
-						if (entry.entryType === 'largest-contentful-paint') {
-							console.log('🎯 LCP:', Math.round(entry.startTime) + 'ms');
-						}
-					}
-				}).observe({type: 'largest-contentful-paint', buffered: true});
-				
-				// CLS monitoring
-				let cumulativeLayoutShift = 0;
-				new PerformanceObserver((entryList) => {
-					for (const entry of entryList.getEntries()) {
-						if (!entry.hadRecentInput) {
-							cumulativeLayoutShift += entry.value;
-						}
-					}
-					console.log('📏 CLS:', cumulativeLayoutShift.toFixed(4));
-				}).observe({type: 'layout-shift', buffered: true});
-			}
-		</script>
 		
 		<!-- Schema Markup for Product -->
 		<script type="application/ld+json">
@@ -190,25 +165,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://www.pour
 		<link rel="dns-prefetch" href="//fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
 		
-		<!-- Load minimal Tailwind after content -->
-		<script>
-			// Minimal Tailwind loading for below-fold content
-			const loadStyles = () => {
-				if (!document.querySelector('link[href*="tailwind"]')) {
-					const link = document.createElement('link');
-					link.rel = 'stylesheet';
-					link.href = 'https://cdn.tailwindcss.com';
-					link.media = 'all';
-					document.head.appendChild(link);
-				}
-			};
-			
-			// Load styles when below-fold content is revealed
-			setTimeout(loadStyles, 2000);
-		</script>
 
-		<!-- Google Analytics 4 -->
-		<GoogleAnalytics />
 	</head>
 	<body class="antialiased">
 		<!-- Navigation Header -->
@@ -353,66 +310,56 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://www.pour
 			}
 		</style>
 		
-		<!-- Progressive Loading & Mobile Menu JavaScript -->
+		<!-- Ultra-Fast Deferred Loading -->
 		<script>
-			document.addEventListener('DOMContentLoaded', function() {
-				// Mobile Menu
+			// Load everything after initial render
+			setTimeout(() => {
+				// Load Tailwind CSS
+				const link = document.createElement('link');
+				link.rel = 'stylesheet';
+				link.href = 'https://cdn.tailwindcss.com';
+				document.head.appendChild(link);
+				
+				// Show below-fold content instantly
+				const content = document.getElementById('below-fold-content');
+				if (content) {
+					content.style.visibility = 'visible';
+					content.style.opacity = '1';
+					content.style.transition = 'opacity 0.5s ease-in-out';
+				}
+				
+				// Mobile menu functionality
 				const mobileMenuButton = document.getElementById('mobile-menu-button');
 				const mobileMenu = document.getElementById('mobile-menu');
-				
 				if (mobileMenuButton && mobileMenu) {
-					mobileMenuButton.addEventListener('click', function() {
+					mobileMenuButton.addEventListener('click', () => {
 						mobileMenu.classList.toggle('hidden');
 					});
 				}
+			}, 50);
+			
+			// Load analytics much later
+			setTimeout(() => {
+				// Load Google Analytics after 5 seconds
+				const measurementId = 'G-0M8MNW8WJP';
+				const gaScript = document.createElement('script');
+				gaScript.async = true;
+				gaScript.src = `https://www.googletagmanager.com/gtag/js?id=${measurementId}`;
+				document.head.appendChild(gaScript);
 				
-				// Progressive content loading
-				let contentRevealed = false;
-				
-				function revealBelowFoldContent() {
-					if (contentRevealed) return;
-					contentRevealed = true;
-					
-					const content = document.getElementById('below-fold-content');
-					if (content) {
-						content.style.visibility = 'visible';
-						content.style.opacity = '0';
-						content.style.transition = 'opacity 0.3s ease-in-out';
-						
-						requestAnimationFrame(() => {
-							content.style.opacity = '1';
-						});
-						
-						console.log('📦 Below-fold content revealed');
-					}
-				}
-				
-				// Reveal content on scroll or interaction
-				const revealTriggers = ['scroll', 'click', 'touchstart', 'keydown'];
-				revealTriggers.forEach(event => {
-					document.addEventListener(event, revealBelowFoldContent, { once: true, passive: true });
+				window.dataLayer = window.dataLayer || [];
+				function gtag(){dataLayer.push(arguments);}
+				window.gtag = gtag;
+				gtag('js', new Date());
+				gtag('config', measurementId, {
+					send_page_view: true,
+					allow_google_signals: true,
+					enhanced_conversions: true
 				});
 				
-				// Intersection observer for hero section
-				const heroObserver = new IntersectionObserver((entries) => {
-					entries.forEach(entry => {
-						if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
-							setTimeout(revealBelowFoldContent, 500);
-						}
-					});
-				});
-				
-				const heroSection = document.querySelector('section');
-				if (heroSection) {
-					heroObserver.observe(heroSection);
-				}
-				
-				// Fallback: reveal after 3 seconds
-				setTimeout(revealBelowFoldContent, 3000);
-			});
+				console.log('📊 Analytics loaded after page ready');
+			}, 5000);
 		</script>
 		
-		<!-- Conversion Tracking -->
-		<ConversionTracking />
 	</body>
 </html>
