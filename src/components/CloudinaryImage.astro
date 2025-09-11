@@ -239,7 +239,7 @@ if (preset) {
     width: width || finalTransforms.width,
     height: height || finalTransforms.height
   };
-  if (!customSizes && 'sizes' in config) {
+  if (!customSizes && config && 'sizes' in config) {
     finalSizes = (config as any).sizes;
   }
 }
@@ -334,7 +334,7 @@ const imageId = `cloudinary-img-${Math.random().toString(36).substr(2, 9)}`;
     <img
       id={imageId}
       src={skeletonUrl}
-      alt=""
+      alt="Loading image..."
       width={width}
       height={height}
       class="cloudinary-skeleton"
@@ -347,7 +347,7 @@ const imageId = `cloudinary-img-${Math.random().toString(36).substr(2, 9)}`;
     <!-- Blur placeholder (loads immediately) -->
     <img
       src={placeholderUrl}
-      alt=""
+      alt="Loading image..."
       width={width}
       height={height}
       class="cloudinary-placeholder absolute inset-0 w-full h-full object-cover transition-opacity duration-500"
