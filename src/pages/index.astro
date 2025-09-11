@@ -54,8 +54,88 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://www.pour
 		<meta name="theme-color" content="#22c55e" />
 		
 		<!-- Preload Critical Resources -->
+		<link rel="preconnect" href="https://res.cloudinary.com" crossorigin>
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		
+		<!-- Preload hero image -->
+		<link rel="preload" as="image" href="https://res.cloudinary.com/southland-organics/image/upload/w_1035,h_1035,c_fill,f_auto,q_auto/pour-the-port/Pour_the_Port_product" fetchpriority="high">
+		
+		<!-- DNS prefetch for third-party domains -->
+		<link rel="dns-prefetch" href="//www.googletagmanager.com">
+		<link rel="dns-prefetch" href="//static.klaviyo.com">
+		
+		<!-- Critical CSS for above-the-fold content -->
+		<style>
+			/* Critical styles for hero section and initial layout */
+			body { margin: 0; font-family: system-ui, -apple-system, sans-serif; }
+			.hero-section { 
+				min-height: 100vh; 
+				display: flex; 
+				align-items: center; 
+				background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+			}
+			.container { 
+				max-width: 1200px; 
+				margin: 0 auto; 
+				padding: 0 1rem; 
+			}
+			.product-showcase { 
+				max-width: 100%; 
+				height: auto; 
+				border-radius: 1rem;
+				box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+			}
+			/* Prevent layout shift */
+			img[width][height] { 
+				aspect-ratio: attr(width) / attr(height); 
+			}
+			/* Loading state for images */
+			img[loading] { 
+				opacity: 0; 
+				transition: opacity 0.3s; 
+			}
+			img[loading].loaded { 
+				opacity: 1; 
+			}
+			/* Optimize animations */
+			* {
+				will-change: auto;
+			}
+			@media (prefers-reduced-motion: reduce) {
+				* {
+					animation-duration: 0.01ms !important;
+					animation-iteration-count: 1 !important;
+					transition-duration: 0.01ms !important;
+				}
+			}
+		</style>
+		
+		<!-- Performance monitoring -->
+		<script>
+			// Monitor Core Web Vitals
+			if ('web-vital' in window || typeof PerformanceObserver !== 'undefined') {
+				// LCP monitoring
+				new PerformanceObserver((entryList) => {
+					for (const entry of entryList.getEntries()) {
+						if (entry.entryType === 'largest-contentful-paint') {
+							console.log('🎯 LCP:', Math.round(entry.startTime) + 'ms');
+						}
+					}
+				}).observe({type: 'largest-contentful-paint', buffered: true});
+				
+				// CLS monitoring
+				let cumulativeLayoutShift = 0;
+				new PerformanceObserver((entryList) => {
+					for (const entry of entryList.getEntries()) {
+						if (!entry.hadRecentInput) {
+							cumulativeLayoutShift += entry.value;
+						}
+					}
+					console.log('📏 CLS:', cumulativeLayoutShift.toFixed(4));
+				}).observe({type: 'layout-shift', buffered: true});
+			}
+		</script>
 		
 		<!-- Schema Markup for Product -->
 		<script type="application/ld+json">

@@ -13,22 +13,38 @@ const enableAnalytics = measurementId && measurementId !== 'your-ga4-measurement
 
 {enableAnalytics ? (
   <>
-    <!-- Google tag (gtag.js) -->
-    <script async src={`https://www.googletagmanager.com/gtag/js?id=${measurementId}`}></script>
+    <!-- Google tag (gtag.js) - Optimized Loading -->
     <script is:inline define:vars={{ measurementId }}>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+      // Load Google Analytics after page interaction or after 3 seconds
+      let gaLoaded = false;
+      function loadGA() {
+        if (gaLoaded) return;
+        gaLoaded = true;
+        
+        const script = document.createElement('script');
+        script.async = true;
+        script.src = `https://www.googletagmanager.com/gtag/js?id=${measurementId}`;
+        document.head.appendChild(script);
+        
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        window.gtag = gtag;
+        gtag('js', new Date());
+        gtag('config', measurementId, {
+          send_page_view: true,
+          allow_google_signals: true,
+          enhanced_conversions: true
+        });
+        console.log('📊 Google Analytics 4 loaded:', measurementId);
+      }
       
-      // Configure GA4 with basic settings that work reliably
-      gtag('config', measurementId, {
-        send_page_view: true,
-        allow_google_signals: true,
-        enhanced_conversions: true
+      // Load on first interaction
+      ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart', 'click'].forEach(event => {
+        document.addEventListener(event, loadGA, { once: true, passive: true });
       });
-
-      // Initialize confirmation
-      console.log('📊 Google Analytics 4 initialized:', measurementId);
+      
+      // Fallback: load after 3 seconds
+      setTimeout(loadGA, 3000);
     </script>
   </>
 ) : (

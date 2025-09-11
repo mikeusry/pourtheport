@@ -9,8 +9,38 @@ const enableKlaviyo = klaviyoApiKey && klaviyoApiKey !== 'your-klaviyo-api-key-h
 
 {enableKlaviyo && (
   <>
-    <!-- Klaviyo.js Script -->
-    <script type="text/javascript" async src={`https://static.klaviyo.com/onsite/js/${klaviyoApiKey}/klaviyo.js`}></script>
+    <!-- Klaviyo.js Script - Deferred Loading -->
+    <script type="text/javascript">
+      // Load Klaviyo after user interaction or after 4 seconds
+      let klaviyoLoaded = false;
+      function loadKlaviyo() {
+        if (klaviyoLoaded) return;
+        klaviyoLoaded = true;
+        
+        const script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.async = true;
+        script.src = `https://static.klaviyo.com/onsite/js/${klaviyoApiKey}/klaviyo.js`;
+        document.head.appendChild(script);
+        console.log('📧 Klaviyo reviews loaded');
+      }
+      
+      // Load on scroll to reviews section or after timeout
+      const observer = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+          loadKlaviyo();
+          observer.disconnect();
+        }
+      });
+      
+      document.addEventListener('DOMContentLoaded', () => {
+        const reviewsContainer = document.querySelector('.klaviyo-reviews-container');
+        if (reviewsContainer) observer.observe(reviewsContainer);
+      });
+      
+      // Fallback: load after 4 seconds
+      setTimeout(loadKlaviyo, 4000);
+    </script>
     
     <!-- Reviews Container -->
     <div class="klaviyo-reviews-container">
