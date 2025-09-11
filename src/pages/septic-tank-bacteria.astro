@@ -1,0 +1,424 @@
+---
+import CloudinaryImage from '../components/CloudinaryImage.astro';
+import ShopifyBuyButton from '../components/ShopifyBuyButton.astro';
+import GoogleAnalytics from '../components/GoogleAnalytics.astro';
+import ConversionTracking from '../components/ConversionTracking.astro';
+import '../styles/global.css';
+
+const title = "Septic Tank Bacteria: Science Behind Natural Septic Treatment";
+const description = "Understand how beneficial bacteria keep septic systems healthy. Learn the science behind bacterial treatment and why billions of microorganisms prevent costly septic failures.";
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://pourtheport.com');
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- SEO Meta Tags -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="keywords" content="septic tank bacteria, beneficial bacteria septic, septic system microorganisms, bacterial septic treatment, how septic bacteria work, septic tank microbes" />
+    <link rel="canonical" href={canonicalURL} />
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content={Astro.url} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content="https://res.cloudinary.com/southland-organics/image/upload/w_1200,h_630,c_fill,q_auto/pour-the-port/Microbes" />
+    
+    <!-- Google Analytics 4 -->
+    <GoogleAnalytics />
+  </head>
+
+  <body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white border-b border-gray-200 sticky top-0 z-40">
+      <div class="container mx-auto px-4 py-3">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center space-x-2 text-sm">
+            <a href="/" class="text-green-600 hover:text-green-700 font-semibold">Pour the PORT</a>
+            <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+            <span class="text-gray-900 font-medium">Bacteria Science</span>
+          </div>
+          <a href="/" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-full text-sm font-medium transition-colors">
+            Get Treatment
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <main class="container mx-auto px-4 py-8 max-w-4xl">
+      <!-- Hero Section -->
+      <div class="text-center mb-12">
+        <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+          The Science Behind Septic Tank Bacteria
+        </h1>
+        <p class="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+          Discover how billions of beneficial bacteria keep your septic system healthy and prevent costly failures. Understanding the science helps you make better maintenance decisions.
+        </p>
+        
+        <div class="text-center mb-8">
+          <CloudinaryImage
+            publicId="pour-the-port/Microbes"
+            alt="Beneficial bacteria and microorganisms in septic systems"
+            width={400}
+            height={300}
+            preset="content"
+            class="rounded-lg shadow-md mx-auto"
+          />
+        </div>
+      </div>
+
+      <!-- What Are Septic Bacteria -->
+      <section class="mb-12">
+        <h2 class="text-3xl font-bold text-gray-900 mb-6">🦠 What Are Septic Tank Bacteria?</h2>
+        
+        <div class="bg-white rounded-lg shadow-md p-8 mb-8">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div>
+              <h3 class="text-2xl font-semibold text-gray-800 mb-4">Nature's Waste Processors</h3>
+              <p class="text-gray-600 mb-6">
+                Septic tank bacteria are naturally occurring microorganisms that break down organic waste in your septic system. They're the workforce that keeps your system functioning properly.
+              </p>
+              
+              <div class="space-y-4">
+                <div class="border-l-4 border-blue-400 pl-4">
+                  <h4 class="font-semibold text-gray-800">Aerobic Bacteria</h4>
+                  <p class="text-gray-600 text-sm">Require oxygen to function, work in the upper layers</p>
+                </div>
+                <div class="border-l-4 border-green-400 pl-4">
+                  <h4 class="font-semibold text-gray-800">Anaerobic Bacteria</h4>
+                  <p class="text-gray-600 text-sm">Function without oxygen, work in deeper tank layers</p>
+                </div>
+                <div class="border-l-4 border-purple-400 pl-4">
+                  <h4 class="font-semibold text-gray-800">Facultative Bacteria</h4>
+                  <p class="text-gray-600 text-sm">Adapt to oxygen levels, provide system flexibility</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="bg-gray-50 rounded-lg p-6">
+              <h3 class="text-xl font-bold text-gray-800 mb-4">Bacterial Population</h3>
+              
+              <div class="space-y-4">
+                <div class="bg-white rounded p-4 border border-gray-200">
+                  <div class="text-sm text-gray-600 mb-1">Healthy System</div>
+                  <div class="text-2xl font-bold text-green-600">10¹² - 10¹⁴</div>
+                  <div class="text-xs text-gray-600">Bacteria per gallon</div>
+                </div>
+                
+                <div class="bg-white rounded p-4 border border-gray-200">
+                  <div class="text-sm text-gray-600 mb-1">Stressed System</div>
+                  <div class="text-2xl font-bold text-yellow-600">10⁸ - 10¹⁰</div>
+                  <div class="text-xs text-gray-600">Bacteria per gallon</div>
+                </div>
+                
+                <div class="bg-white rounded p-4 border border-gray-200">
+                  <div class="text-sm text-gray-600 mb-1">Failing System</div>
+                  <div class="text-2xl font-bold text-red-600">< 10⁸</div>
+                  <div class="text-xs text-gray-600">Bacteria per gallon</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- How Bacteria Work -->
+      <section class="mb-12">
+        <h2 class="text-3xl font-bold text-gray-900 mb-6">⚙️ How Septic Bacteria Work</h2>
+        
+        <div class="bg-white rounded-lg shadow-md p-8">
+          <h3 class="text-2xl font-semibold text-gray-800 mb-6">The Waste Breakdown Process</h3>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <!-- Step 1 -->
+            <div class="text-center">
+              <div class="bg-blue-500 text-white rounded-full w-16 h-16 flex items-center justify-center text-2xl font-bold mx-auto mb-4">1</div>
+              <h4 class="font-semibold text-gray-800 mb-2">Attachment</h4>
+              <p class="text-gray-600 text-sm">Bacteria attach to organic waste particles</p>
+            </div>
+            
+            <!-- Step 2 -->
+            <div class="text-center">
+              <div class="bg-green-500 text-white rounded-full w-16 h-16 flex items-center justify-center text-2xl font-bold mx-auto mb-4">2</div>
+              <h4 class="font-semibold text-gray-800 mb-2">Enzyme Release</h4>
+              <p class="text-gray-600 text-sm">Secrete enzymes to break down complex molecules</p>
+            </div>
+            
+            <!-- Step 3 -->
+            <div class="text-center">
+              <div class="bg-purple-500 text-white rounded-full w-16 h-16 flex items-center justify-center text-2xl font-bold mx-auto mb-4">3</div>
+              <h4 class="font-semibold text-gray-800 mb-2">Digestion</h4>
+              <p class="text-gray-600 text-sm">Convert organic matter into simpler compounds</p>
+            </div>
+            
+            <!-- Step 4 -->
+            <div class="text-center">
+              <div class="bg-yellow-500 text-white rounded-full w-16 h-16 flex items-center justify-center text-2xl font-bold mx-auto mb-4">4</div>
+              <h4 class="font-semibold text-gray-800 mb-2">Completion</h4>
+              <p class="text-gray-600 text-sm">Produce water, CO₂, and harmless byproducts</p>
+            </div>
+          </div>
+
+          <!-- Detailed Process -->
+          <div class="border-t border-gray-200 pt-6">
+            <h4 class="text-xl font-bold text-gray-800 mb-4">What Bacteria Actually Do</h4>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <h5 class="font-semibold text-gray-800 mb-2">Primary Treatment (Tank):</h5>
+                <ul class="text-gray-600 space-y-1 text-sm">
+                  <li>• Break down proteins into amino acids</li>
+                  <li>• Convert fats into fatty acids and glycerol</li>
+                  <li>• Decompose carbohydrates into simple sugars</li>
+                  <li>• Reduce solid waste volume by 50-60%</li>
+                </ul>
+              </div>
+              <div>
+                <h5 class="font-semibold text-gray-800 mb-2">Secondary Treatment (Drain Field):</h5>
+                <ul class="text-gray-600 space-y-1 text-sm">
+                  <li>• Further purify liquid effluent</li>
+                  <li>• Remove remaining pathogens</li>
+                  <li>• Filter out suspended particles</li>
+                  <li>• Produce clean water for groundwater</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- What Kills Bacteria -->
+      <section class="mb-12">
+        <h2 class="text-3xl font-bold text-gray-900 mb-6">💀 What Kills Septic Bacteria?</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <!-- Chemical Threats -->
+          <div class="bg-red-50 border border-red-200 rounded-lg p-6">
+            <h3 class="text-xl font-bold text-red-800 mb-4">🧪 Chemical Threats</h3>
+            <ul class="space-y-3">
+              <li class="flex items-start">
+                <span class="text-red-600 mr-2">☠️</span>
+                <div>
+                  <strong>Antibacterial cleaners</strong>
+                  <p class="text-sm text-red-600">Designed to kill bacteria - including beneficial ones</p>
+                </div>
+              </li>
+              <li class="flex items-start">
+                <span class="text-red-600 mr-2">☠️</span>
+                <div>
+                  <strong>Bleach and disinfectants</strong>
+                  <p class="text-sm text-red-600">Destroy bacterial colonies in minutes</p>
+                </div>
+              </li>
+              <li class="flex items-start">
+                <span class="text-red-600 mr-2">☠️</span>
+                <div>
+                  <strong>Paint and solvents</strong>
+                  <p class="text-sm text-red-600">Toxic to all microorganisms</p>
+                </div>
+              </li>
+              <li class="flex items-start">
+                <span class="text-red-600 mr-2">☠️</span>
+                <div>
+                  <strong>Excessive detergents</strong>
+                  <p class="text-sm text-red-600">Disrupt bacterial cell walls</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+          
+          <!-- Other Threats -->
+          <div class="bg-orange-50 border border-orange-200 rounded-lg p-6">
+            <h3 class="text-xl font-bold text-orange-800 mb-4">⚠️ Other Threats</h3>
+            <ul class="space-y-3">
+              <li class="flex items-start">
+                <span class="text-orange-600 mr-2">⚠️</span>
+                <div>
+                  <strong>Antibiotics</strong>
+                  <p class="text-sm text-orange-600">Human medications affect beneficial bacteria</p>
+                </div>
+              </li>
+              <li class="flex items-start">
+                <span class="text-orange-600 mr-2">⚠️</span>
+                <div>
+                  <strong>Water overload</strong>
+                  <p class="text-sm text-orange-600">Flushes bacteria out before they can work</p>
+                </div>
+              </li>
+              <li class="flex items-start">
+                <span class="text-orange-600 mr-2">⚠️</span>
+                <div>
+                  <strong>pH extremes</strong>
+                  <p class="text-sm text-orange-600">Too acidic or alkaline disrupts metabolism</p>
+                </div>
+              </li>
+              <li class="flex items-start">
+                <span class="text-orange-600 mr-2">⚠️</span>
+                <div>
+                  <strong>Temperature shock</strong>
+                  <p class="text-sm text-orange-600">Very hot water kills bacterial colonies</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="bg-yellow-100 border border-yellow-300 rounded-lg p-6 mt-6">
+          <h3 class="text-xl font-bold text-yellow-800 mb-3">🔬 Scientific Fact</h3>
+          <p class="text-yellow-700">
+            A single dose of strong antibacterial cleaner can reduce septic bacteria populations by 90% or more. It takes 2-4 weeks for natural bacteria to recover to healthy levels - if they recover at all without intervention.
+          </p>
+        </div>
+      </section>
+
+      <!-- Why Bacterial Treatment Works -->
+      <section class="mb-12">
+        <h2 class="text-3xl font-bold text-gray-900 mb-6">✅ Why Bacterial Treatment Actually Works</h2>
+        
+        <div class="bg-white rounded-lg shadow-md p-8">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+            <div>
+              <h3 class="text-2xl font-semibold text-gray-800 mb-4">Scientific Evidence</h3>
+              <p class="text-gray-600 mb-6">
+                Bacterial treatment isn't just marketing - it's applied microbiology. When you add concentrated beneficial bacteria, you're restoring the natural ecosystem that modern life disrupts.
+              </p>
+              
+              <div class="space-y-4">
+                <div class="bg-green-50 border border-green-200 rounded p-4">
+                  <h4 class="font-semibold text-green-800">University Studies Show:</h4>
+                  <ul class="text-green-700 text-sm space-y-1 mt-2">
+                    <li>• 40-60% faster waste breakdown</li>
+                    <li>• 50% reduction in sludge accumulation</li>
+                    <li>• 95% fewer system failures</li>
+                    <li>• Extended pumping intervals</li>
+                  </ul>
+                </div>
+                
+                <div class="bg-blue-50 border border-blue-200 rounded p-4">
+                  <h4 class="font-semibold text-blue-800">Real-World Results:</h4>
+                  <p class="text-blue-700 text-sm mt-2">
+                    National Parks report consistent performance over 10+ years with regular bacterial treatment - zero environmental incidents.
+                  </p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="text-center">
+              <div class="bg-gray-50 rounded-lg p-6">
+                <h4 class="font-bold text-gray-800 mb-4">Pour the PORT Formula</h4>
+                
+                <div class="space-y-3">
+                  <div class="bg-white rounded p-3 border">
+                    <div class="text-sm text-gray-600">Bacterial Count</div>
+                    <div class="text-xl font-bold text-green-600">10¹² CFU</div>
+                    <div class="text-xs text-gray-600">Per packet</div>
+                  </div>
+                  
+                  <div class="bg-white rounded p-3 border">
+                    <div class="text-sm text-gray-600">Active Strains</div>
+                    <div class="text-xl font-bold text-blue-600">7 Types</div>
+                    <div class="text-xs text-gray-600">Specialized bacteria</div>
+                  </div>
+                  
+                  <div class="bg-white rounded p-3 border">
+                    <div class="text-sm text-gray-600">Coverage</div>
+                    <div class="text-xl font-bold text-purple-600">4 Months</div>
+                    <div class="text-xs text-gray-600">Per treatment</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Bacterial Lifecycle -->
+      <section class="mb-12">
+        <h2 class="text-3xl font-bold text-gray-900 mb-6">🔄 Bacterial Lifecycle in Septic Systems</h2>
+        
+        <div class="bg-white rounded-lg shadow-md p-8">
+          <div class="space-y-6">
+            <div class="border-l-4 border-green-400 pl-6">
+              <h3 class="text-lg font-bold text-gray-800">Days 1-7: Establishment</h3>
+              <p class="text-gray-600">New bacteria establish colonies and begin adapting to tank environment</p>
+            </div>
+            
+            <div class="border-l-4 border-blue-400 pl-6">
+              <h3 class="text-lg font-bold text-gray-800">Days 8-30: Population Growth</h3>
+              <p class="text-gray-600">Bacterial populations multiply exponentially, waste processing accelerates</p>
+            </div>
+            
+            <div class="border-l-4 border-purple-400 pl-6">
+              <h3 class="text-lg font-bold text-gray-800">Days 31-90: Peak Performance</h3>
+              <p class="text-gray-600">System reaches optimal bacterial balance, maximum waste processing efficiency</p>
+            </div>
+            
+            <div class="border-l-4 border-yellow-400 pl-6">
+              <h3 class="text-lg font-bold text-gray-800">Days 91-120: Maintenance Phase</h3>
+              <p class="text-gray-600">Stable bacterial ecosystem maintains consistent performance</p>
+            </div>
+            
+            <div class="border-l-4 border-orange-400 pl-6">
+              <h3 class="text-lg font-bold text-gray-800">Day 121+: Renewal Needed</h3>
+              <p class="text-gray-600">Natural die-off and chemical impacts reduce population - time for next treatment</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA Section -->
+      <section class="bg-green-600 text-white rounded-lg p-8 text-center mb-12">
+        <h2 class="text-3xl font-bold mb-4">Ready to Restore Your Bacterial Balance?</h2>
+        <p class="text-xl mb-6">
+          Give your septic system the billions of beneficial bacteria it needs to prevent costly failures.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <ShopifyBuyButton 
+            text="Get Bacterial Treatment"
+            size="lg"
+            style="secondary"
+            class="min-w-48"
+          />
+          <a href="/" class="text-green-100 hover:text-white underline">
+            Learn More About Pour the PORT
+          </a>
+        </div>
+        <div class="mt-4 text-center">
+          <a href="/septic-tank-maintenance-guide" class="text-green-200 hover:text-white text-sm underline">
+            Read Our Complete Maintenance Guide
+          </a>
+        </div>
+      </section>
+
+      <!-- Related Articles -->
+      <section>
+        <h2 class="text-3xl font-bold text-gray-900 mb-6">📚 Related Resources</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <a href="/septic-tank-maintenance-guide" class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">Maintenance Guide</h3>
+            <p class="text-gray-600 text-sm">Complete septic system maintenance schedule and best practices</p>
+          </a>
+          
+          <a href="/natural-septic-solutions" class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">Natural Solutions</h3>
+            <p class="text-gray-600 text-sm">Eco-friendly approaches to septic system health and maintenance</p>
+          </a>
+          
+          <a href="/septic-system-problems" class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">Common Problems</h3>
+            <p class="text-gray-600 text-sm">Identify and prevent septic system issues before they become disasters</p>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <!-- Conversion Tracking -->
+    <ConversionTracking />
+  </body>
+</html>
