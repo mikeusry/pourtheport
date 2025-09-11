@@ -5,31 +5,31 @@ import CloudinaryImage from './CloudinaryImage.astro';
 const trustLogos = [
   {
     publicId: 'pour-the-port/logos/NPS_768_mqklvq',
-    alt: 'National Parks Service logo'
+    alt: 'National Parks Service trusts Pour the PORT septic tank treatment'
   },
   {
     publicId: 'pour-the-port/logos/JoshuaTree',
-    alt: 'Joshua Tree National Park logo'
+    alt: 'Joshua Tree National Park uses natural septic solutions'
   },
   {
     publicId: 'pour-the-port/logos/Georgia-State-Parks_ddirbg',
-    alt: 'Georgia State Parks logo'
+    alt: 'Georgia State Parks relies on bacterial septic treatment'
   },
   {
     publicId: 'pour-the-port/logos/BLM_hy8gev',
-    alt: 'Bureau of Land Management logo'
+    alt: 'Bureau of Land Management chooses eco-friendly septic treatment'
   },
   {
     publicId: 'pour-the-port/logos/UGA_xkrnsx',
-    alt: 'University of Georgia logo'
+    alt: 'University of Georgia endorses USDA certified septic bacteria'
   },
   {
     publicId: 'pour-the-port/logos/USFS_mhiaqm',
-    alt: 'US Forest Service logo'
+    alt: 'US Forest Service uses biological septic treatment'
   },
   {
     publicId: 'pour-the-port/logos/colorado_tw78fk',
-    alt: 'Colorado Parks logo'
+    alt: 'Colorado Parks maintains septic systems with natural bacteria'
   }
 ];
 ---
@@ -65,7 +65,8 @@ const trustLogos = [
                 height={90}
                 preset="thumbnail"
                 loading="eager"
-                class="max-w-full max-h-full object-contain"
+                placeholder={false}
+                class="w-full h-full object-contain"
               />
             </div>
           ))}
@@ -80,7 +81,8 @@ const trustLogos = [
                 height={90}
                 preset="thumbnail"
                 loading="eager"
-                class="max-w-full max-h-full object-contain"
+                placeholder={false}
+                class="w-full h-full object-contain"
               />
             </div>
           ))}

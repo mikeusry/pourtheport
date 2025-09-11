@@ -7,7 +7,7 @@ import '../styles/global.css';
 
 const title = "Natural Septic Solutions: Eco-Friendly Septic Tank Treatment Guide";
 const description = "Discover natural, eco-friendly septic tank solutions that protect your system and the environment. USDA Certified Biobased treatments trusted by National Parks.";
-const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://pourtheport.com');
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://www.pourtheport.com');
 ---
 
 <html lang="en">
@@ -63,14 +63,17 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://pourthep
         </p>
         
         <div class="flex justify-center mb-8">
-          <CloudinaryImage
-            publicId="pour-the-port/logos/USDA_Certified_BioBased"
-            alt="USDA Certified Biobased logo"
-            width={200}
-            height={80}
-            preset="logo"
-            class="h-16 object-contain"
-          />
+          <div class="w-48 h-20 flex items-center justify-center">
+            <CloudinaryImage
+              publicId="pour-the-port/logos/USDA_Certified_BioBased"
+              alt="USDA Certified natural septic solutions biobased treatment"
+              width={200}
+              height={80}
+              preset="logo"
+              placeholder={false}
+              class="w-full h-full object-contain"
+            />
+          </div>
         </div>
       </div>
 
@@ -147,22 +150,27 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://pourthep
               </div>
             </div>
             <div class="flex justify-center space-x-6">
-              <CloudinaryImage
-                publicId="pour-the-port/logos/NPS_768_mqklvq"
-                alt="National Parks Service logo"
-                width={100}
-                height={80}
-                preset="logo"
-                class="h-16 object-contain opacity-70"
-              />
-              <CloudinaryImage
-                publicId="pour-the-port/logos/USFS_mhiaqm"
-                alt="US Forest Service logo"
-                width={100}
-                height={80}
-                preset="logo"
-                class="h-16 object-contain opacity-70"
-              />
+              <div class="w-20 h-16 flex items-center justify-center opacity-70">
+                <CloudinaryImage
+                  publicId="pour-the-port/logos/NPS_768_mqklvq"
+                  alt="National Parks Service trusts eco-friendly septic treatment"
+                  width={100}
+                  height={80}
+                  preset="logo"
+                  placeholder={false}
+                  class="w-full h-full object-contain"
+                />
+              </div>
+              <div class="w-20 h-16 flex items-center justify-center opacity-70">
+                <CloudinaryImage
+                  publicId="pour-the-port/logos/USFS_mhiaqm"
+                  alt="US Forest Service uses biological septic treatment"
+                  width={100}
+                  height={80}
+                  preset="logo"
+                  class="max-w-full max-h-full object-contain"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -199,7 +207,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://pourthep
             <div class="text-center">
               <CloudinaryImage
                 publicId="pour-the-port/Microbes"
-                alt="Beneficial microbes illustration showing natural bacterial treatment"
+                alt="Natural septic solution beneficial bacteria microbes for biological treatment"
                 width={400}
                 height={300}
                 preset="content"
@@ -328,10 +336,11 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://pourthep
             <div class="text-center">
               <CloudinaryImage
                 publicId="pour-the-port/logos/USDA_Certified_BioBased"
-                alt="USDA Certified Biobased certification logo"
+                alt="USDA Certified natural septic solutions gold standard certification"
                 width={300}
                 height={200}
                 preset="logo"
+                placeholder={false}
                 class="mx-auto mb-4"
               />
               <div class="bg-green-50 border border-green-200 rounded-lg p-4">

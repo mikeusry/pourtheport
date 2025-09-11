@@ -334,7 +334,7 @@ const imageId = `cloudinary-img-${Math.random().toString(36).substr(2, 9)}`;
     <img
       id={imageId}
       src={skeletonUrl}
-      alt="Loading image..."
+      alt="Septic treatment image loading"
       width={width}
       height={height}
       class="cloudinary-skeleton"
@@ -343,11 +343,11 @@ const imageId = `cloudinary-img-${Math.random().toString(36).substr(2, 9)}`;
   </div>
 ) : placeholder && placeholderUrl && isValidPublicId ? (
   <!-- Image with blur placeholder for smooth lazy loading -->
-  <div class={`cloudinary-image-container relative overflow-hidden ${className}`} style={style}>
+  <div class={`cloudinary-image-container relative ${className}`} style={style}>
     <!-- Blur placeholder (loads immediately) -->
     <img
       src={placeholderUrl}
-      alt="Loading image..."
+      alt="Septic treatment image loading"
       width={width}
       height={height}
       class="cloudinary-placeholder absolute inset-0 w-full h-full object-cover transition-opacity duration-500"

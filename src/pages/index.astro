@@ -14,8 +14,8 @@ import ConversionTracking from '../components/ConversionTracking.astro';
 import '../styles/global.css';
 
 const title = "Pour the PORT - Prevent $15,000 Septic Disasters for $84/Year";
-const description = "USDA Certified Biobased® septic tank treatment trusted by National Parks for 10+ years. Natural bacterial protection prevents costly system failures. Just 3 applications per year.";
-const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://pourtheport.com');
+const description = "USDA Certified Biobased® septic treatment prevents $15K disasters for $84/year. Natural bacterial protection. Just 3 applications annually.";
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://www.pourtheport.com');
 ---
 
 <html lang="en">
@@ -36,7 +36,9 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://pourthep
 		<meta property="og:url" content={Astro.url} />
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
-		<meta property="og:image" content="/og-image.jpg" />
+		<meta property="og:image" content="https://res.cloudinary.com/southland-organics/image/upload/w_1200,h_630,c_fill,q_auto/pour-the-port/septic_l9n82v" />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
 		<meta property="og:site_name" content="Pour the PORT" />
 		
 		<!-- Twitter -->
@@ -44,7 +46,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://pourthep
 		<meta property="twitter:url" content={Astro.url} />
 		<meta property="twitter:title" content={title} />
 		<meta property="twitter:description" content={description} />
-		<meta property="twitter:image" content="/twitter-image.jpg" />
+		<meta property="twitter:image" content="https://res.cloudinary.com/southland-organics/image/upload/w_1200,h_630,c_fill,q_auto/pour-the-port/septic_l9n82v" />
 		
 		<!-- Additional Meta -->
 		<meta name="robots" content="index, follow" />
@@ -135,6 +137,48 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://pourthep
 		<GoogleAnalytics />
 	</head>
 	<body class="antialiased">
+		<!-- Navigation Header -->
+		<nav class="bg-white shadow-sm sticky top-0 z-50">
+			<div class="container mx-auto px-4">
+				<div class="flex justify-between items-center py-4">
+					<a href="/" class="font-bold text-xl text-green-600 hover:text-green-700">
+						Pour the PORT
+					</a>
+					<div class="hidden md:flex items-center space-x-6">
+						<a href="/product" class="text-gray-600 hover:text-green-600 font-medium transition-colors">
+							Product Details
+						</a>
+						<a href="/septic-tank-maintenance-guide" class="text-gray-600 hover:text-green-600 font-medium transition-colors">
+							Maintenance Guide
+						</a>
+						<a href="#pricing" class="bg-green-500 hover:bg-green-600 text-white font-medium px-4 py-2 rounded-full transition-colors">
+							Buy Now
+						</a>
+					</div>
+					<!-- Mobile Menu Button -->
+					<button id="mobile-menu-button" class="md:hidden text-gray-600 hover:text-green-600">
+						<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+						</svg>
+					</button>
+				</div>
+			</div>
+			<!-- Mobile Menu -->
+			<div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+				<div class="px-4 py-3 space-y-3">
+					<a href="/product" class="block text-gray-600 hover:text-green-600 font-medium transition-colors">
+						Product Details
+					</a>
+					<a href="/septic-tank-maintenance-guide" class="block text-gray-600 hover:text-green-600 font-medium transition-colors">
+						Maintenance Guide
+					</a>
+					<a href="#pricing" class="block bg-green-500 hover:bg-green-600 text-white font-medium px-4 py-2 rounded-full text-center transition-colors">
+						Buy Now
+					</a>
+				</div>
+			</div>
+		</nav>
+
 		<!-- Main Content -->
 		<main>
 			<HeroWithCloudinary />
@@ -230,6 +274,20 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://pourthep
 				background: #16a34a;
 			}
 		</style>
+		
+		<!-- Mobile Menu JavaScript -->
+		<script>
+			document.addEventListener('DOMContentLoaded', function() {
+				const mobileMenuButton = document.getElementById('mobile-menu-button');
+				const mobileMenu = document.getElementById('mobile-menu');
+				
+				if (mobileMenuButton && mobileMenu) {
+					mobileMenuButton.addEventListener('click', function() {
+						mobileMenu.classList.toggle('hidden');
+					});
+				}
+			});
+		</script>
 		
 		<!-- Conversion Tracking -->
 		<ConversionTracking />

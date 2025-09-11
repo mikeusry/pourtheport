@@ -4,6 +4,7 @@ import ShopifyBuyButtonProduct from '../components/ShopifyBuyButtonProduct.astro
 import GoogleAnalytics from '../components/GoogleAnalytics.astro';
 import ConversionTracking from '../components/ConversionTracking.astro';
 import KlaviyoReviews from '../components/KlaviyoReviews.astro';
+import Navigation from '../components/Navigation.astro';
 import { getProduct, mockProduct, isShopifyConfigured, getDefaultVariant, formatPrice } from '../lib/shopify';
 import '../styles/global.css';
 
@@ -72,8 +73,11 @@ const description = `${product.description} Professional-grade septic system pro
   </head>
 
   <body class="bg-gray-50">
+    <!-- Main Navigation -->
+    <Navigation />
+    
     <!-- Breadcrumb Navigation -->
-    <nav class="bg-white border-b border-gray-200 sticky top-0 z-40">
+    <nav class="bg-white border-b border-gray-200 sticky top-16 z-40">
       <div class="container mx-auto px-4 py-3">
         <div class="flex items-center space-x-2 text-sm">
           <a href="/" class="text-gray-500 hover:text-gray-700">Home</a>
@@ -95,7 +99,7 @@ const description = `${product.description} Professional-grade septic system pro
           <div class="aspect-square bg-white rounded-2xl shadow-lg overflow-hidden">
             <CloudinaryImage
               publicId="pour-the-port/Pour_the_Port_product"
-              alt="Pour the PORT 3-Pack Annual Supply"
+              alt="Pour the PORT septic tank treatment 3-pack annual supply subscription"
               width={600}
               height={600}
               loading="eager"
@@ -109,7 +113,7 @@ const description = `${product.description} Professional-grade septic system pro
             <div class="aspect-square bg-white rounded-lg shadow-md overflow-hidden cursor-pointer hover:shadow-lg transition-shadow">
               <CloudinaryImage
                 publicId="pour-the-port/Pour_the_Port_product"
-                alt="Product Front"
+                alt="Pour the PORT bacterial septic treatment product packaging"
                 width={150}
                 height={150}
                 preset="thumbnail"
@@ -119,7 +123,7 @@ const description = `${product.description} Professional-grade septic system pro
             <div class="aspect-square bg-white rounded-lg shadow-md overflow-hidden cursor-pointer hover:shadow-lg transition-shadow">
               <CloudinaryImage
                 publicId="pour-the-port/Carbon"
-                alt="Carbon Formula"
+                alt="Natural septic solution active carbon formula for odor control"
                 width={150}
                 height={150}
                 preset="thumbnail"
@@ -129,7 +133,7 @@ const description = `${product.description} Professional-grade septic system pro
             <div class="aspect-square bg-white rounded-lg shadow-md overflow-hidden cursor-pointer hover:shadow-lg transition-shadow">
               <CloudinaryImage
                 publicId="pour-the-port/Microbes"
-                alt="Microbes"
+                alt="Beneficial septic tank bacteria microbes for waste decomposition"
                 width={150}
                 height={150}
                 preset="thumbnail"
@@ -139,7 +143,7 @@ const description = `${product.description} Professional-grade septic system pro
             <div class="aspect-square bg-white rounded-lg shadow-md overflow-hidden cursor-pointer hover:shadow-lg transition-shadow">
               <CloudinaryImage
                 publicId="pour-the-port/Organic_acids"
-                alt="Organic Acids"
+                alt="Septic system additive organic acids prevent biofilm buildup"
                 width={150}
                 height={150}
                 preset="thumbnail"
@@ -168,12 +172,6 @@ const description = `${product.description} Professional-grade septic system pro
           <!-- Trust Badges -->
           <div class="flex items-center space-x-4 py-4 border-y border-gray-200">
             <div class="flex items-center text-sm text-gray-600">
-              <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.031 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
-              </svg>
-              30-Day Guarantee
-            </div>
-            <div class="flex items-center text-sm text-gray-600">
               <svg class="w-5 h-5 text-blue-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
               </svg>
@@ -184,6 +182,12 @@ const description = `${product.description} Professional-grade septic system pro
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
               </svg>
               Eco-Friendly
+            </div>
+            <div class="flex items-center text-sm text-gray-600">
+              <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.031 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+              </svg>
+              USDA Certified
             </div>
           </div>
 
@@ -375,12 +379,12 @@ const description = `${product.description} Professional-grade septic system pro
               </div>
               
               <div>
-                <h4 class="font-semibold text-gray-900 mb-3">Our Guarantee</h4>
+                <h4 class="font-semibold text-gray-900 mb-3">Shipping Information</h4>
                 <ul class="space-y-2 text-gray-700">
-                  <li>• 30-day money-back guarantee</li>
                   <li>• Secure packaging</li>
-                  <li>• Tracking provided</li>
-                  <li>• Free shipping on orders over $75</li>
+                  <li>• Tracking provided for all orders</li>
+                  <li>• Ships within 1-2 business days</li>
+                  <li>• Questions? Call 1-800-608-3755</li>
                 </ul>
               </div>
             </div>
@@ -391,31 +395,40 @@ const description = `${product.description} Professional-grade septic system pro
       <!-- Trust Logos -->
       <div class="mt-16 text-center">
         <h3 class="text-2xl font-bold text-gray-900 mb-8">Trusted By Leading Organizations</h3>
-        <div class="flex justify-center items-center space-x-12 opacity-70">
-          <CloudinaryImage
-            publicId="pour-the-port/logos/NPS_768_mqklvq"
-            alt="National Parks Service"
-            width={120}
-            height={80}
-            preset="logo"
-            class="h-16 object-contain"
-          />
-          <CloudinaryImage
-            publicId="pour-the-port/logos/UGA_xkrnsx"
-            alt="University of Georgia"
-            width={120}
-            height={80}
-            preset="logo"
-            class="h-16 object-contain"
-          />
-          <CloudinaryImage
-            publicId="pour-the-port/logos/USFS_mhiaqm"
-            alt="US Forest Service"
-            width={120}
-            height={80}
-            preset="logo"
-            class="h-16 object-contain"
-          />
+        <div class="flex justify-center items-center space-x-8 md:space-x-12 opacity-70">
+          <div class="w-24 h-20 md:w-32 md:h-24 flex items-center justify-center">
+            <CloudinaryImage
+              publicId="pour-the-port/logos/NPS_768_mqklvq"
+              alt="National Parks Service trusts Pour the PORT septic treatment"
+              width={160}
+              height={120}
+              preset="logo"
+              placeholder={false}
+              class="w-full h-full object-contain"
+            />
+          </div>
+          <div class="w-24 h-20 md:w-32 md:h-24 flex items-center justify-center">
+            <CloudinaryImage
+              publicId="pour-the-port/logos/UGA_xkrnsx"
+              alt="University of Georgia endorses bacterial septic treatment"
+              width={160}
+              height={120}
+              preset="logo"
+              placeholder={false}
+              class="w-full h-full object-contain"
+            />
+          </div>
+          <div class="w-24 h-20 md:w-32 md:h-24 flex items-center justify-center">
+            <CloudinaryImage
+              publicId="pour-the-port/logos/USFS_mhiaqm"
+              alt="US Forest Service uses natural septic solutions"
+              width={160}
+              height={120}
+              placeholder={false}
+              preset="logo"
+              class="max-w-full max-h-full object-contain"
+            />
+          </div>
         </div>
       </div>
     </main>

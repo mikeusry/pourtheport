@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://pourtheport.com/sitemap.xml
+Sitemap: https://www.pourtheport.com/sitemap.xml
 
 # Crawl-delay for all bots
 Crawl-delay: 1

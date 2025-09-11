@@ -1,0 +1,59 @@
+---
+// Navigation Component - Consistent header across all pages
+---
+
+<!-- Navigation Header -->
+<nav class="bg-white shadow-sm sticky top-0 z-50">
+	<div class="container mx-auto px-4">
+		<div class="flex justify-between items-center py-4">
+			<a href="/" class="font-bold text-xl text-green-600 hover:text-green-700">
+				Pour the PORT
+			</a>
+			<div class="hidden md:flex items-center space-x-6">
+				<a href="/product" class="text-gray-600 hover:text-green-600 font-medium transition-colors">
+					Product Details
+				</a>
+				<a href="/septic-tank-maintenance-guide" class="text-gray-600 hover:text-green-600 font-medium transition-colors">
+					Maintenance Guide
+				</a>
+				<a href="/#pricing" class="bg-green-500 hover:bg-green-600 text-white font-medium px-4 py-2 rounded-full transition-colors">
+					Buy Now
+				</a>
+			</div>
+			<!-- Mobile Menu Button -->
+			<button id="mobile-menu-button" class="md:hidden text-gray-600 hover:text-green-600">
+				<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+				</svg>
+			</button>
+		</div>
+	</div>
+	<!-- Mobile Menu -->
+	<div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+		<div class="px-4 py-3 space-y-3">
+			<a href="/product" class="block text-gray-600 hover:text-green-600 font-medium transition-colors">
+				Product Details
+			</a>
+			<a href="/septic-tank-maintenance-guide" class="block text-gray-600 hover:text-green-600 font-medium transition-colors">
+				Maintenance Guide
+			</a>
+			<a href="/#pricing" class="block bg-green-500 hover:bg-green-600 text-white font-medium px-4 py-2 rounded-full text-center transition-colors">
+				Buy Now
+			</a>
+		</div>
+	</div>
+</nav>
+
+<!-- Mobile Menu JavaScript -->
+<script>
+	document.addEventListener('DOMContentLoaded', function() {
+		const mobileMenuButton = document.getElementById('mobile-menu-button');
+		const mobileMenu = document.getElementById('mobile-menu');
+		
+		if (mobileMenuButton && mobileMenu) {
+			mobileMenuButton.addEventListener('click', function() {
+				mobileMenu.classList.toggle('hidden');
+			});
+		}
+	});
+</script>
