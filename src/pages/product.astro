@@ -31,6 +31,7 @@ const variantId = defaultVariant?.id || '';
 
 const title = `${product.title} - USDA Certified Biobased® Septic Treatment`;
 const description = `${product.description} Professional-grade septic system protection used by National Parks for over 10 years.`;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://www.pourtheport.com');
 ---
 
 <html lang="en">
@@ -40,6 +41,7 @@ const description = `${product.description} Professional-grade septic system pro
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
     
     <!-- Open Graph -->
     <meta property="og:title" content={title} />
