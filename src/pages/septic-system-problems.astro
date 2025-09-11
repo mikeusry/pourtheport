@@ -1,0 +1,453 @@
+---
+import CloudinaryImage from '../components/CloudinaryImage.astro';
+import ShopifyBuyButton from '../components/ShopifyBuyButton.astro';
+import GoogleAnalytics from '../components/GoogleAnalytics.astro';
+import ConversionTracking from '../components/ConversionTracking.astro';
+import '../styles/global.css';
+
+const title = "Common Septic System Problems & Solutions | Prevent $15K+ Failures";
+const description = "Identify and solve septic system problems early. Learn warning signs, causes, and natural solutions to prevent costly septic tank failures and emergency repairs.";
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://pourtheport.com');
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- SEO Meta Tags -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="keywords" content="septic system problems, septic tank issues, septic backup, septic smell, septic drain field problems, septic tank failure, septic emergency, septic repair cost" />
+    <link rel="canonical" href={canonicalURL} />
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content={Astro.url} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content="https://res.cloudinary.com/southland-organics/image/upload/w_1200,h_630,c_fill,q_auto/pour-the-port/septic_l9n82v" />
+    
+    <!-- Google Analytics 4 -->
+    <GoogleAnalytics />
+  </head>
+
+  <body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white border-b border-gray-200 sticky top-0 z-40">
+      <div class="container mx-auto px-4 py-3">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center space-x-2 text-sm">
+            <a href="/" class="text-green-600 hover:text-green-700 font-semibold">Pour the PORT</a>
+            <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+            <span class="text-gray-900 font-medium">Septic Problems</span>
+          </div>
+          <a href="/" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-full text-sm font-medium transition-colors">
+            Prevent Problems
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <main class="container mx-auto px-4 py-8 max-w-4xl">
+      <!-- Hero Section -->
+      <div class="text-center mb-12">
+        <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+          Common Septic System Problems & Solutions
+        </h1>
+        <p class="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+          Recognize warning signs early and prevent $15,000+ septic disasters. Learn professional solutions trusted by National Parks for over 10 years.
+        </p>
+      </div>
+
+      <!-- Emergency Alert -->
+      <div class="bg-red-100 border border-red-400 rounded-lg p-6 mb-8">
+        <h2 class="text-2xl font-bold text-red-800 mb-4">🚨 Experiencing Septic Emergency?</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <h3 class="font-semibold text-red-700 mb-2">Call Professional Immediately If:</h3>
+            <ul class="text-red-600 space-y-1 text-sm">
+              <li>• Sewage backing up into house</li>
+              <li>• Standing water over drain field</li>
+              <li>• Strong sewage odors indoors</li>
+              <li>• Toilets won't flush</li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="font-semibold text-red-700 mb-2">For Prevention & Maintenance:</h3>
+            <ShopifyBuyButton 
+              text="Get Natural Treatment"
+              size="sm"
+              style="primary"
+              class="w-full"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Problem Categories -->
+      <section class="mb-12">
+        <h2 class="text-3xl font-bold text-gray-900 mb-8">🔍 Most Common Septic Problems</h2>
+        
+        <!-- Problem 1: Bacterial Imbalance -->
+        <div class="bg-white rounded-lg shadow-md p-8 mb-8">
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div class="lg:col-span-2">
+              <h3 class="text-2xl font-bold text-red-600 mb-4">1. Bacterial Imbalance (85% of Problems)</h3>
+              
+              <div class="mb-6">
+                <h4 class="font-semibold text-gray-800 mb-2">Warning Signs:</h4>
+                <ul class="text-gray-600 space-y-1">
+                  <li>• Slow draining fixtures</li>
+                  <li>• Unpleasant odors</li>
+                  <li>• Frequent backups</li>
+                  <li>• Rapid sludge accumulation</li>
+                </ul>
+              </div>
+              
+              <div class="mb-6">
+                <h4 class="font-semibold text-gray-800 mb-2">Common Causes:</h4>
+                <ul class="text-gray-600 space-y-1">
+                  <li>• Antibacterial cleaners killing beneficial bacteria</li>
+                  <li>• Medications (especially antibiotics)</li>
+                  <li>• Excessive chemical use</li>
+                  <li>• Lack of regular bacterial replenishment</li>
+                </ul>
+              </div>
+              
+              <div class="bg-green-50 border border-green-200 rounded p-4">
+                <h4 class="font-semibold text-green-800 mb-2">✅ Solution:</h4>
+                <p class="text-green-700">
+                  Regular bacterial treatment like Pour the PORT restores the natural balance. Billions of beneficial bacteria break down waste and prevent future problems.
+                </p>
+              </div>
+            </div>
+            
+            <div class="bg-gray-50 rounded-lg p-6">
+              <h4 class="font-bold text-gray-800 mb-4">Cost Comparison</h4>
+              <div class="space-y-3">
+                <div class="bg-green-100 rounded p-3">
+                  <div class="text-sm font-medium text-green-800">Prevention</div>
+                  <div class="text-xl font-bold text-green-600">$84/year</div>
+                  <div class="text-xs text-green-600">Pour the PORT treatment</div>
+                </div>
+                <div class="bg-red-100 rounded p-3">
+                  <div class="text-sm font-medium text-red-800">Emergency Fix</div>
+                  <div class="text-xl font-bold text-red-600">$2,000+</div>
+                  <div class="text-xs text-red-600">Pumping + repairs</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Problem 2: Drain Field Issues -->
+        <div class="bg-white rounded-lg shadow-md p-8 mb-8">
+          <h3 class="text-2xl font-bold text-orange-600 mb-4">2. Drain Field Problems</h3>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <h4 class="font-semibold text-gray-800 mb-3">Symptoms:</h4>
+              <ul class="text-gray-600 space-y-2">
+                <li class="flex items-start">
+                  <span class="text-orange-500 mr-2">⚠️</span>
+                  <span>Standing water or wet spots over drain field</span>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-orange-500 mr-2">⚠️</span>
+                  <span>Unusually green grass in drain field area</span>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-orange-500 mr-2">⚠️</span>
+                  <span>Sewage odors outside</span>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-orange-500 mr-2">⚠️</span>
+                  <span>Backup only during heavy water use</span>
+                </li>
+              </ul>
+            </div>
+            
+            <div>
+              <h4 class="font-semibold text-gray-800 mb-3">Prevention:</h4>
+              <ul class="text-gray-600 space-y-2">
+                <li class="flex items-start">
+                  <span class="text-green-500 mr-2">✓</span>
+                  <span>Maintain proper bacterial levels</span>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-green-500 mr-2">✓</span>
+                  <span>Avoid water overload</span>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-green-500 mr-2">✓</span>
+                  <span>Don't drive over drain field</span>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-green-500 mr-2">✓</span>
+                  <span>Regular system maintenance</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Problem 3: Tank Overflow -->
+        <div class="bg-white rounded-lg shadow-md p-8 mb-8">
+          <h3 class="text-2xl font-bold text-purple-600 mb-4">3. Septic Tank Overflow</h3>
+          
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div>
+              <h4 class="font-semibold text-gray-800 mb-3">Why It Happens:</h4>
+              <div class="space-y-4">
+                <div class="border-l-4 border-purple-400 pl-4">
+                  <h5 class="font-medium text-gray-800">Sludge Buildup</h5>
+                  <p class="text-gray-600 text-sm">Lack of bacterial activity leads to solid waste accumulation</p>
+                </div>
+                <div class="border-l-4 border-purple-400 pl-4">
+                  <h5 class="font-medium text-gray-800">Blocked Outlet</h5>
+                  <p class="text-gray-600 text-sm">Scum layer blocks normal water flow</p>
+                </div>
+                <div class="border-l-4 border-purple-400 pl-4">
+                  <h5 class="font-medium text-gray-800">Water Overload</h5>
+                  <p class="text-gray-600 text-sm">Too much water enters system too quickly</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="bg-blue-50 border border-blue-200 rounded-lg p-6">
+              <h4 class="font-semibold text-blue-800 mb-3">National Parks Solution</h4>
+              <p class="text-blue-700 mb-4">
+                Joshua Tree and other National Parks prevent overflow with regular bacterial treatment. Their critical facilities can't afford failures.
+              </p>
+              <div class="bg-white rounded p-3">
+                <div class="text-sm text-blue-600 mb-1">Their Schedule:</div>
+                <div class="font-semibold text-blue-800">Every 4 months</div>
+                <div class="text-xs text-blue-600">Prevents 95% of problems</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Cost Analysis -->
+      <section class="mb-12">
+        <h2 class="text-3xl font-bold text-gray-900 mb-6">💰 True Cost of Septic Problems</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <!-- Minor Issues -->
+          <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
+            <h3 class="text-xl font-bold text-yellow-800 mb-4">Minor Issues</h3>
+            <div class="space-y-3">
+              <div class="flex justify-between">
+                <span class="text-yellow-700">Emergency pumping</span>
+                <span class="font-semibold">$400+</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-yellow-700">Drain cleaning</span>
+                <span class="font-semibold">$200+</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-yellow-700">Inspection</span>
+                <span class="font-semibold">$300+</span>
+              </div>
+              <hr class="border-yellow-300">
+              <div class="flex justify-between font-bold text-yellow-800">
+                <span>Typical Total</span>
+                <span>$900+</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Major Repairs -->
+          <div class="bg-orange-50 border border-orange-200 rounded-lg p-6">
+            <h3 class="text-xl font-bold text-orange-800 mb-4">Major Repairs</h3>
+            <div class="space-y-3">
+              <div class="flex justify-between">
+                <span class="text-orange-700">Drain field repair</span>
+                <span class="font-semibold">$3,000+</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-orange-700">Tank replacement</span>
+                <span class="font-semibold">$3,500+</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-orange-700">Cleanup costs</span>
+                <span class="font-semibold">$2,000+</span>
+              </div>
+              <hr class="border-orange-300">
+              <div class="flex justify-between font-bold text-orange-800">
+                <span>Typical Total</span>
+                <span>$8,500+</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Full Replacement -->
+          <div class="bg-red-50 border border-red-200 rounded-lg p-6">
+            <h3 class="text-xl font-bold text-red-800 mb-4">Full Replacement</h3>
+            <div class="space-y-3">
+              <div class="flex justify-between">
+                <span class="text-red-700">New septic system</span>
+                <span class="font-semibold">$15,000+</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-red-700">Excavation</span>
+                <span class="font-semibold">$3,000+</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-red-700">Permits & inspection</span>
+                <span class="font-semibold">$1,000+</span>
+              </div>
+              <hr class="border-red-300">
+              <div class="flex justify-between font-bold text-red-800">
+                <span>Typical Total</span>
+                <span>$19,000+</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Prevention Comparison -->
+        <div class="bg-green-100 border border-green-300 rounded-lg p-6 mt-6">
+          <div class="text-center">
+            <h3 class="text-2xl font-bold text-green-800 mb-4">Prevention is 226x Cheaper</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+              <div>
+                <div class="text-4xl font-bold text-green-600 mb-2">$84/year</div>
+                <div class="text-green-700">Pour the PORT Annual Treatment</div>
+                <div class="text-sm text-green-600">Prevents 95% of septic problems</div>
+              </div>
+              <div>
+                <div class="text-4xl font-bold text-red-600 mb-2">$19,000+</div>
+                <div class="text-red-700">Average Replacement Cost</div>
+                <div class="text-sm text-red-600">Plus stress, cleanup, and disruption</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Prevention Strategy -->
+      <section class="mb-12">
+        <h2 class="text-3xl font-bold text-gray-900 mb-6">🛡️ Problem Prevention Strategy</h2>
+        
+        <div class="bg-white rounded-lg shadow-md p-8">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div>
+              <h3 class="text-2xl font-semibold text-gray-800 mb-6">The 4-Month Rule</h3>
+              <p class="text-gray-600 mb-6">
+                National Parks, universities, and critical facilities follow a simple 4-month bacterial treatment schedule. This prevents 95% of septic problems before they start.
+              </p>
+              
+              <div class="space-y-4">
+                <div class="flex items-center">
+                  <div class="bg-green-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-4">1</div>
+                  <div>
+                    <h4 class="font-semibold text-gray-800">January Treatment</h4>
+                    <p class="text-gray-600 text-sm">Start year with fresh bacterial colonies</p>
+                  </div>
+                </div>
+                
+                <div class="flex items-center">
+                  <div class="bg-green-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-4">2</div>
+                  <div>
+                    <h4 class="font-semibold text-gray-800">May Treatment</h4>
+                    <p class="text-gray-600 text-sm">Prepare for heavy summer usage</p>
+                  </div>
+                </div>
+                
+                <div class="flex items-center">
+                  <div class="bg-green-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-4">3</div>
+                  <div>
+                    <h4 class="font-semibold text-gray-800">September Treatment</h4>
+                    <p class="text-gray-600 text-sm">Maintain balance through winter</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="bg-gray-50 rounded-lg p-6">
+              <h3 class="text-xl font-bold text-gray-800 mb-4">Why This Works</h3>
+              
+              <div class="space-y-4">
+                <div class="bg-white rounded p-4 border border-gray-200">
+                  <h4 class="font-semibold text-gray-800 mb-2">🦠 Bacterial Balance</h4>
+                  <p class="text-gray-600 text-sm">Maintains optimal microorganism levels for waste breakdown</p>
+                </div>
+                
+                <div class="bg-white rounded p-4 border border-gray-200">
+                  <h4 class="font-semibold text-gray-800 mb-2">⚡ Proactive Approach</h4>
+                  <p class="text-gray-600 text-sm">Prevents problems instead of reacting to emergencies</p>
+                </div>
+                
+                <div class="bg-white rounded p-4 border border-gray-200">
+                  <h4 class="font-semibold text-gray-800 mb-2">💰 Cost Effective</h4>
+                  <p class="text-gray-600 text-sm">$28 every 4 months vs thousands in repairs</p>
+                </div>
+              </div>
+              
+              <div class="mt-6">
+                <ShopifyBuyButton 
+                  text="Start Prevention Today"
+                  size="md"
+                  style="primary"
+                  class="w-full"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ Section -->
+      <section class="mb-12">
+        <h2 class="text-3xl font-bold text-gray-900 mb-6">❓ Frequently Asked Questions</h2>
+        
+        <div class="space-y-4">
+          <div class="bg-white rounded-lg shadow-md p-6">
+            <h3 class="text-lg font-semibold text-gray-800 mb-2">How do I know if my septic system has problems?</h3>
+            <p class="text-gray-600">Look for slow drains, sewage odors, wet spots over the drain field, or gurgling sounds in pipes. These are early warning signs that shouldn't be ignored.</p>
+          </div>
+          
+          <div class="bg-white rounded-lg shadow-md p-6">
+            <h3 class="text-lg font-semibold text-gray-800 mb-2">Can bacterial treatment fix existing problems?</h3>
+            <p class="text-gray-600">Yes, if caught early. Bacterial treatment can restore balance and resolve minor issues. For severe problems, professional service may be needed first, then treatment prevents recurrence.</p>
+          </div>
+          
+          <div class="bg-white rounded-lg shadow-md p-6">
+            <h3 class="text-lg font-semibold text-gray-800 mb-2">How much does it cost to fix septic problems?</h3>
+            <p class="text-gray-600">Minor repairs cost $900+, major repairs $8,500+, and full replacement $19,000+. Prevention with bacterial treatment costs only $84/year.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Related Articles -->
+      <section>
+        <h2 class="text-3xl font-bold text-gray-900 mb-6">📚 Related Resources</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <a href="/septic-tank-maintenance-guide" class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">Maintenance Guide</h3>
+            <p class="text-gray-600 text-sm">Complete guide to proper septic system care and maintenance</p>
+          </a>
+          
+          <a href="/septic-treatment-vs-pumping" class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">Treatment vs Pumping</h3>
+            <p class="text-gray-600 text-sm">Compare costs and benefits of different maintenance approaches</p>
+          </a>
+          
+          <a href="/natural-septic-solutions" class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">Natural Solutions</h3>
+            <p class="text-gray-600 text-sm">Eco-friendly approaches to septic system health</p>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <!-- Conversion Tracking -->
+    <ConversionTracking />
+  </body>
+</html>

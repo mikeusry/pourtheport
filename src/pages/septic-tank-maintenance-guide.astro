@@ -1,0 +1,466 @@
+---
+import CloudinaryImage from '../components/CloudinaryImage.astro';
+import ShopifyBuyButton from '../components/ShopifyBuyButton.astro';
+import GoogleAnalytics from '../components/GoogleAnalytics.astro';
+import ConversionTracking from '../components/ConversionTracking.astro';
+import '../styles/global.css';
+
+const title = "Complete Septic Tank Maintenance Guide 2025 | Prevent $15K+ Failures";
+const description = "Ultimate septic tank maintenance guide. Learn professional tips to prevent costly failures, extend system life, and maintain optimal performance with natural treatment solutions.";
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://pourtheport.com');
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- SEO Meta Tags -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="keywords" content="septic tank maintenance, septic system care, septic maintenance schedule, septic tank pumping, septic system inspection, prevent septic failure, septic maintenance tips, septic tank upkeep" />
+    <link rel="canonical" href={canonicalURL} />
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content={Astro.url} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content="https://res.cloudinary.com/southland-organics/image/upload/w_1200,h_630,c_fill,q_auto/pour-the-port/septic_l9n82v" />
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content="https://res.cloudinary.com/southland-organics/image/upload/w_1200,h_630,c_fill,q_auto/pour-the-port/septic_l9n82v" />
+    
+    <!-- Schema Markup for Article -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Complete Septic Tank Maintenance Guide 2025",
+      "description": "Ultimate septic tank maintenance guide with professional tips to prevent costly failures and extend system life.",
+      "image": "https://res.cloudinary.com/southland-organics/image/upload/w_1200,h_630,c_fill,q_auto/pour-the-port/septic_l9n82v",
+      "author": {
+        "@type": "Organization",
+        "name": "Pour the PORT"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Pour the PORT",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://res.cloudinary.com/southland-organics/image/upload/w_200,h_60,c_fit,q_auto/pour-the-port/Pour_the_Port_product"
+        }
+      },
+      "datePublished": "2025-01-10",
+      "dateModified": "2025-01-10"
+    }
+    </script>
+    
+    <!-- Google Analytics 4 -->
+    <GoogleAnalytics />
+  </head>
+
+  <body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white border-b border-gray-200 sticky top-0 z-40">
+      <div class="container mx-auto px-4 py-3">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center space-x-2 text-sm">
+            <a href="/" class="text-green-600 hover:text-green-700 font-semibold">Pour the PORT</a>
+            <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+            <span class="text-gray-900 font-medium">Maintenance Guide</span>
+          </div>
+          <a href="/" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-full text-sm font-medium transition-colors">
+            Get Treatment
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <main class="container mx-auto px-4 py-8 max-w-4xl">
+      <!-- Hero Section -->
+      <div class="text-center mb-12">
+        <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+          Complete Septic Tank Maintenance Guide
+        </h1>
+        <p class="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+          Prevent $15,000+ septic disasters with proper maintenance. Learn professional tips trusted by National Parks for over 10 years.
+        </p>
+        
+        <div class="bg-green-100 border border-green-300 rounded-lg p-6 mb-8">
+          <h2 class="text-2xl font-bold text-green-800 mb-4">💡 Quick Prevention Tip</h2>
+          <p class="text-green-700 text-lg">
+            Regular bacterial treatment is 300x cheaper than system replacement. Pour the PORT costs $84/year vs $15,000+ for new septic systems.
+          </p>
+        </div>
+      </div>
+
+      <!-- Table of Contents -->
+      <div class="bg-white rounded-lg shadow-md p-6 mb-12">
+        <h2 class="text-2xl font-bold text-gray-900 mb-4">📋 Table of Contents</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <ul class="space-y-2">
+            <li><a href="#understanding-septic" class="text-green-600 hover:text-green-700">1. Understanding Your Septic System</a></li>
+            <li><a href="#maintenance-schedule" class="text-green-600 hover:text-green-700">2. Essential Maintenance Schedule</a></li>
+            <li><a href="#warning-signs" class="text-green-600 hover:text-green-700">3. Early Warning Signs</a></li>
+            <li><a href="#bacterial-treatment" class="text-green-600 hover:text-green-700">4. Bacterial Treatment Benefits</a></li>
+          </ul>
+          <ul class="space-y-2">
+            <li><a href="#dos-donts" class="text-green-600 hover:text-green-700">5. Do's and Don'ts</a></li>
+            <li><a href="#seasonal-care" class="text-green-600 hover:text-green-700">6. Seasonal Care Tips</a></li>
+            <li><a href="#cost-breakdown" class="text-green-600 hover:text-green-700">7. Cost Breakdown</a></li>
+            <li><a href="#professional-help" class="text-green-600 hover:text-green-700">8. When to Call Professionals</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Understanding Septic Systems -->
+      <section id="understanding-septic" class="mb-12">
+        <h2 class="text-3xl font-bold text-gray-900 mb-6">🏠 Understanding Your Septic System</h2>
+        
+        <div class="bg-white rounded-lg shadow-md p-8 mb-8">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+            <div>
+              <h3 class="text-2xl font-semibold text-gray-800 mb-4">How Septic Systems Work</h3>
+              <p class="text-gray-600 mb-4">
+                Your septic system is a natural wastewater treatment facility for your home. It relies on beneficial bacteria to break down waste and filter water before returning it to the groundwater system.
+              </p>
+              <ul class="list-disc list-inside text-gray-600 space-y-2">
+                <li><strong>Septic Tank:</strong> Primary treatment chamber where solids settle</li>
+                <li><strong>Distribution Box:</strong> Directs liquid to drain field</li>
+                <li><strong>Drain Field:</strong> Final filtration through soil</li>
+                <li><strong>Bacteria:</strong> Essential microorganisms that digest waste</li>
+              </ul>
+            </div>
+            <div class="text-center">
+              <CloudinaryImage
+                publicId="pour-the-port/septic_l9n82v"
+                alt="Septic system diagram showing tank, distribution box, and drain field"
+                width={500}
+                height={400}
+                preset="content"
+                class="rounded-lg shadow-md"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Maintenance Schedule -->
+      <section id="maintenance-schedule" class="mb-12">
+        <h2 class="text-3xl font-bold text-gray-900 mb-6">📅 Essential Maintenance Schedule</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          <!-- Monthly -->
+          <div class="bg-blue-50 border border-blue-200 rounded-lg p-6">
+            <h3 class="text-xl font-bold text-blue-800 mb-4">Monthly Tasks</h3>
+            <ul class="text-blue-700 space-y-2">
+              <li>✓ Check for surface water around tank</li>
+              <li>✓ Monitor household water usage</li>
+              <li>✓ Inspect toilet and drains for slow drainage</li>
+              <li>✓ Review what goes down drains</li>
+            </ul>
+          </div>
+          
+          <!-- Every 4 Months -->
+          <div class="bg-green-50 border border-green-200 rounded-lg p-6">
+            <h3 class="text-xl font-bold text-green-800 mb-4">Every 4 Months</h3>
+            <ul class="text-green-700 space-y-2">
+              <li>✓ <strong>Add bacterial treatment</strong></li>
+              <li>✓ Inspect tank access covers</li>
+              <li>✓ Check drain field for pooling</li>
+              <li>✓ Test water quality if applicable</li>
+            </ul>
+          </div>
+          
+          <!-- Annual -->
+          <div class="bg-purple-50 border border-purple-200 rounded-lg p-6">
+            <h3 class="text-xl font-bold text-purple-800 mb-4">Annual Tasks</h3>
+            <ul class="text-purple-700 space-y-2">
+              <li>✓ Professional system inspection</li>
+              <li>✓ Measure sludge and scum levels</li>
+              <li>✓ Check baffles and filters</li>
+              <li>✓ Evaluate need for pumping</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="bg-yellow-100 border border-yellow-300 rounded-lg p-6">
+          <h3 class="text-xl font-bold text-yellow-800 mb-3">⚠️ Critical: Every 3-5 Years</h3>
+          <p class="text-yellow-700">
+            <strong>Professional pumping</strong> removes accumulated solids. However, with proper bacterial treatment like Pour the PORT, many systems can extend this interval safely while maintaining optimal performance.
+          </p>
+        </div>
+      </section>
+
+      <!-- Warning Signs -->
+      <section id="warning-signs" class="mb-12">
+        <h2 class="text-3xl font-bold text-gray-900 mb-6">🚨 Early Warning Signs</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <!-- Immediate Action Required -->
+          <div class="bg-red-50 border border-red-200 rounded-lg p-6">
+            <h3 class="text-xl font-bold text-red-800 mb-4">🚨 Immediate Action Required</h3>
+            <ul class="text-red-700 space-y-3">
+              <li class="flex items-start">
+                <span class="text-red-600 mr-2">•</span>
+                <div>
+                  <strong>Sewage backup in house</strong>
+                  <p class="text-sm">Call professional immediately</p>
+                </div>
+              </li>
+              <li class="flex items-start">
+                <span class="text-red-600 mr-2">•</span>
+                <div>
+                  <strong>Standing water over drain field</strong>
+                  <p class="text-sm">System may be failing</p>
+                </div>
+              </li>
+              <li class="flex items-start">
+                <span class="text-red-600 mr-2">•</span>
+                <div>
+                  <strong>Strong sewage odors</strong>
+                  <p class="text-sm">Indicates bacterial imbalance</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+          
+          <!-- Early Warning Signs -->
+          <div class="bg-orange-50 border border-orange-200 rounded-lg p-6">
+            <h3 class="text-xl font-bold text-orange-800 mb-4">⚠️ Early Warning Signs</h3>
+            <ul class="text-orange-700 space-y-3">
+              <li class="flex items-start">
+                <span class="text-orange-600 mr-2">•</span>
+                <div>
+                  <strong>Slow draining fixtures</strong>
+                  <p class="text-sm">May indicate system stress</p>
+                </div>
+              </li>
+              <li class="flex items-start">
+                <span class="text-orange-600 mr-2">•</span>
+                <div>
+                  <strong>Gurgling sounds in pipes</strong>
+                  <p class="text-sm">Could signal blockage</p>
+                </div>
+              </li>
+              <li class="flex items-start">
+                <span class="text-orange-600 mr-2">•</span>
+                <div>
+                  <strong>Unusually green grass over system</strong>
+                  <p class="text-sm">May indicate leakage</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="bg-green-100 border border-green-300 rounded-lg p-6 mt-6">
+          <h3 class="text-xl font-bold text-green-800 mb-3">✅ Prevention is Key</h3>
+          <p class="text-green-700">
+            Most septic problems can be prevented with regular bacterial treatment. Pour the PORT users report 95% fewer emergency calls and extend pumping intervals by 2-3 years.
+          </p>
+        </div>
+      </section>
+
+      <!-- Bacterial Treatment Benefits -->
+      <section id="bacterial-treatment" class="mb-12">
+        <h2 class="text-3xl font-bold text-gray-900 mb-6">🦠 Why Bacterial Treatment Works</h2>
+        
+        <div class="bg-white rounded-lg shadow-md p-8">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div>
+              <h3 class="text-2xl font-semibold text-gray-800 mb-4">The Science Behind Success</h3>
+              <p class="text-gray-600 mb-6">
+                Septic systems depend on beneficial bacteria to break down waste. Modern household chemicals, antibiotics, and cleaning products kill these essential microorganisms, leading to system failure.
+              </p>
+              
+              <div class="space-y-4">
+                <div class="flex items-start">
+                  <div class="bg-green-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mr-3 mt-1">1</div>
+                  <div>
+                    <h4 class="font-semibold text-gray-800">Restore Bacterial Balance</h4>
+                    <p class="text-gray-600 text-sm">Billions of beneficial bacteria replenish what's been lost</p>
+                  </div>
+                </div>
+                
+                <div class="flex items-start">
+                  <div class="bg-green-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mr-3 mt-1">2</div>
+                  <div>
+                    <h4 class="font-semibold text-gray-800">Break Down Solids</h4>
+                    <p class="text-gray-600 text-sm">Accelerated waste decomposition reduces sludge buildup</p>
+                  </div>
+                </div>
+                
+                <div class="flex items-start">
+                  <div class="bg-green-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold mr-3 mt-1">3</div>
+                  <div>
+                    <h4 class="font-semibold text-gray-800">Prevent Backups</h4>
+                    <p class="text-gray-600 text-sm">Maintained flow prevents costly emergency situations</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="bg-gray-50 rounded-lg p-6">
+              <h3 class="text-xl font-bold text-gray-800 mb-4">Cost Comparison</h3>
+              
+              <div class="space-y-4">
+                <div class="bg-green-100 border border-green-300 rounded p-4">
+                  <div class="flex justify-between items-center">
+                    <span class="font-semibold text-green-800">Pour the PORT (Annual)</span>
+                    <span class="text-2xl font-bold text-green-600">$84</span>
+                  </div>
+                  <p class="text-green-600 text-sm">3 treatments, prevents problems</p>
+                </div>
+                
+                <div class="bg-red-100 border border-red-300 rounded p-4">
+                  <div class="flex justify-between items-center">
+                    <span class="font-semibold text-red-800">System Replacement</span>
+                    <span class="text-2xl font-bold text-red-600">$15,000+</span>
+                  </div>
+                  <p class="text-red-600 text-sm">Full system failure costs</p>
+                </div>
+                
+                <div class="bg-yellow-100 border border-yellow-300 rounded p-4">
+                  <div class="flex justify-between items-center">
+                    <span class="font-semibold text-yellow-800">Emergency Pumping</span>
+                    <span class="text-2xl font-bold text-yellow-600">$400+</span>
+                  </div>
+                  <p class="text-yellow-600 text-sm">Plus cleanup and repairs</p>
+                </div>
+              </div>
+              
+              <div class="mt-6 text-center">
+                <ShopifyBuyButton 
+                  text="Start Prevention Today"
+                  size="md"
+                  style="primary"
+                  class="w-full"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Do's and Don'ts -->
+      <section id="dos-donts" class="mb-12">
+        <h2 class="text-3xl font-bold text-gray-900 mb-6">✅❌ Septic System Do's and Don'ts</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <!-- Do's -->
+          <div class="bg-green-50 border border-green-200 rounded-lg p-6">
+            <h3 class="text-2xl font-bold text-green-800 mb-4">✅ DO These Things</h3>
+            <ul class="space-y-3">
+              <li class="flex items-start">
+                <span class="text-green-600 text-xl mr-2">✓</span>
+                <span class="text-green-700">Use bacterial treatment every 4 months</span>
+              </li>
+              <li class="flex items-start">
+                <span class="text-green-600 text-xl mr-2">✓</span>
+                <span class="text-green-700">Conserve water usage</span>
+              </li>
+              <li class="flex items-start">
+                <span class="text-green-600 text-xl mr-2">✓</span>
+                <span class="text-green-700">Schedule regular inspections</span>
+              </li>
+              <li class="flex items-start">
+                <span class="text-green-600 text-xl mr-2">✓</span>
+                <span class="text-green-700">Keep detailed maintenance records</span>
+              </li>
+              <li class="flex items-start">
+                <span class="text-green-600 text-xl mr-2">✓</span>
+                <span class="text-green-700">Use septic-safe toilet paper</span>
+              </li>
+              <li class="flex items-start">
+                <span class="text-green-600 text-xl mr-2">✓</span>
+                <span class="text-green-700">Direct roof drains away from system</span>
+              </li>
+            </ul>
+          </div>
+          
+          <!-- Don'ts -->
+          <div class="bg-red-50 border border-red-200 rounded-lg p-6">
+            <h3 class="text-2xl font-bold text-red-800 mb-4">❌ DON'T Do These</h3>
+            <ul class="space-y-3">
+              <li class="flex items-start">
+                <span class="text-red-600 text-xl mr-2">✗</span>
+                <span class="text-red-700">Flush non-biodegradable items</span>
+              </li>
+              <li class="flex items-start">
+                <span class="text-red-600 text-xl mr-2">✗</span>
+                <span class="text-red-700">Use antibacterial cleaners excessively</span>
+              </li>
+              <li class="flex items-start">
+                <span class="text-red-600 text-xl mr-2">✗</span>
+                <span class="text-red-700">Drive or park over the system</span>
+              </li>
+              <li class="flex items-start">
+                <span class="text-red-600 text-xl mr-2">✗</span>
+                <span class="text-red-700">Plant trees near the drain field</span>
+              </li>
+              <li class="flex items-start">
+                <span class="text-red-600 text-xl mr-2">✗</span>
+                <span class="text-red-700">Pour grease or oil down drains</span>
+              </li>
+              <li class="flex items-start">
+                <span class="text-red-600 text-xl mr-2">✗</span>
+                <span class="text-red-700">Ignore warning signs</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA Section -->
+      <section class="bg-green-600 text-white rounded-lg p-8 text-center mb-12">
+        <h2 class="text-3xl font-bold mb-4">Ready to Protect Your Investment?</h2>
+        <p class="text-xl mb-6">
+          Join thousands of homeowners who prevent septic disasters with Pour the PORT's natural bacterial treatment.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <ShopifyBuyButton 
+            text="Get Your Annual Supply"
+            size="lg"
+            style="secondary"
+            class="min-w-48"
+          />
+          <a href="/" class="text-green-100 hover:text-white underline">
+            Learn More About Pour the PORT
+          </a>
+        </div>
+      </section>
+
+      <!-- Related Articles -->
+      <section class="mb-12">
+        <h2 class="text-3xl font-bold text-gray-900 mb-6">📚 Related Articles</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <a href="/septic-system-problems" class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">Common Septic Problems</h3>
+            <p class="text-gray-600 text-sm">Identify and solve septic system issues before they become disasters</p>
+          </a>
+          
+          <a href="/septic-treatment-vs-pumping" class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">Treatment vs Pumping</h3>
+            <p class="text-gray-600 text-sm">Compare costs and benefits of bacterial treatment versus traditional pumping</p>
+          </a>
+          
+          <a href="/natural-septic-solutions" class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">Natural Solutions</h3>
+            <p class="text-gray-600 text-sm">Eco-friendly approaches to septic system maintenance and care</p>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <!-- Conversion Tracking -->
+    <ConversionTracking />
+  </body>
+</html>

@@ -1,0 +1,22 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://pourtheport.com/sitemap.xml
+
+# Crawl-delay for all bots
+Crawl-delay: 1
+
+# Disallow admin and private areas
+Disallow: /admin/
+Disallow: /_*
+Disallow: /api/
+
+# Allow specific pages
+Allow: /
+Allow: /product
+Allow: /septic-tank-maintenance-guide
+Allow: /septic-system-problems
+Allow: /septic-treatment-vs-pumping
+Allow: /natural-septic-solutions
+Allow: /septic-tank-bacteria
