@@ -12,7 +12,7 @@ export default defineConfig({
     imageService: true,
     imagesConfig: {
       sizes: [320, 640, 1024, 1280, 1600],
-      formats: ['webp', 'avif'],
+      formats: ['image/webp', 'image/avif'],
     }
   }),
   integrations: [tailwind()],
