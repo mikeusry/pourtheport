@@ -1,0 +1,292 @@
+---
+export interface Props {
+  title?: string;
+  description?: string;
+  keywords?: string;
+  canonical?: string;
+  ogImage?: string;
+  ogType?: string;
+  article?: {
+    publishedTime?: string;
+    modifiedTime?: string;
+    author?: string;
+    section?: string;
+    tags?: string[];
+  };
+  noindex?: boolean;
+  schemaType?: 'WebPage' | 'Product' | 'Article' | 'FAQPage';
+  product?: {
+    name: string;
+    description: string;
+    price: string;
+    currency: string;
+    availability: string;
+    brand: string;
+    image: string;
+    sku?: string;
+    mpn?: string;
+  };
+  reviews?: {
+    aggregateRating: {
+      ratingValue: number;
+      reviewCount: number;
+      bestRating: number;
+      worstRating: number;
+    };
+    reviews: Array<{
+      author: string;
+      reviewRating: number;
+      reviewBody: string;
+      datePublished: string;
+    }>;
+  };
+}
+
+const {
+  title = "Pour the PORT | Best Natural Septic Tank Treatment Subscription",
+  description = "The #1 rated septic tank treatment trusted by National Parks. Natural, effective, subscription-based septic maintenance. Get 3 months delivered.",
+  keywords = "septic tank treatment, natural septic treatment, septic tank maintenance, septic subscription, eco-friendly septic, best septic tank treatment, RV septic treatment, septic tank bacteria",
+  canonical,
+  ogImage = "https://res.cloudinary.com/southland-organics/image/upload/w_1200,h_630,c_fill,q_auto,f_auto/pour-the-port/social/og-image-main",
+  ogType = "website",
+  article,
+  noindex = false,
+  schemaType = "WebPage",
+  product,
+  reviews
+} = Astro.props;
+
+const currentUrl = new URL(Astro.request.url);
+const canonicalUrl = canonical || currentUrl.href;
+const siteName = "Pour the PORT";
+const siteUrl = "https://www.pourtheport.com";
+
+// Generate structured data based on schema type
+const generateStructuredData = () => {
+  const baseSchema = {
+    "@context": "https://schema.org",
+    "@type": schemaType,
+    "name": title,
+    "description": description,
+    "url": canonicalUrl,
+    "publisher": {
+      "@type": "Organization",
+      "name": siteName,
+      "url": siteUrl,
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://res.cloudinary.com/southland-organics/image/upload/w_400,h_400,c_fill,q_auto,f_auto/pour-the-port/logos/pour-the-port-logo"
+      }
+    }
+  };
+
+  if (schemaType === "Product" && product) {
+    const productSchema = {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "name": product.name,
+      "description": product.description,
+      "image": product.image,
+      "brand": {
+        "@type": "Brand",
+        "name": product.brand
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": product.price,
+        "priceCurrency": product.currency,
+        "availability": `https://schema.org/${product.availability}`,
+        "seller": {
+          "@type": "Organization",
+          "name": siteName
+        }
+      },
+      "manufacturer": {
+        "@type": "Organization",
+        "name": "Southland Organics"
+      },
+      "category": "Septic Tank Treatment",
+      "sku": product.sku,
+      "mpn": product.mpn
+    };
+
+    // Add reviews if provided
+    if (reviews) {
+      productSchema.aggregateRating = {
+        "@type": "AggregateRating",
+        "ratingValue": reviews.aggregateRating.ratingValue,
+        "reviewCount": reviews.aggregateRating.reviewCount,
+        "bestRating": reviews.aggregateRating.bestRating,
+        "worstRating": reviews.aggregateRating.worstRating
+      };
+
+      productSchema.review = reviews.reviews.map(review => ({
+        "@type": "Review",
+        "author": {
+          "@type": "Person",
+          "name": review.author
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": review.reviewRating,
+          "bestRating": 5,
+          "worstRating": 1
+        },
+        "reviewBody": review.reviewBody,
+        "datePublished": review.datePublished
+      }));
+    }
+
+    return productSchema;
+  }
+
+  if (schemaType === "Article" && article) {
+    return {
+      ...baseSchema,
+      "@type": "Article",
+      "headline": title,
+      "datePublished": article.publishedTime,
+      "dateModified": article.modifiedTime || article.publishedTime,
+      "author": {
+        "@type": "Person",
+        "name": article.author || "Pour the PORT Team"
+      },
+      "articleSection": article.section,
+      "keywords": article.tags?.join(", ") || keywords,
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": canonicalUrl
+      },
+      "image": {
+        "@type": "ImageObject",
+        "url": ogImage,
+        "width": 1200,
+        "height": 630
+      }
+    };
+  }
+
+  return baseSchema;
+};
+
+const structuredData = generateStructuredData();
+---
+
+<!-- Primary Meta Tags -->
+<title>{title}</title>
+<meta name="title" content={title} />
+<meta name="description" content={description} />
+<meta name="keywords" content={keywords} />
+<link rel="canonical" href={canonicalUrl} />
+
+<!-- Robots -->
+{noindex && <meta name="robots" content="noindex, nofollow" />}
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content={ogType} />
+<meta property="og:url" content={canonicalUrl} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={ogImage} />
+<meta property="og:site_name" content={siteName} />
+
+<!-- Article specific OG tags -->
+{article && (
+  <>
+    <meta property="article:published_time" content={article.publishedTime} />
+    {article.modifiedTime && <meta property="article:modified_time" content={article.modifiedTime} />}
+    {article.author && <meta property="article:author" content={article.author} />}
+    {article.section && <meta property="article:section" content={article.section} />}
+    {article.tags && article.tags.map(tag => <meta property="article:tag" content={tag} />)}
+  </>
+)}
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content={canonicalUrl} />
+<meta property="twitter:title" content={title} />
+<meta property="twitter:description" content={description} />
+<meta property="twitter:image" content={ogImage} />
+
+<!-- Additional SEO Meta Tags -->
+<meta name="author" content="Pour the PORT - Southland Organics" />
+<meta name="copyright" content="© 2024 Southland Organics" />
+<meta name="language" content="English" />
+<meta name="revisit-after" content="7 days" />
+<meta name="distribution" content="global" />
+<meta name="rating" content="general" />
+
+<!-- Geo Tags -->
+<meta name="geo.region" content="US" />
+<meta name="geo.placename" content="United States" />
+
+<!-- Consolidated Structured Data -->
+<script type="application/ld+json" set:html={JSON.stringify([
+  structuredData,
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Pour the PORT",
+    "alternateName": "Southland Organics",
+    "url": "https://www.pourtheport.com",
+    "logo": "https://res.cloudinary.com/southland-organics/image/upload/w_400,h_400,c_fill,q_auto,f_webp/pour-the-port/logos/pour-the-port-logo",
+    "description": "Natural septic tank treatment trusted by National Parks. USDA Certified Biobased Product for eco-friendly septic maintenance.",
+    "foundingDate": "2018",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "US"
+    },
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "contactType": "customer service",
+      "url": "https://www.pourtheport.com/#contact"
+    },
+    "sameAs": [
+      "https://www.facebook.com/SouthlandOrganics",
+      "https://www.instagram.com/southlandorganics"
+    ],
+    "hasCredential": [
+      {
+        "@type": "EducationalOccupationalCredential",
+        "name": "USDA Certified Biobased Product",
+        "credentialCategory": "certification"
+      }
+    ]
+  }
+])} />
+
+<!-- FAQ Schema for pages with Q&A content -->
+{schemaType === "FAQPage" && (
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How often should I use Pour the PORT?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Pour the PORT should be applied every 3-4 months for optimal septic system maintenance. Each treatment provides 4 months of coverage."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is Pour the PORT safe for the environment?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, Pour the PORT is a USDA Certified Biobased Product that is completely natural and eco-friendly. It's trusted by National Parks and the U.S. Forest Service."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What makes Pour the PORT different from other septic treatments?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Pour the PORT contains beneficial bacteria, organic acids, and activated carbon that work together to break down waste, eliminate biofilm buildup, and maintain optimal septic system health naturally."
+        }
+      }
+    ]
+  }
+  </script>
+)}

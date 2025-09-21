@@ -194,7 +194,7 @@ export function getCloudinaryResponsiveSet(
       width,
       crop: baseTransforms.crop || 'fill',
       quality: baseTransforms.quality || 'auto',
-      format: 'auto'
+      format: 'webp'
     });
     return `${url} ${width}w`;
   });
@@ -264,7 +264,7 @@ export const IMAGE_CONFIGS = {
   hero: {
     quality: 'auto:good' as const,
     crop: 'fill' as const,
-    format: 'auto' as const,
+    format: 'webp' as const,
     sizes: '100vw'
   },
   
@@ -272,7 +272,7 @@ export const IMAGE_CONFIGS = {
   product: {
     quality: 'auto:best' as const,
     crop: 'fit' as const,
-    format: 'auto' as const,
+    format: 'webp' as const,
     sizes: '(max-width: 768px) 100vw, 50vw'
   },
   
@@ -288,7 +288,7 @@ export const IMAGE_CONFIGS = {
   thumbnail: {
     quality: 'auto' as const,
     crop: 'fill' as const,
-    format: 'auto' as const,
+    format: 'webp' as const,
     sizes: '(max-width: 640px) 150px, 200px'
   },
   
@@ -296,7 +296,7 @@ export const IMAGE_CONFIGS = {
   background: {
     quality: 'auto:good' as const,
     crop: 'fill' as const,
-    format: 'auto' as const,
+    format: 'webp' as const,
     sizes: '100vw'
   }
 } as const;
@@ -405,7 +405,7 @@ export const ENHANCED_IMAGE_CONFIGS = {
     quality: 'auto:good' as const,
     crop: 'fill' as const,
     gravity: 'face' as const,
-    format: 'auto' as const,
+    format: 'webp' as const,
     sizes: '(max-width: 640px) 80px, 120px',
     dpr: 'auto' as const
   },
@@ -414,7 +414,7 @@ export const ENHANCED_IMAGE_CONFIGS = {
   gallery: {
     quality: 'auto' as const,
     crop: 'fill' as const,
-    format: 'auto' as const,
+    format: 'webp' as const,
     sizes: '(max-width: 640px) 150px, (max-width: 1024px) 200px, 250px',
     dpr: 'auto' as const
   },
@@ -423,7 +423,7 @@ export const ENHANCED_IMAGE_CONFIGS = {
   card: {
     quality: 'auto:good' as const,
     crop: 'fill' as const,
-    format: 'auto' as const,
+    format: 'webp' as const,
     sizes: '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw',
     dpr: 'auto' as const
   }

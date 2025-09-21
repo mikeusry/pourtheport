@@ -122,25 +122,25 @@ if (STORE_DOMAIN && ACCESS_TOKEN) {
         
         <div class="space-y-4">
           <div class="flex items-center">
-            <span class="w-4 h-4 rounded-full mr-3" class={testResults.storeConnected ? 'bg-green-500' : 'bg-red-500'}></span>
+            <span class="w-4 h-4 rounded-full mr-3" class={testResults.storeConnected ? 'bg-brand-primary-green' : 'bg-brand-accent-orange'}></span>
             <span>Store Connection: {testResults.storeConnected ? 'SUCCESS' : 'FAILED'}</span>
           </div>
           
           <div class="flex items-center">
-            <span class="w-4 h-4 rounded-full mr-3" class={testResults.tokenValid ? 'bg-green-500' : 'bg-red-500'}></span>
+            <span class="w-4 h-4 rounded-full mr-3" class={testResults.tokenValid ? 'bg-brand-primary-green' : 'bg-brand-accent-orange'}></span>
             <span>Token Validation: {testResults.tokenValid ? 'VALID' : 'INVALID'}</span>
           </div>
           
           <div class="flex items-center">
-            <span class="w-4 h-4 rounded-full mr-3" class={testResults.productsFound > 0 ? 'bg-green-500' : 'bg-yellow-500'}></span>
+            <span class="w-4 h-4 rounded-full mr-3" class={testResults.productsFound > 0 ? 'bg-brand-primary-green' : 'bg-brand-product-amber'}></span>
             <span>Products Found: {testResults.productsFound}</span>
           </div>
         </div>
 
         {testResults.error && (
-          <div class="mt-4 p-4 bg-red-50 border border-red-200 rounded">
-            <strong class="text-red-800">Error:</strong>
-            <pre class="text-red-700 text-sm mt-2 whitespace-pre-wrap">{testResults.error}</pre>
+          <div class="mt-4 p-4 bg-brand-accent-orange/10 border border-brand-accent-orange/30 rounded">
+            <strong class="text-brand-accent-orange">Error:</strong>
+            <pre class="text-brand-neutral-dark text-sm mt-2 whitespace-pre-wrap">{testResults.error}</pre>
           </div>
         )}
       </div>
@@ -154,13 +154,13 @@ if (STORE_DOMAIN && ACCESS_TOKEN) {
       )}
 
       <!-- Recommendations -->
-      <div class="bg-blue-50 border border-blue-200 rounded-lg p-6">
-        <h2 class="text-xl font-semibold mb-4 text-blue-800">Recommendations</h2>
+      <div class="bg-brand-secondary-blue/10 border border-brand-secondary-blue/30 rounded-lg p-6">
+        <h2 class="text-xl font-semibold mb-4 text-brand-secondary-blue">Recommendations</h2>
         
         {!testResults.tokenValid && (
           <div class="mb-4">
-            <h3 class="font-semibold text-blue-700">Token Issues:</h3>
-            <ul class="list-disc list-inside text-blue-600 text-sm space-y-1">
+            <h3 class="font-semibold text-brand-secondary-blue">Token Issues:</h3>
+            <ul class="list-disc list-inside text-brand-neutral-dark text-sm space-y-1">
               <li>Storefront Access Tokens should start with 'shpat_'</li>
               <li>They're usually 32+ characters long</li>
               <li>Make sure you generated a Storefront token, not Admin API token</li>
@@ -171,8 +171,8 @@ if (STORE_DOMAIN && ACCESS_TOKEN) {
 
         {testResults.productsFound === 0 && testResults.tokenValid && (
           <div class="mb-4">
-            <h3 class="font-semibold text-blue-700">Product Issues:</h3>
-            <ul class="list-disc list-inside text-blue-600 text-sm space-y-1">
+            <h3 class="font-semibold text-brand-secondary-blue">Product Issues:</h3>
+            <ul class="list-disc list-inside text-brand-neutral-dark text-sm space-y-1">
               <li>No products found in the store</li>
               <li>Products may not be published to the Online Store sales channel</li>
               <li>Check product availability and status in Shopify admin</li>
@@ -182,10 +182,10 @@ if (STORE_DOMAIN && ACCESS_TOKEN) {
       </div>
 
       <div class="mt-8 text-center space-x-4">
-        <a href="/product" class="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg">
+        <a href="/product" class="bg-brand-primary-green hover:bg-green-600 text-white px-6 py-3 rounded-lg">
           Back to Product Page
         </a>
-        <a href="/debug-shopify" class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg">
+        <a href="/debug-shopify" class="bg-brand-secondary-blue hover:bg-blue-600 text-white px-6 py-3 rounded-lg">
           Debug Products
         </a>
       </div>

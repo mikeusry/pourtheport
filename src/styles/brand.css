@@ -1,0 +1,90 @@
+/**
+ * Brand Guide CSS Custom Properties
+ * Based on Brand Guide for Pour the PORT
+ */
+
+:root {
+  /* Brand Guide Color Palette */
+  --brand-primary-green: #317D40;
+  --brand-accent-orange: #F09C2B;
+  --brand-neutral-dark: #2C2C2C;
+  --brand-background-white: #FFFFFF;
+  --brand-secondary-blue: #428DC4;
+  --brand-usda-blue: #0066CC;
+  --brand-product-amber: #B8860B;
+
+  /* Brand Typography (Brand Guide Typography Stack) */
+  --brand-font-primary: 'Montserrat', 'Open Sans', 'Lato', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
+  --brand-font-weight-bold: 700;
+  --brand-font-weight-regular: 400;
+  --brand-line-height-headers: 1.2;
+  --brand-line-height-body: 1.6;
+
+  /* Legacy Support (for backwards compatibility) */
+  --brand-primary: var(--brand-primary-green);
+
+  /* Semantic Color Mappings */
+  --color-cta-primary: var(--brand-primary-green);
+  --color-cta-secondary: var(--brand-accent-orange);
+  --color-text-primary: var(--brand-neutral-dark);
+  --color-background: var(--brand-background-white);
+  --color-accent: var(--brand-secondary-blue);
+  --color-trust: var(--brand-usda-blue);
+  --color-product: var(--brand-product-amber);
+}
+
+/* Brand-compliant component styles */
+.btn-brand-primary {
+  background-color: var(--brand-primary-green);
+  color: var(--brand-background-white);
+  font-family: var(--brand-font-primary);
+  font-weight: var(--brand-font-weight-bold);
+}
+
+.btn-brand-secondary {
+  background-color: var(--brand-accent-orange);
+  color: var(--brand-background-white);
+  font-family: var(--brand-font-primary);
+  font-weight: var(--brand-font-weight-bold);
+}
+
+.text-brand-primary {
+  color: var(--brand-primary-green);
+}
+
+.text-brand-orange {
+  color: var(--brand-accent-orange);
+}
+
+.text-brand-blue {
+  color: var(--brand-secondary-blue);
+}
+
+.bg-brand-primary {
+  background-color: var(--brand-primary-green);
+}
+
+.bg-brand-orange {
+  background-color: var(--brand-accent-orange);
+}
+
+.bg-brand-blue {
+  background-color: var(--brand-secondary-blue);
+}
+
+/* Brand typography classes */
+.font-brand {
+  font-family: var(--brand-font-primary);
+}
+
+.text-brand-heading {
+  font-family: var(--brand-font-primary);
+  font-weight: var(--brand-font-weight-bold);
+  line-height: var(--brand-line-height-headers);
+}
+
+.text-brand-body {
+  font-family: var(--brand-font-primary);
+  font-weight: var(--brand-font-weight-regular);
+  line-height: var(--brand-line-height-body);
+}

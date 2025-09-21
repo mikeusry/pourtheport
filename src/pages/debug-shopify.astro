@@ -65,7 +65,7 @@ if (shopifyClient) {
       <h1 class="text-3xl font-bold text-gray-900 mb-8">Shopify Debug - Product Listing</h1>
       
       {error ? (
-        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6">
+        <div class="bg-brand-accent-orange/10 border border-brand-accent-orange text-brand-accent-orange px-4 py-3 rounded mb-6">
           <strong class="font-bold">Error: </strong>
           <span>{error}</span>
         </div>
@@ -120,7 +120,7 @@ if (shopifyClient) {
                           </div>
                           <div>
                             <strong>Available:</strong> 
-                            <span class={variant.availableForSale ? 'text-green-600' : 'text-red-600'}>
+                            <span class={variant.availableForSale ? 'text-brand-primary-green' : 'text-brand-accent-orange'}>
                               {variant.availableForSale ? 'Yes' : 'No'}
                             </span>
                           </div>
@@ -140,17 +140,17 @@ if (shopifyClient) {
       )}
 
       {products.length === 0 && !error && (
-        <div class="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded">
+        <div class="bg-brand-accent-orange/10 border border-brand-accent-orange text-brand-accent-orange px-4 py-3 rounded">
           <strong class="font-bold">No products found</strong>
           <p class="mt-2">Your Shopify store doesn't have any products yet, or they may not be published to your sales channel.</p>
         </div>
       )}
 
       <div class="mt-8 text-center">
-        <a href="/product" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mr-4">
+        <a href="/product" class="bg-brand-secondary-blue hover:bg-brand-secondary-blue/90 text-white font-bold py-2 px-4 rounded mr-4">
           Back to Product Page
         </a>
-        <a href="/" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">
+        <a href="/" class="bg-brand-primary-green hover:bg-brand-primary-green/90 text-white font-bold py-2 px-4 rounded">
           Back to Home
         </a>
       </div>

@@ -4,10 +4,22 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: '#22c55e',
+        // Brand Guide Colors
+        brand: {
+          'primary-green': '#317D40',
+          'accent-orange': '#F09C2B',
+          'neutral-dark': '#2C2C2C',
+          'background-white': '#FFFFFF',
+          'secondary-blue': '#428DC4',
+          'usda-blue': '#0066CC',
+          'product-amber': '#B8860B',
+        },
+        // Keep legacy primary for backwards compatibility
+        primary: '#317D40',
       },
       fontFamily: {
-        sans: ['ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'Noto Sans', 'sans-serif'],
+        // Brand Guide Typography: Montserrat fallback stack
+        sans: ['Montserrat', 'Open Sans', 'Lato', 'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'Noto Sans', 'sans-serif'],
       },
       animation: {
         'fade-in': 'fadeIn 0.6s ease-out',

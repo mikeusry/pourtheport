@@ -1,0 +1,60 @@
+---
+export interface Props {
+  items: Array<{
+    name: string;
+    url?: string;
+  }>;
+}
+
+const { items } = Astro.props;
+
+// Generate structured data for breadcrumbs
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": items.map((item, index) => ({
+    "@type": "ListItem",
+    "position": index + 1,
+    "name": item.name,
+    "item": item.url ? new URL(item.url, Astro.url.origin).href : undefined
+  }))
+};
+---
+
+<nav aria-label="Breadcrumb" class="mb-8">
+  <ol class="flex items-center space-x-2 text-sm text-gray-600">
+    {items.map((item, index) => (
+      <li class="flex items-center">
+        {index > 0 && (
+          <svg class="w-4 h-4 mx-2 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+          </svg>
+        )}
+        {item.url ? (
+          <a
+            href={item.url}
+            class="hover:text-brand-primary-green transition-colors duration-200"
+            {index === items.length - 1 ? { 'aria-current': 'page' } : {}}
+          >
+            {item.name}
+          </a>
+        ) : (
+          <span class="font-medium text-brand-neutral-dark" aria-current="page">
+            {item.name}
+          </span>
+        )}
+      </li>
+    ))}
+  </ol>
+</nav>
+
+<!-- Breadcrumb Schema -->
+<script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+
+<style>
+  nav a:focus-visible {
+    outline: 2px solid var(--brand-primary-green);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+</style>

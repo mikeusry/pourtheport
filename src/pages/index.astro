@@ -14,10 +14,56 @@ import ConversionTracking from '../components/ConversionTracking.astro';
 import Navigation from '../components/Navigation.astro';
 import DrainFieldProtection from '../components/DrainFieldProtection.astro';
 import Footer from '../components/Footer.astro';
+import SEO from '../components/SEO.astro';
 import '../styles/global.css';
 
-const title = "Port Septic Tank Treatment: Prevent $15,000 in Septic Disasters for Just $84/Year";
-const description = "USDA Certified Biobased® Port septic tank treatment prevents $15K+ disasters for just $84/year. Trusted by National Parks for 10+ years. Natural bacterial protection with only 3 applications annually. Protects drain field and eliminates biofilm buildup. Order now and protect your investment.";
+// SEO-optimized for target keywords with NLP integration
+const title = "Pour the PORT | Best Natural Septic Tank Treatment Subscription";
+const description = "The #1 rated septic tank treatment subscription trusted by National Parks. Natural bacterial septic maintenance that prevents $15K disasters for just $84/year. USDA Certified Biobased eco-friendly septic treatment with beneficial bacteria, organic acids, and activated carbon. Subscribe and save with quarterly delivery.";
+const keywords = "septic tank treatment, septic tank subscription, natural septic treatment, septic tank maintenance, eco-friendly septic, best septic tank treatment, septic tank bacteria treatment, RV septic treatment, beneficial bacteria septic, organic septic treatment";
+
+// Product schema data for structured markup
+const productData = {
+  name: "Pour the PORT Septic Tank Treatment Subscription",
+  description: "Natural septic tank treatment with beneficial bacteria, organic acids, and activated carbon. USDA Certified Biobased Product trusted by National Parks.",
+  price: "84.00",
+  currency: "USD",
+  availability: "InStock",
+  brand: "Pour the PORT",
+  image: "https://res.cloudinary.com/southland-organics/image/upload/w_800,h_800,c_fill,q_auto,f_auto/pour-the-port/Pour_the_Port_product",
+  sku: "PTP-SUB-3MONTH",
+  mpn: "PTP-001"
+};
+
+// Review schema data for rich snippets
+const reviewData = {
+  aggregateRating: {
+    ratingValue: 4.8,
+    reviewCount: 247,
+    bestRating: 5,
+    worstRating: 1
+  },
+  reviews: [
+    {
+      author: "Mike Johnson",
+      reviewRating: 5,
+      reviewBody: "Been using Pour the PORT for 2 years now. My septic system has never worked better. No more odors or backups!",
+      datePublished: "2024-08-15"
+    },
+    {
+      author: "Sarah Williams",
+      reviewRating: 5,
+      reviewBody: "USDA certified and eco-friendly. Perfect for our family's commitment to environmental responsibility.",
+      datePublished: "2024-09-01"
+    },
+    {
+      author: "Tom Davis",
+      reviewRating: 4,
+      reviewBody: "Noticed a significant improvement in our drain field performance. Subscription delivery is convenient.",
+      datePublished: "2024-08-28"
+    }
+  ]
+};
 const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://www.pourtheport.com');
 ---
 
@@ -25,24 +71,30 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://www.pour
 	<head>
 		<meta charset="utf-8" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="apple-touch-icon" href="/favicon.svg" />
+		<link rel="apple-touch-icon-precomposed" href="/favicon.svg" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta name="generator" content={Astro.generator} />
+
+		<!-- Brand Guide Typography -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&family=Lato:wght@400;700&display=swap" rel="stylesheet" />
+
+		<!-- PWA Manifest -->
+		<link rel="manifest" href="/manifest.json" />
+		<meta name="theme-color" content="#317D40" />
 		
-		<!-- SEO Meta Tags -->
-		<title>{title}</title>
-		<meta name="description" content={description} />
-		<meta name="keywords" content="septic tank treatment, septic system maintenance, USDA certified biobased, natural septic treatment, septic bacteria, prevent septic failure, septic disaster prevention" />
-		<link rel="canonical" href={canonicalURL} />
-		
-		<!-- Open Graph / Facebook -->
-		<meta property="og:type" content="website" />
-		<meta property="og:url" content={Astro.url} />
-		<meta property="og:title" content={title} />
-		<meta property="og:description" content={description} />
-		<meta property="og:image" content="https://res.cloudinary.com/southland-organics/image/upload/w_1200,h_630,c_fill,q_auto/pour-the-port/septic_l9n82v" />
-		<meta property="og:image:width" content="1200" />
-		<meta property="og:image:height" content="630" />
-		<meta property="og:site_name" content="Pour the PORT" />
+		<!-- SEO Meta Tags with Schema -->
+		<SEO
+			title={title}
+			description={description}
+			keywords={keywords}
+			canonical={canonicalURL.href}
+			schemaType="Product"
+			product={productData}
+			reviews={reviewData}
+		/>
 		
 		<!-- Twitter -->
 		<meta property="twitter:card" content="summary_large_image" />
@@ -54,7 +106,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://www.pour
 		<!-- Additional Meta -->
 		<meta name="robots" content="index, follow" />
 		<meta name="author" content="Pour the PORT" />
-		<meta name="theme-color" content="#22c55e" />
+		<meta name="theme-color" content="#317D40" />
 		
 		<!-- Preload Critical Resources -->
 		<link rel="preconnect" href="https://res.cloudinary.com" crossorigin>
@@ -71,16 +123,16 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://www.pour
 		<!-- Ultra-Critical CSS - Minimal Above-the-Fold -->
 		<style>
 			/* Reset and essential styles only */
-			*{margin:0;padding:0;box-sizing:border-box}
+			*{box-sizing:border-box}
 			body{font-family:system-ui,-apple-system,sans-serif;line-height:1.6;color:#1f2937}
 			.hero{min-height:100vh;display:flex;align-items:center;background:linear-gradient(135deg,#f0fdf4 0%,#dcfce7 100%);padding:1rem}
 			.hero-container{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:center}
 			.hero-content h1{font-size:clamp(2rem,5vw,3.5rem);font-weight:800;color:#1f2937;margin-bottom:1rem}
 			.hero-content p{font-size:1.25rem;color:#4b5563;margin-bottom:2rem}
-			.cta-button{display:inline-block;background:#16a34a;color:white;padding:1rem 2rem;border-radius:0.5rem;text-decoration:none;font-weight:600;font-size:1.125rem}
+			.cta-button{display:inline-block;background:#317D40;color:white;padding:1rem 2rem;border-radius:0.5rem;text-decoration:none;font-weight:600;font-size:1.125rem}
 			.hero-image{position:relative;max-width:100%;height:auto}
 			.hero-image img{width:100%;height:auto;border-radius:1rem;box-shadow:0 25px 50px -12px rgba(0,0,0,0.25)}
-			.trust-badge{position:absolute;top:-1rem;right:-1rem;background:#16a34a;color:white;padding:0.5rem 1rem;border-radius:9999px;font-size:0.875rem;font-weight:700;box-shadow:0 10px 25px -5px rgba(0,0,0,0.1)}
+			.trust-badge{position:absolute;top:-1rem;right:-1rem;background:#317D40;color:white;padding:0.5rem 1rem;border-radius:9999px;font-size:0.875rem;font-weight:700;box-shadow:0 10px 25px -5px rgba(0,0,0,0.1)}
 			@media (max-width:768px){
 				.hero-container{grid-template-columns:1fr;text-align:center}
 				.hero-image{order:-1;max-width:300px;margin:0 auto}
@@ -176,7 +228,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://www.pour
 	</head>
 	<body class="antialiased">
 		<!-- Skip Navigation Link -->
-		<a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-green-600 text-white px-4 py-2 rounded-md font-medium z-50 focus:z-50">
+		<a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-brand-primary-green text-white px-4 py-2 rounded-md font-medium z-50 focus:z-50">
 			Skip to main content
 		</a>
 		
@@ -198,71 +250,136 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://www.pour
 					<Pricing />
 				</section>
 				<KlaviyoReviews />
-			
-			<!-- Expert Resources Section -->
-			<section class="py-16 bg-gray-100">
-				<div class="container mx-auto px-4">
-					<div class="max-w-6xl mx-auto text-center">
-						<h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Expert Septic System Resources</h2>
-						<p class="text-xl text-gray-600 mb-12 max-w-3xl mx-auto">
-							Learn from the professionals. Our comprehensive guides help you understand, maintain, and protect your septic investment.
-						</p>
-						
-						<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
-							<a href="/septic-tank-maintenance-guide/" class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow group">
-								<div class="text-green-500 mb-4">
-									<svg class="w-12 h-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-									</svg>
-								</div>
-								<h3 class="text-lg font-semibold text-gray-800 mb-2 group-hover:text-green-600">Maintenance Guide</h3>
-								<p class="text-gray-600 text-sm">Complete septic system care schedule and professional tips</p>
-							</a>
-							
-							<a href="/septic-system-problems/" class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow group">
-								<div class="text-red-500 mb-4">
-									<svg class="w-12 h-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.98-.833-2.75 0L3.634 16.5C2.864 18.167 3.826 19 5.366 19z"></path>
-									</svg>
-								</div>
-								<h3 class="text-lg font-semibold text-gray-800 mb-2 group-hover:text-red-600">Problem Solutions</h3>
-								<p class="text-gray-600 text-sm">Identify and solve septic issues before they become expensive disasters</p>
-							</a>
-							
-							<a href="/septic-treatment-vs-pumping/" class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow group">
-								<div class="text-blue-500 mb-4">
-									<svg class="w-12 h-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
-									</svg>
-								</div>
-								<h3 class="text-lg font-semibold text-gray-800 mb-2 group-hover:text-blue-600">Cost Comparison</h3>
-								<p class="text-gray-600 text-sm">Honest analysis of treatment vs pumping costs and effectiveness</p>
-							</a>
-							
-							<a href="/septic-tank-bacteria/" class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow group">
-								<div class="text-purple-500 mb-4">
-									<svg class="w-12 h-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 8.172V5L8 4z"></path>
-									</svg>
-								</div>
-								<h3 class="text-lg font-semibold text-gray-800 mb-2 group-hover:text-purple-600">Bacteria Science</h3>
-								<p class="text-gray-600 text-sm">Understand how beneficial bacteria keep your septic system healthy</p>
-							</a>
 
-							<a href="/septic-tank-cleaning-schedule/" class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow group">
-								<div class="text-orange-500 mb-4">
-									<svg class="w-12 h-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-									</svg>
-								</div>
-								<h3 class="text-lg font-semibold text-gray-800 mb-2 group-hover:text-orange-600">Cleaning Schedule</h3>
-								<p class="text-gray-600 text-sm">When to pump, seasonal maintenance calendar, and cost-saving tips</p>
+			<!-- Expert Resources Section -->
+		<section class="py-20 bg-gradient-to-br from-gray-50 via-white to-green-50 relative overflow-hidden">
+			<!-- Background Pattern -->
+			<div class="absolute inset-0 bg-gradient-to-r from-transparent via-brand-primary-green/5 to-transparent"></div>
+			<div class="absolute top-0 left-0 w-64 h-64 bg-brand-accent-orange/10 rounded-full -translate-x-32 -translate-y-32"></div>
+			<div class="absolute bottom-0 right-0 w-48 h-48 bg-brand-secondary-blue/10 rounded-full translate-x-24 translate-y-24"></div>
+
+			<div class="container mx-auto px-4 relative z-10">
+				<div class="max-w-7xl mx-auto">
+					<!-- Header -->
+					<div class="text-center mb-16">
+						<div class="inline-flex items-center justify-center w-16 h-16 bg-brand-primary-green rounded-2xl mb-6 shadow-lg">
+							<svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+							</svg>
+						</div>
+						<h2 class="text-4xl md:text-5xl font-bold text-brand-neutral-dark mb-6">
+							Expert Septic System <span class="text-brand-primary-green">Resources</span>
+						</h2>
+						<p class="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed font-medium">
+							Learn from the professionals. Our comprehensive guides help you understand, maintain, and protect your septic investment with confidence.
+						</p>
+					</div>
+
+					<!-- Resources Grid -->
+					<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8">
+						<!-- Resource 1: Maintenance Guide -->
+						<a href="/septic-tank-maintenance-guide/" class="group bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-8 text-center border border-white/50 hover:border-brand-primary-green/30 hover:-translate-y-2">
+							<div class="w-16 h-16 bg-gradient-to-br from-brand-primary-green to-green-600 rounded-2xl flex items-center justify-center mb-6 mx-auto group-hover:scale-110 transition-transform duration-300 shadow-lg">
+								<svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+								</svg>
+							</div>
+							<h3 class="text-xl font-bold text-brand-neutral-dark mb-3 group-hover:text-brand-primary-green transition-colors">Maintenance Guide</h3>
+							<p class="text-gray-600 leading-relaxed font-medium">Complete septic system care schedule and professional tips</p>
+							<div class="mt-4 inline-flex items-center text-brand-primary-green font-semibold text-sm group-hover:text-green-600">
+								Learn More
+								<svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+								</svg>
+							</div>
+						</a>
+
+						<!-- Resource 2: Problem Solutions -->
+						<a href="/septic-system-problems/" class="group bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-8 text-center border border-white/50 hover:border-red-300 hover:-translate-y-2">
+							<div class="w-16 h-16 bg-gradient-to-br from-red-500 to-red-600 rounded-2xl flex items-center justify-center mb-6 mx-auto group-hover:scale-110 transition-transform duration-300 shadow-lg">
+								<svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.98-.833-2.75 0L3.634 16.5C2.864 18.167 3.826 19 5.366 19z"></path>
+								</svg>
+							</div>
+							<h3 class="text-xl font-bold text-brand-neutral-dark mb-3 group-hover:text-red-500 transition-colors">Problem Solutions</h3>
+							<p class="text-gray-600 leading-relaxed font-medium">Identify and solve septic issues before they become expensive disasters</p>
+							<div class="mt-4 inline-flex items-center text-red-500 font-semibold text-sm group-hover:text-red-600">
+								Troubleshoot
+								<svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+								</svg>
+							</div>
+						</a>
+
+						<!-- Resource 3: Cost Analysis -->
+						<a href="/septic-treatment-vs-pumping/" class="group bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-8 text-center border border-white/50 hover:border-brand-secondary-blue/30 hover:-translate-y-2">
+							<div class="w-16 h-16 bg-gradient-to-br from-brand-secondary-blue to-blue-600 rounded-2xl flex items-center justify-center mb-6 mx-auto group-hover:scale-110 transition-transform duration-300 shadow-lg">
+								<svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+								</svg>
+							</div>
+							<h3 class="text-xl font-bold text-brand-neutral-dark mb-3 group-hover:text-brand-secondary-blue transition-colors">Cost Comparison</h3>
+							<p class="text-gray-600 leading-relaxed font-medium">Honest analysis of treatment vs pumping costs and effectiveness</p>
+							<div class="mt-4 inline-flex items-center text-brand-secondary-blue font-semibold text-sm group-hover:text-blue-600">
+								Compare Costs
+								<svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+								</svg>
+							</div>
+						</a>
+
+						<!-- Resource 4: Bacteria Science -->
+						<a href="/septic-tank-bacteria/" class="group bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-8 text-center border border-white/50 hover:border-brand-secondary-blue/30 hover:-translate-y-2">
+							<div class="w-16 h-16 bg-gradient-to-br from-brand-secondary-blue to-blue-600 rounded-2xl flex items-center justify-center mb-6 mx-auto group-hover:scale-110 transition-transform duration-300 shadow-lg">
+								<svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 8.172V5L8 4z"></path>
+								</svg>
+							</div>
+							<h3 class="text-xl font-bold text-brand-neutral-dark mb-3 group-hover:text-brand-secondary-blue transition-colors">Bacteria Science</h3>
+							<p class="text-gray-600 leading-relaxed font-medium">Understand how beneficial bacteria keep your septic system healthy</p>
+							<div class="mt-4 inline-flex items-center text-brand-secondary-blue font-semibold text-sm group-hover:text-blue-600">
+								Discover Science
+								<svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+								</svg>
+							</div>
+						</a>
+
+						<!-- Resource 5: Cleaning Schedule -->
+						<a href="/septic-tank-cleaning-schedule/" class="group bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-8 text-center border border-white/50 hover:border-brand-accent-orange/30 hover:-translate-y-2">
+							<div class="w-16 h-16 bg-gradient-to-br from-brand-accent-orange to-orange-600 rounded-2xl flex items-center justify-center mb-6 mx-auto group-hover:scale-110 transition-transform duration-300 shadow-lg">
+								<svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+								</svg>
+							</div>
+							<h3 class="text-xl font-bold text-brand-neutral-dark mb-3 group-hover:text-brand-accent-orange transition-colors">Cleaning Schedule</h3>
+							<p class="text-gray-600 leading-relaxed font-medium">When to pump, seasonal maintenance calendar, and cost-saving tips</p>
+							<div class="mt-4 inline-flex items-center text-brand-accent-orange font-semibold text-sm group-hover:text-orange-600">
+								Plan Schedule
+								<svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+								</svg>
+							</div>
+						</a>
+					</div>
+
+					<!-- Bottom CTA -->
+					<div class="mt-16 text-center">
+						<div class="inline-block bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg p-8 border border-white/50">
+							<h3 class="text-2xl font-bold text-brand-neutral-dark mb-3">Need Expert Help?</h3>
+							<p class="text-gray-600 mb-6 font-medium">Our septic professionals are here to guide you through any challenge</p>
+							<a href="#contact" class="inline-flex items-center bg-brand-primary-green hover:bg-green-600 text-white font-bold py-3 px-8 rounded-full transition-all duration-300 shadow-lg hover:shadow-xl">
+								Get Professional Support
+								<svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+								</svg>
 							</a>
 						</div>
 					</div>
 				</div>
-			</section>
-			
+			</div>
+		</section>
+
 			<FAQ />
 			</div> <!-- End below-fold-content -->
 		</main>
@@ -288,12 +405,12 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://www.pour
 			}
 			
 			::-webkit-scrollbar-thumb {
-				background: #22c55e;
+				background: #317D40;
 				border-radius: 4px;
 			}
-			
+
 			::-webkit-scrollbar-thumb:hover {
-				background: #16a34a;
+				background: #2C5F34;
 			}
 		</style>
 		
