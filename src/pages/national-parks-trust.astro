@@ -1,0 +1,368 @@
+---
+import CloudinaryImage from '../components/CloudinaryImage.astro';
+import ShopifyBuyButton from '../components/ShopifyBuyButton.astro';
+import GoogleAnalytics from '../components/GoogleAnalytics.astro';
+import ConversionTracking from '../components/ConversionTracking.astro';
+import Navigation from '../components/Navigation.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+const title = "Trusted by National Parks for Over a Decade - Pour the PORT";
+const description = "Discover why US National Parks, Joshua Tree, and government facilities have trusted Pour the PORT septic treatment for over 10 years. Professional-grade protection.";
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://www.pourtheport.com');
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- SEO Meta Tags -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="keywords" content="national parks septic treatment, Joshua Tree septic, government facilities septic, professional septic treatment, institutional septic solutions, national park service" />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content={Astro.url} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content="https://res.cloudinary.com/southland-organics/image/upload/w_1200,h_630,c_fill,q_auto/pour-the-port/logos/NPS_768_mqklvq" />
+
+    <!-- Google Analytics 4 -->
+    <GoogleAnalytics />
+  </head>
+
+  <body class="bg-gray-50">
+    <!-- Main Navigation -->
+    <Navigation />
+
+    <!-- Breadcrumb Navigation -->
+    <nav class="bg-white border-b border-gray-200 sticky top-16 z-40">
+      <div class="container mx-auto px-4 py-3">
+        <div class="flex items-center space-x-2 text-sm">
+          <a href="/" class="text-gray-500 hover:text-gray-700">Home</a>
+          <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+          <span class="text-gray-900 font-medium">National Parks Trust</span>
+        </div>
+      </div>
+    </nav>
+
+    <main class="container mx-auto px-4 py-8 max-w-4xl">
+      <!-- Hero Section -->
+      <div class="text-center mb-12">
+        <div class="flex justify-center mb-6">
+          <CloudinaryImage
+            publicId="pour-the-port/logos/NPS_768_mqklvq"
+            alt="National Parks Service logo - trusts Pour the PORT"
+            width={120}
+            height={90}
+            preset="logo"
+            class="opacity-80"
+          />
+        </div>
+        <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+          Trusted by National Parks for Over a Decade
+        </h1>
+        <p class="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+          When America's most pristine natural environments need septic system protection, they choose Pour the PORT. Discover why National Parks, government facilities, and universities trust our USDA Certified Biobased® formula.
+        </p>
+      </div>
+
+      <!-- Trust Timeline -->
+      <section class="mb-12">
+        <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">🏞️ A Decade of Professional Trust</h2>
+
+        <div class="bg-white rounded-lg shadow-md p-8">
+          <div class="space-y-8">
+            <div class="border-l-4 border-green-400 pl-6">
+              <h3 class="text-xl font-bold text-gray-800">2010+ Years of Service</h3>
+              <p class="text-gray-600 mt-2">
+                Pour the PORT began protecting critical septic systems in National Parks and government facilities, establishing a track record of reliability in the most demanding environments.
+              </p>
+            </div>
+
+            <div class="border-l-4 border-blue-400 pl-6">
+              <h3 class="text-xl font-bold text-gray-800">Zero Environmental Incidents</h3>
+              <p class="text-gray-600 mt-2">
+                Over 10+ years of continuous use in environmentally sensitive areas with perfect safety record. No contamination, no system failures, no environmental damage.
+              </p>
+            </div>
+
+            <div class="border-l-4 border-brand-primary-green pl-6">
+              <h3 class="text-xl font-bold text-gray-800">Expanded Professional Use</h3>
+              <p class="text-gray-600 mt-2">
+                Universities, state parks, Forest Service facilities, and Bureau of Land Management sites have adopted Pour the PORT based on National Parks' proven results.
+              </p>
+            </div>
+
+            <div class="border-l-4 border-yellow-400 pl-6">
+              <h3 class="text-xl font-bold text-gray-800">Available to Homeowners</h3>
+              <p class="text-gray-600 mt-2">
+                Now you can protect your home with the same professional-grade formula trusted by America's most important natural landmarks.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Why National Parks Choose PORT -->
+      <section class="mb-12">
+        <h2 class="text-3xl font-bold text-gray-900 mb-6">🎯 Why National Parks Choose Pour the PORT</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div class="bg-white rounded-lg shadow-md p-6">
+            <div class="bg-green-100 text-green-600 w-12 h-12 rounded-full flex items-center justify-center mb-4">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-3">Environmental Safety</h3>
+            <ul class="text-gray-600 space-y-2 text-sm">
+              <li>• USDA Certified Biobased® - renewable materials only</li>
+              <li>• Safe for groundwater and sensitive ecosystems</li>
+              <li>• No petroleum-based chemicals or synthetic additives</li>
+              <li>• Protects pristine wilderness areas</li>
+            </ul>
+          </div>
+
+          <div class="bg-white rounded-lg shadow-md p-6">
+            <div class="bg-blue-100 text-blue-600 w-12 h-12 rounded-full flex items-center justify-center mb-4">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.031 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-3">Proven Reliability</h3>
+            <ul class="text-gray-600 space-y-2 text-sm">
+              <li>• 10+ years of continuous professional use</li>
+              <li>• Zero system failures in critical applications</li>
+              <li>• Consistent performance in extreme conditions</li>
+              <li>• Trusted for mission-critical facilities</li>
+            </ul>
+          </div>
+
+          <div class="bg-white rounded-lg shadow-md p-6">
+            <div class="bg-brand-secondary-blue/20 text-brand-secondary-blue w-12 h-12 rounded-full flex items-center justify-center mb-4">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-3">Simple Application</h3>
+            <ul class="text-gray-600 space-y-2 text-sm">
+              <li>• Easy 3x per year treatment schedule</li>
+              <li>• No special equipment or training required</li>
+              <li>• Minimal maintenance requirements</li>
+              <li>• Cost-effective compared to alternatives</li>
+            </ul>
+          </div>
+
+          <div class="bg-white rounded-lg shadow-md p-6">
+            <div class="bg-orange-100 text-orange-600 w-12 h-12 rounded-full flex items-center justify-center mb-4">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-3">Budget Friendly</h3>
+            <ul class="text-gray-600 space-y-2 text-sm">
+              <li>• Prevents expensive system failures</li>
+              <li>• Extends time between pump-outs</li>
+              <li>• Reduces long-term maintenance costs</li>
+              <li>• Only $84 per year total protection</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Facilities That Trust PORT -->
+      <section class="mb-12">
+        <h2 class="text-3xl font-bold text-gray-900 mb-6">🏛️ Professional Facilities Using Pour the PORT</h2>
+
+        <div class="bg-white rounded-lg shadow-md p-8">
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-8 items-center mb-8">
+            <div class="text-center">
+              <CloudinaryImage
+                publicId="pour-the-port/logos/NPS_768_mqklvq"
+                alt="National Parks Service"
+                width={100}
+                height={75}
+                preset="logo"
+                class="mx-auto mb-2 opacity-70"
+              />
+              <p class="text-sm text-gray-600 font-medium">National Parks Service</p>
+            </div>
+
+            <div class="text-center">
+              <CloudinaryImage
+                publicId="pour-the-port/logos/JoshuaTree"
+                alt="Joshua Tree National Park"
+                width={100}
+                height={75}
+                preset="logo"
+                class="mx-auto mb-2 opacity-70"
+              />
+              <p class="text-sm text-gray-600 font-medium">Joshua Tree National Park</p>
+            </div>
+
+            <div class="text-center">
+              <CloudinaryImage
+                publicId="pour-the-port/logos/USFS_mhiaqm"
+                alt="US Forest Service"
+                width={100}
+                height={75}
+                preset="logo"
+                class="mx-auto mb-2 opacity-70"
+              />
+              <p class="text-sm text-gray-600 font-medium">US Forest Service</p>
+            </div>
+
+            <div class="text-center">
+              <CloudinaryImage
+                publicId="pour-the-port/logos/UGA_xkrnsx"
+                alt="University of Georgia"
+                width={100}
+                height={75}
+                preset="logo"
+                class="mx-auto mb-2 opacity-70"
+              />
+              <p class="text-sm text-gray-600 font-medium">University of Georgia</p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+            <div class="bg-gray-50 rounded-lg p-4">
+              <div class="text-2xl font-bold text-green-600 mb-1">10+</div>
+              <div class="text-sm text-gray-600">Years of Trust</div>
+            </div>
+            <div class="bg-gray-50 rounded-lg p-4">
+              <div class="text-2xl font-bold text-blue-600 mb-1">0</div>
+              <div class="text-sm text-gray-600">Environmental Incidents</div>
+            </div>
+            <div class="bg-gray-50 rounded-lg p-4">
+              <div class="text-2xl font-bold text-brand-secondary-blue mb-1">100%</div>
+              <div class="text-sm text-gray-600">System Reliability</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Professional vs Consumer -->
+      <section class="mb-12">
+        <h2 class="text-3xl font-bold text-gray-900 mb-6">⭐ Professional Grade, Now Available to Homeowners</h2>
+
+        <div class="bg-white rounded-lg shadow-md p-8">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div>
+              <h3 class="text-xl font-semibold text-gray-800 mb-4">What Makes It Professional Grade?</h3>
+              <ul class="space-y-3 text-gray-700">
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-green-600 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  Formulated specifically for critical infrastructure needs
+                </li>
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-green-600 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  USDA Certified Biobased® for environmental compliance
+                </li>
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-green-600 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  Tested in the most demanding applications
+                </li>
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-green-600 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  Proven in extreme weather and usage conditions
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 class="text-xl font-semibold text-gray-800 mb-4">Why Your Home Deserves Professional Protection</h3>
+              <ul class="space-y-3 text-gray-700">
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-blue-600 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  Septic system failure costs $15,000+ to replace
+                </li>
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-blue-600 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  Your property value depends on a working septic system
+                </li>
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-blue-600 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  Environmental responsibility protects your family and neighbors
+                </li>
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-blue-600 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  Same formula used by professionals - now accessible to all
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA Section -->
+      <section class="bg-green-600 text-white rounded-lg p-8 text-center mb-12">
+        <h2 class="text-3xl font-bold mb-4">Protect Your Home Like a National Park</h2>
+        <p class="text-xl mb-6">
+          Get the same professional-grade septic protection trusted by America's most pristine natural environments.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <ShopifyBuyButton
+            text="Get Professional Protection"
+            size="lg"
+            style="secondary"
+            class="min-w-48"
+          />
+          <a href="/product/" class="text-green-200 hover:text-white text-sm underline">
+            Learn More About Pour the PORT
+          </a>
+        </div>
+      </section>
+
+      <!-- Related Resources -->
+      <section>
+        <h2 class="text-3xl font-bold text-gray-900 mb-6">📚 Related Resources</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <a href="/usda-certified/" class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">USDA Certified</h3>
+            <p class="text-gray-600 text-sm">Learn about our USDA Certified Biobased® certification and environmental standards</p>
+          </a>
+
+          <a href="/septic-tank-bacteria/" class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">Bacteria Science</h3>
+            <p class="text-gray-600 text-sm">Understand the science behind beneficial bacteria in septic systems</p>
+          </a>
+
+          <a href="/septic-tank-maintenance-guide/" class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">Maintenance Guide</h3>
+            <p class="text-gray-600 text-sm">Complete septic system maintenance schedule and best practices</p>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <Footer />
+
+    <!-- Conversion Tracking -->
+    <ConversionTracking />
+  </body>
+</html>

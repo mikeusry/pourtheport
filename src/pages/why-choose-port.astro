@@ -1,0 +1,476 @@
+---
+import CloudinaryImage from '../components/CloudinaryImage.astro';
+import ShopifyBuyButton from '../components/ShopifyBuyButton.astro';
+import GoogleAnalytics from '../components/GoogleAnalytics.astro';
+import ConversionTracking from '../components/ConversionTracking.astro';
+import Navigation from '../components/Navigation.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+const title = "Why Choose Pour the PORT - Professional Septic Treatment Benefits";
+const description = "Discover why Pour the PORT is the #1 choice for septic system protection. USDA Certified, trusted by National Parks, prevents $15K disasters for only $84/year.";
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://www.pourtheport.com');
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- SEO Meta Tags -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="keywords" content="why choose pour the port, best septic treatment, professional septic protection, USDA certified septic, national parks septic, septic system benefits" />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content={Astro.url} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content="https://res.cloudinary.com/southland-organics/image/upload/w_1200,h_630,c_fill,q_auto/pour-the-port/Pour_the_Port_product" />
+
+    <!-- Google Analytics 4 -->
+    <GoogleAnalytics />
+  </head>
+
+  <body class="bg-gray-50">
+    <!-- Main Navigation -->
+    <Navigation />
+
+    <!-- Breadcrumb Navigation -->
+    <nav class="bg-white border-b border-gray-200 sticky top-16 z-40">
+      <div class="container mx-auto px-4 py-3">
+        <div class="flex items-center space-x-2 text-sm">
+          <a href="/" class="text-gray-500 hover:text-gray-700">Home</a>
+          <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+          <span class="text-gray-900 font-medium">Why Choose PORT</span>
+        </div>
+      </div>
+    </nav>
+
+    <main class="container mx-auto px-4 py-8 max-w-4xl">
+      <!-- Hero Section -->
+      <div class="text-center mb-12">
+        <div class="flex justify-center mb-6">
+          <div class="bg-green-100 text-green-600 p-4 rounded-full">
+            <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.031 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+            </svg>
+          </div>
+        </div>
+        <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+          Why Choose Pour the PORT?
+        </h1>
+        <p class="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+          The only septic treatment trusted by National Parks for over a decade. USDA Certified Biobased®, scientifically proven, and available for just $84/year to protect your $15,000+ investment.
+        </p>
+
+        <div class="text-center mb-8">
+          <CloudinaryImage
+            publicId="pour-the-port/Pour_the_Port_product"
+            alt="Pour the PORT septic treatment - professional grade protection"
+            width={400}
+            height={400}
+            preset="content"
+            class="rounded-lg shadow-md mx-auto"
+          />
+        </div>
+      </div>
+
+      <!-- Key Differentiators -->
+      <section class="mb-12">
+        <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">🏆 What Makes Pour the PORT Different</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div class="bg-white rounded-lg shadow-md p-6 text-center">
+            <div class="bg-green-100 text-green-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.031 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-3">USDA Certified Biobased®</h3>
+            <p class="text-gray-600 text-sm">Third-party tested and verified renewable content. Environmental compliance and safety guaranteed.</p>
+          </div>
+
+          <div class="bg-white rounded-lg shadow-md p-6 text-center">
+            <div class="bg-blue-100 text-blue-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 8.172V5L8 4z"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-3">10+ Years National Parks Trust</h3>
+            <p class="text-gray-600 text-sm">Proven in the most demanding professional applications with zero environmental incidents.</p>
+          </div>
+
+          <div class="bg-white rounded-lg shadow-md p-6 text-center">
+            <div class="bg-brand-secondary-blue/20 text-brand-secondary-blue w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-3">Only $84/Year Protection</h3>
+            <p class="text-gray-600 text-sm">Prevent $15,000+ disasters for less than $7/month. The most cost-effective septic insurance available.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Cost Comparison -->
+      <section class="mb-12">
+        <h2 class="text-3xl font-bold text-gray-900 mb-6">💰 The Smart Financial Choice</h2>
+
+        <div class="bg-white rounded-lg shadow-md p-8">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Cost of Prevention -->
+            <div>
+              <h3 class="text-2xl font-semibold text-green-800 mb-4">Cost of Prevention</h3>
+              <div class="space-y-4">
+                <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+                  <div class="flex justify-between items-center">
+                    <span class="text-green-700 font-medium">Pour the PORT (Annual)</span>
+                    <span class="text-2xl font-bold text-green-800">$84</span>
+                  </div>
+                  <p class="text-green-600 text-sm mt-1">3 treatments × $28 = Complete yearly protection</p>
+                </div>
+
+                <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+                  <div class="flex justify-between items-center">
+                    <span class="text-green-700 font-medium">10-Year Protection Cost</span>
+                    <span class="text-xl font-bold text-green-800">$840</span>
+                  </div>
+                  <p class="text-green-600 text-sm mt-1">Decade of worry-free septic system operation</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Cost of Failure -->
+            <div>
+              <h3 class="text-2xl font-semibold text-red-800 mb-4">Cost of Failure</h3>
+              <div class="space-y-4">
+                <div class="bg-red-50 border border-red-200 rounded-lg p-4">
+                  <div class="flex justify-between items-center">
+                    <span class="text-red-700 font-medium">Septic System Replacement</span>
+                    <span class="text-2xl font-bold text-red-800">$15,000+</span>
+                  </div>
+                  <p class="text-red-600 text-sm mt-1">Average cost for complete system failure</p>
+                </div>
+
+                <div class="bg-red-50 border border-red-200 rounded-lg p-4">
+                  <div class="flex justify-between items-center">
+                    <span class="text-red-700 font-medium">Emergency Pump-Out</span>
+                    <span class="text-xl font-bold text-red-800">$500+</span>
+                  </div>
+                  <p class="text-red-600 text-sm mt-1">When your system backs up into your home</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-8 bg-yellow-50 border border-yellow-200 rounded-lg p-6 text-center">
+            <h4 class="text-xl font-bold text-yellow-800 mb-2">🎯 The Math is Simple</h4>
+            <p class="text-yellow-700">
+              <span class="font-bold">$15,000 ÷ $84 = 179 years</span> of Pour the PORT protection equals one septic failure cost.
+              <br />
+              <span class="text-sm">Even if our treatment only prevents ONE failure in your lifetime, you save thousands.</span>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Scientific Backing -->
+      <section class="mb-12">
+        <h2 class="text-3xl font-bold text-gray-900 mb-6">🔬 Scientifically Proven Results</h2>
+
+        <div class="bg-white rounded-lg shadow-md p-8">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div>
+              <h3 class="text-xl font-semibold text-gray-800 mb-4">University Research Shows:</h3>
+              <ul class="space-y-3 text-gray-700">
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-green-600 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                  </svg>
+                  <span><strong>40-60% faster</strong> waste breakdown compared to untreated systems</span>
+                </li>
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-green-600 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                  </svg>
+                  <span><strong>50% reduction</strong> in sludge accumulation rates</span>
+                </li>
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-green-600 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                  </svg>
+                  <span><strong>95% fewer</strong> system failures in treated vs untreated systems</span>
+                </li>
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-green-600 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                  </svg>
+                  <span><strong>Extended pumping intervals</strong> save money and hassle</span>
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 class="text-xl font-semibold text-gray-800 mb-4">Professional Track Record:</h3>
+              <ul class="space-y-3 text-gray-700">
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-blue-600 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.031 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                  </svg>
+                  <span><strong>Zero environmental incidents</strong> in 10+ years of professional use</span>
+                </li>
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-blue-600 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.031 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                  </svg>
+                  <span><strong>Consistent performance</strong> in extreme weather conditions</span>
+                </li>
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-blue-600 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.031 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                  </svg>
+                  <span><strong>Trusted by institutions</strong> that require the highest standards</span>
+                </li>
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-blue-600 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.031 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                  </svg>
+                  <span><strong>Renewable formula</strong> supports sustainable practices</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Comparison with Alternatives -->
+      <section class="mb-12">
+        <h2 class="text-3xl font-bold text-gray-900 mb-6">⚖️ Pour the PORT vs Alternatives</h2>
+
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="w-full">
+              <thead class="bg-gray-50">
+                <tr>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Feature</th>
+                  <th class="px-6 py-3 text-center text-xs font-medium text-green-600 uppercase tracking-wider bg-green-50">Pour the PORT</th>
+                  <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Store Brands</th>
+                  <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Pumping Only</th>
+                </tr>
+              </thead>
+              <tbody class="bg-white divide-y divide-gray-200">
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">USDA Certified</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-center">
+                    <svg class="w-5 h-5 text-green-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-center">
+                    <svg class="w-5 h-5 text-red-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-center">
+                    <svg class="w-5 h-5 text-red-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                  </td>
+                </tr>
+                <tr class="bg-gray-50">
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Professional Use</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-center">
+                    <svg class="w-5 h-5 text-green-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-center">
+                    <svg class="w-5 h-5 text-red-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-center">
+                    <svg class="w-5 h-5 text-yellow-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path>
+                    </svg>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Annual Cost</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-center text-green-600 font-bold">$84</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-center text-gray-600">$60-120</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-center text-gray-600">$300-500</td>
+                </tr>
+                <tr class="bg-gray-50">
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Prevents Failures</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-center">
+                    <svg class="w-5 h-5 text-green-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-center">
+                    <span class="text-yellow-600 text-sm">Sometimes</span>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-center">
+                    <svg class="w-5 h-5 text-red-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Easy Application</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-center">
+                    <svg class="w-5 h-5 text-green-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-center">
+                    <svg class="w-5 h-5 text-green-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-center">
+                    <span class="text-red-600 text-sm">Requires Service</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Customer Benefits -->
+      <section class="mb-12">
+        <h2 class="text-3xl font-bold text-gray-900 mb-6">🎯 What Our Customers Love</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div class="bg-white rounded-lg shadow-md p-6">
+            <h3 class="text-xl font-semibold text-gray-800 mb-4">Peace of Mind</h3>
+            <ul class="space-y-3 text-gray-700">
+              <li class="flex items-start">
+                <svg class="w-5 h-5 text-green-600 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Sleep well knowing your septic system is protected
+              </li>
+              <li class="flex items-start">
+                <svg class="w-5 h-5 text-green-600 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                No worry about expensive emergency repairs
+              </li>
+              <li class="flex items-start">
+                <svg class="w-5 h-5 text-green-600 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Maintain your property value investment
+              </li>
+              <li class="flex items-start">
+                <svg class="w-5 h-5 text-green-600 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Professional-grade protection at home
+              </li>
+            </ul>
+          </div>
+
+          <div class="bg-white rounded-lg shadow-md p-6">
+            <h3 class="text-xl font-semibold text-gray-800 mb-4">Convenience</h3>
+            <ul class="space-y-3 text-gray-700">
+              <li class="flex items-start">
+                <svg class="w-5 h-5 text-blue-600 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Simple: Pour, flush, forget for 4 months
+              </li>
+              <li class="flex items-start">
+                <svg class="w-5 h-5 text-blue-600 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                No measuring, mixing, or special equipment
+              </li>
+              <li class="flex items-start">
+                <svg class="w-5 h-5 text-blue-600 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Delivered to your door automatically
+              </li>
+              <li class="flex items-start">
+                <svg class="w-5 h-5 text-blue-600 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Works in all weather and seasons
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA Section -->
+      <section class="bg-green-600 text-white rounded-lg p-8 text-center mb-12">
+        <h2 class="text-3xl font-bold mb-4">Join Thousands of Protected Homes</h2>
+        <p class="text-xl mb-6">
+          Get the same professional-grade protection trusted by National Parks, universities, and government facilities.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <ShopifyBuyButton
+            text="Start Protection Today"
+            size="lg"
+            style="secondary"
+            class="min-w-48"
+          />
+          <a href="/product/" class="text-green-200 hover:text-white text-sm underline">
+            Learn More About Pour the PORT
+          </a>
+        </div>
+        <div class="mt-6 grid grid-cols-3 gap-4 text-center">
+          <div>
+            <div class="text-2xl font-bold">$84</div>
+            <div class="text-sm text-green-200">Annual Protection</div>
+          </div>
+          <div>
+            <div class="text-2xl font-bold">10+</div>
+            <div class="text-sm text-green-200">Years Proven</div>
+          </div>
+          <div>
+            <div class="text-2xl font-bold">$15K+</div>
+            <div class="text-sm text-green-200">Disasters Prevented</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Related Resources -->
+      <section>
+        <h2 class="text-3xl font-bold text-gray-900 mb-6">📚 Learn More</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <a href="/national-parks-trust/" class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">National Parks Trust</h3>
+            <p class="text-gray-600 text-sm">Discover why National Parks have trusted Pour the PORT for over a decade</p>
+          </a>
+
+          <a href="/usda-certified/" class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">USDA Certified</h3>
+            <p class="text-gray-600 text-sm">Learn about our USDA Certified Biobased® environmental certification</p>
+          </a>
+
+          <a href="/septic-tank-bacteria/" class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">Bacteria Science</h3>
+            <p class="text-gray-600 text-sm">Understand the science behind beneficial bacteria in septic systems</p>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <Footer />
+
+    <!-- Conversion Tracking -->
+    <ConversionTracking />
+  </body>
+</html>

@@ -1,0 +1,371 @@
+---
+import CloudinaryImage from '../components/CloudinaryImage.astro';
+import ShopifyBuyButton from '../components/ShopifyBuyButton.astro';
+import GoogleAnalytics from '../components/GoogleAnalytics.astro';
+import ConversionTracking from '../components/ConversionTracking.astro';
+import Navigation from '../components/Navigation.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+const title = "USDA Certified Biobased® - What It Means for Septic Treatment";
+const description = "Learn what USDA Certified Biobased® means and why it matters for septic tank treatment. Third-party tested, renewable materials, and environmental benefits explained.";
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://www.pourtheport.com');
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- SEO Meta Tags -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="keywords" content="USDA certified biobased, renewable septic treatment, sustainable septic solutions, ASTM D6866 testing, biobased content verification, eco-friendly septic treatment" />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content={Astro.url} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content="https://res.cloudinary.com/southland-organics/image/upload/w_1200,h_630,c_fill,q_auto/pour-the-port/Pour_the_Port_product" />
+
+    <!-- Google Analytics 4 -->
+    <GoogleAnalytics />
+  </head>
+
+  <body class="bg-gray-50">
+    <!-- Main Navigation -->
+    <Navigation />
+
+    <!-- Breadcrumb Navigation -->
+    <nav class="bg-white border-b border-gray-200 sticky top-16 z-40">
+      <div class="container mx-auto px-4 py-3">
+        <div class="flex items-center space-x-2 text-sm">
+          <a href="/" class="text-gray-500 hover:text-gray-700">Home</a>
+          <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+          <span class="text-gray-900 font-medium">USDA Certified</span>
+        </div>
+      </div>
+    </nav>
+
+    <main class="container mx-auto px-4 py-8 max-w-4xl">
+      <!-- Hero Section -->
+      <div class="text-center mb-12">
+        <div class="flex justify-center mb-6">
+          <div class="bg-green-100 text-green-600 p-4 rounded-full">
+            <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.031 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+            </svg>
+          </div>
+        </div>
+        <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+          USDA Certified Biobased® Products
+        </h1>
+        <p class="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+          Understanding what USDA Certified Biobased® means and why it matters for your septic system and the environment. Third-party tested, scientifically verified, renewable content.
+        </p>
+
+        <div class="text-center mb-8">
+          <CloudinaryImage
+            publicId="pour-the-port/Pour_the_Port_product"
+            alt="Pour the PORT USDA Certified Biobased septic treatment product"
+            width={400}
+            height={400}
+            preset="content"
+            class="rounded-lg shadow-md mx-auto"
+          />
+        </div>
+      </div>
+
+      <!-- What is USDA Certified Biobased -->
+      <section class="mb-12">
+        <h2 class="text-3xl font-bold text-gray-900 mb-6">🌱 What is USDA Certified Biobased®?</h2>
+
+        <div class="bg-white rounded-lg shadow-md p-8 mb-8">
+          <p class="text-lg text-gray-700 mb-6">
+            The USDA Certified Biobased® label indicates that a product has been third-party tested at independent laboratories to verify its biobased content. This certification ensures that the product is derived from renewable agricultural, marine, and forestry materials rather than petroleum-based chemicals.
+          </p>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div>
+              <h3 class="text-xl font-semibold text-gray-800 mb-4">Certification Process</h3>
+              <ul class="space-y-3 text-gray-700">
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-green-600 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  Third-party testing at independent laboratories
+                </li>
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-green-600 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  ASTM D6866 standard test method verification
+                </li>
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-green-600 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  Measures ratio of new organic carbon to total organic carbon
+                </li>
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-green-600 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  Biobased content expressed as verified percentage
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 class="text-xl font-semibold text-gray-800 mb-4">Material Sources</h3>
+              <ul class="space-y-3 text-gray-700">
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-blue-600 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  Renewable agricultural materials
+                </li>
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-blue-600 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  Marine-based renewable resources
+                </li>
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-blue-600 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  Sustainable forestry materials
+                </li>
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-blue-600 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  Alternative to petroleum-based products
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Why It Matters -->
+      <section class="mb-12">
+        <h2 class="text-3xl font-bold text-gray-900 mb-6">🌍 Why USDA Certification Matters</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="bg-white rounded-lg shadow-md p-6">
+            <div class="bg-green-100 text-green-600 w-12 h-12 rounded-full flex items-center justify-center mb-4">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-3">Environmental Impact</h3>
+            <p class="text-gray-600">Reduces dependence on petroleum-based chemicals and supports sustainable manufacturing practices that protect our environment.</p>
+          </div>
+
+          <div class="bg-white rounded-lg shadow-md p-6">
+            <div class="bg-blue-100 text-blue-600 w-12 h-12 rounded-full flex items-center justify-center mb-4">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.031 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-3">Scientific Verification</h3>
+            <p class="text-gray-600">Third-party testing ensures accurate biobased content claims, giving you confidence in the product's renewable composition.</p>
+          </div>
+
+          <div class="bg-white rounded-lg shadow-md p-6">
+            <div class="bg-brand-secondary-blue/20 text-brand-secondary-blue w-12 h-12 rounded-full flex items-center justify-center mb-4">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-3">Consumer Confidence</h3>
+            <p class="text-gray-600">Provides clear identification of products with verified renewable content, helping you make informed sustainable choices.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Pour the PORT Certification -->
+      <section class="mb-12">
+        <h2 class="text-3xl font-bold text-gray-900 mb-6">🏆 Pour the PORT's USDA Certification</h2>
+
+        <div class="bg-white rounded-lg shadow-md p-8">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+            <div>
+              <h3 class="text-2xl font-semibold text-gray-800 mb-4">Verified Renewable Content</h3>
+              <p class="text-gray-700 mb-6">
+                Pour the PORT has earned USDA Certified Biobased® status through rigorous third-party testing. Our septic treatment formula is derived from renewable biological materials, not petroleum-based chemicals.
+              </p>
+
+              <div class="space-y-4">
+                <div class="bg-green-50 border border-green-200 rounded p-4">
+                  <h4 class="font-semibold text-green-800">What This Means for You:</h4>
+                  <ul class="text-green-700 text-sm space-y-1 mt-2">
+                    <li>• Safe for families, pets, and the environment</li>
+                    <li>• Sustainable septic system maintenance</li>
+                    <li>• Supports renewable agriculture and forestry</li>
+                    <li>• Reduces environmental footprint</li>
+                  </ul>
+                </div>
+
+                <div class="bg-blue-50 border border-blue-200 rounded p-4">
+                  <h4 class="font-semibold text-blue-800">Trusted by Professionals:</h4>
+                  <p class="text-blue-700 text-sm mt-2">
+                    National Parks, universities, and government facilities choose USDA Certified Biobased® products like Pour the PORT for their environmental responsibility and proven effectiveness.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="text-center">
+              <div class="bg-gray-50 rounded-lg p-6">
+                <h4 class="font-bold text-gray-800 mb-4">Certification Details</h4>
+
+                <div class="space-y-3">
+                  <div class="bg-white rounded p-3 border">
+                    <div class="text-sm text-gray-600">Testing Standard</div>
+                    <div class="text-lg font-bold text-green-600">ASTM D6866</div>
+                    <div class="text-xs text-gray-600">Independent laboratory verified</div>
+                  </div>
+
+                  <div class="bg-white rounded p-3 border">
+                    <div class="text-sm text-gray-600">Biobased Content</div>
+                    <div class="text-lg font-bold text-blue-600">Verified</div>
+                    <div class="text-xs text-gray-600">Renewable materials</div>
+                  </div>
+
+                  <div class="bg-white rounded p-3 border">
+                    <div class="text-sm text-gray-600">Certification Body</div>
+                    <div class="text-lg font-bold text-brand-secondary-blue">USDA</div>
+                    <div class="text-xs text-gray-600">United States Department of Agriculture</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Benefits for Septic Systems -->
+      <section class="mb-12">
+        <h2 class="text-3xl font-bold text-gray-900 mb-6">🔬 Benefits for Your Septic System</h2>
+
+        <div class="bg-white rounded-lg shadow-md p-8">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div>
+              <h3 class="text-xl font-semibold text-gray-800 mb-4">Environmental Safety</h3>
+              <ul class="space-y-3 text-gray-700">
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-green-600 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  Won't harm beneficial soil bacteria in your drain field
+                </li>
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-green-600 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  Safe for groundwater and surrounding environment
+                </li>
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-green-600 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  Biodegradable and environmentally responsible
+                </li>
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-green-600 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  Supports natural biological processes
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 class="text-xl font-semibold text-gray-800 mb-4">System Performance</h3>
+              <ul class="space-y-3 text-gray-700">
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-blue-600 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  Natural bacteria work more effectively than synthetic alternatives
+                </li>
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-blue-600 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  Sustainable long-term septic system health
+                </li>
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-blue-600 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  Compatible with natural septic system processes
+                </li>
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-blue-600 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  Proven effectiveness in professional applications
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA Section -->
+      <section class="bg-green-600 text-white rounded-lg p-8 text-center mb-12">
+        <h2 class="text-3xl font-bold mb-4">Choose USDA Certified Biobased® Protection</h2>
+        <p class="text-xl mb-6">
+          Experience the difference of scientifically verified, renewable septic treatment that's trusted by professionals and safe for your family.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <ShopifyBuyButton
+            text="Get USDA Certified Treatment"
+            size="lg"
+            style="secondary"
+            class="min-w-48"
+          />
+          <a href="/product/" class="text-green-200 hover:text-white text-sm underline">
+            Learn More About Pour the PORT
+          </a>
+        </div>
+      </section>
+
+      <!-- Related Resources -->
+      <section>
+        <h2 class="text-3xl font-bold text-gray-900 mb-6">📚 Related Resources</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <a href="/septic-tank-bacteria/" class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">Bacteria Science</h3>
+            <p class="text-gray-600 text-sm">Learn how beneficial bacteria keep your septic system healthy and functioning</p>
+          </a>
+
+          <a href="/natural-septic-solutions/" class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">Natural Solutions</h3>
+            <p class="text-gray-600 text-sm">Discover eco-friendly approaches to septic system maintenance and care</p>
+          </a>
+
+          <a href="/septic-tank-maintenance-guide/" class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">Maintenance Guide</h3>
+            <p class="text-gray-600 text-sm">Complete septic system maintenance schedule and best practices</p>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <Footer />
+
+    <!-- Conversion Tracking -->
+    <ConversionTracking />
+  </body>
+</html>

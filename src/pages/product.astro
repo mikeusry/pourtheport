@@ -6,6 +6,7 @@ import ConversionTracking from '../components/ConversionTracking.astro';
 import KlaviyoReviews from '../components/KlaviyoReviews.astro';
 import Navigation from '../components/Navigation.astro';
 import Footer from '../components/Footer.astro';
+import TrustLogos from '../components/TrustLogos.astro';
 import { getProduct, mockProduct, isShopifyConfigured, getDefaultVariant, formatPrice } from '../lib/shopify';
 import '../styles/global.css';
 
@@ -395,46 +396,25 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://www.pour
         </div>
       </div>
 
-      <!-- Trust Logos -->
-      <div class="mt-16 text-center">
-        <h3 class="text-2xl font-bold text-gray-900 mb-8">Trusted By Leading Organizations</h3>
-        <div class="flex justify-center items-center space-x-8 md:space-x-12 opacity-70">
-          <div class="w-24 h-20 md:w-32 md:h-24 flex items-center justify-center">
-            <CloudinaryImage
-              publicId="pour-the-port/logos/NPS_768_mqklvq"
-              alt="National Parks Service trusts Pour the PORT septic treatment"
-              width={160}
-              height={120}
-              preset="logo"
-              placeholder={false}
-              class="w-full h-full object-contain"
-            />
-          </div>
-          <div class="w-24 h-20 md:w-32 md:h-24 flex items-center justify-center">
-            <CloudinaryImage
-              publicId="pour-the-port/logos/UGA_xkrnsx"
-              alt="University of Georgia endorses bacterial septic treatment"
-              width={160}
-              height={120}
-              preset="logo"
-              placeholder={false}
-              class="w-full h-full object-contain"
-            />
-          </div>
-          <div class="w-24 h-20 md:w-32 md:h-24 flex items-center justify-center">
-            <CloudinaryImage
-              publicId="pour-the-port/logos/USFS_mhiaqm"
-              alt="US Forest Service uses natural septic solutions"
-              width={160}
-              height={120}
-              placeholder={false}
-              preset="logo"
-              class="max-w-full max-h-full object-contain"
-            />
-          </div>
-        </div>
-      </div>
     </main>
+
+    <!-- Trust Carousel Section -->
+    <TrustLogos />
+
+    <!-- Klaviyo Reviews Section -->
+    <section class="py-16 bg-gray-50">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">
+            What Our Customers Say
+          </h2>
+          <p class="text-lg text-gray-600">
+            Join thousands of satisfied customers who trust Pour the PORT
+          </p>
+        </div>
+        <KlaviyoReviews />
+      </div>
+    </section>
 
     <script is:inline>
       // Tab functionality

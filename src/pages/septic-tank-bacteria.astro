@@ -3,6 +3,7 @@ import CloudinaryImage from '../components/CloudinaryImage.astro';
 import ShopifyBuyButton from '../components/ShopifyBuyButton.astro';
 import GoogleAnalytics from '../components/GoogleAnalytics.astro';
 import ConversionTracking from '../components/ConversionTracking.astro';
+import Footer from '../components/Footer.astro';
 import '../styles/global.css';
 
 const title = "Septic Tank Bacteria: Science Behind Natural Septic Treatment";
@@ -59,7 +60,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://www.pour
           The Science Behind Septic Tank Bacteria
         </h1>
         <p class="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-          Discover how billions of beneficial bacteria keep your septic system healthy and prevent costly failures. Understanding the science helps you make better maintenance decisions.
+          Discover how billions of beneficial bacteria keep your septic system healthy and prevent costly failures. These good bacteria play a crucial role in breaking down human waste, ensuring efficient waste decomposition and system function. Understanding the science helps you make better maintenance decisions.
         </p>
         
         <div class="text-center mb-8">
@@ -73,6 +74,27 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://www.pour
           />
         </div>
       </div>
+
+      <!-- Introduction to Septic Systems -->
+      <section class="mb-12">
+        <h2 class="text-3xl font-bold text-gray-900 mb-6">🚪 Introduction to Septic Systems</h2>
+
+        <div class="bg-white rounded-lg shadow-md p-8 mb-8">
+          <p class="text-gray-600 mb-6">
+            Septic systems are essential for effective wastewater treatment in areas where municipal sewage systems are not available. A septic system is a self-contained solution designed to safely treat and dispose of wastewater from homes and businesses. At the heart of every system is the septic tank, which collects and begins the treatment of waste, and the drain field (or leach field), where further purification occurs as wastewater is filtered through the soil. Regular maintenance, including normal septic tank maintenance like pumping the tank every 3-5 years, is crucial to remove solid waste and prevent costly repairs. Without proper care, a septic system can fail, leading to expensive repairs and potential health hazards. By understanding how your septic system works and following a regular maintenance schedule, you can protect your investment and ensure efficient wastewater treatment for years to come.
+          </p>
+
+          <h3 class="text-2xl font-semibold text-gray-800 mb-4">How Septic Systems Work</h3>
+          <p class="text-gray-600 mb-6">
+            A septic system operates by separating incoming wastewater into three distinct layers within the septic tank. The top layer, known as scum, is made up of fats, oils, and greases that float. The middle layer is the effluent, a liquid that eventually flows out of the septic tank and into the drain field. The bottom layer, called sludge, consists of solid waste that settles over time. Inside the septic tank, anaerobic bacteria—microorganisms that do not require oxygen—break down the solid waste through a process called anaerobic digestion. This reduces the volume of sludge and helps prevent the tank from filling up too quickly. The partially treated liquid effluent then moves to the drain field, where it undergoes further treatment and filtration as it percolates through the soil, ensuring that only clean water is released back into the environment.
+          </p>
+
+          <h3 class="text-2xl font-semibold text-gray-800 mb-4">Key Components and Their Roles</h3>
+          <p class="text-gray-600">
+            The main components of a septic system are the septic tank, the drain field, and the surrounding soil. The septic tank is where the initial treatment and separation of wastewater occur, allowing bacteria to break down organic matter. The drain field is a network of pipes or chambers that distribute the effluent into the soil for final purification. The soil itself acts as a natural filter, where aerobic bacteria—organisms that require oxygen—continue the decomposition process, breaking down any remaining organic matter and neutralizing potential contaminants. Regular septic tank treatment and maintenance are essential to keep these components functioning properly. Avoiding harmful chemicals and antibacterial soaps is important, as these substances can disrupt the balance of beneficial bacteria inside the system. By maintaining a healthy bacterial population and following recommended septic tank treatments, you help ensure efficient wastewater treatment and protect your septic system from damage.
+          </p>
+        </div>
+      </section>
 
       <!-- What Are Septic Bacteria -->
       <section class="mb-12">
@@ -89,7 +111,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://www.pour
               <div class="space-y-4">
                 <div class="border-l-4 border-blue-400 pl-4">
                   <h4 class="font-semibold text-gray-800">Aerobic Bacteria</h4>
-                  <p class="text-gray-600 text-sm">Require oxygen to function, work in the upper layers</p>
+                  <p class="text-gray-600 text-sm">Require oxygen to function, work in the upper layers. These bacteria thrive in the presence of air, which provides the oxygen they need to break down waste efficiently.</p>
                 </div>
                 <div class="border-l-4 border-green-400 pl-4">
                   <h4 class="font-semibold text-gray-800">Anaerobic Bacteria</h4>
@@ -150,6 +172,12 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://www.pour
               <h4 class="font-semibold text-gray-800 mb-2">Enzyme Release</h4>
               <p class="text-gray-600 text-sm">Secrete enzymes to break down complex molecules</p>
             </div>
+
+            <div class="col-span-full mt-4 bg-gray-50 rounded-lg p-4">
+              <p class="text-gray-600 text-sm">
+                Bacteria in septic systems produce enzymes to break down complex waste molecules. These enzymes help decompose organic matter, making it easier for bacteria to digest and process the waste.
+              </p>
+            </div>
             
             <!-- Step 3 -->
             <div class="text-center">
@@ -190,6 +218,22 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://www.pour
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      <!-- Factors That Affect Bacterial Growth -->
+      <section class="mb-12">
+        <h2 class="text-3xl font-bold text-gray-900 mb-6">🌱 Factors That Affect Bacterial Growth</h2>
+
+        <div class="bg-white rounded-lg shadow-md p-8 mb-8">
+          <p class="text-gray-600 mb-6">
+            Bacterial growth is essential for a healthy septic system, as bacteria are responsible for breaking down waste and keeping the system running efficiently. Several factors influence how well bacteria thrive inside your septic tank and drain field. Temperature, pH, and the presence or absence of oxygen all play a role in determining which types of bacteria—anaerobic or aerobic—dominate in different parts of the system. Anaerobic bacteria, which do not require oxygen, are most active in the septic tank, while aerobic bacteria, which require oxygen, are found in the drain field where they help further treat the effluent. Maintaining the right conditions for these bacteria is crucial for effective waste breakdown and overall septic system health.
+          </p>
+
+          <h3 class="text-2xl font-semibold text-gray-800 mb-4">Temperature and pH</h3>
+          <p class="text-gray-600">
+            Temperature and pH are two of the most important factors affecting bacterial growth in your septic system. Most beneficial bacteria thrive when temperatures are between 65°F and 85°F (18°C to 30°C) and the pH is in the range of 6.5 to 8.5. If the temperature drops too low or rises too high, or if the pH becomes too acidic or alkaline, bacterial activity slows down or stops altogether. This can lead to inefficient wastewater treatment, unpleasant odors, and even costly repairs due to clogging or system failure. Regular maintenance, such as adding additional bacteria or using septic tank treatments, helps maintain a healthy balance of bacteria and keeps your system running efficiently. It's essential to avoid harsh chemicals, antibacterial soaps, and detergents, as these can harm beneficial bacteria and disrupt the decomposition process. Instead, consider using natural additives like yeast to support bacterial growth and promote a healthy, efficient septic system. By monitoring temperature and pH and practicing regular maintenance, you can prevent odors, clogs, and expensive repairs, ensuring your septic system remains in top condition.
+          </p>
         </div>
       </section>
 
@@ -385,11 +429,6 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://www.pour
             style="secondary"
             class="min-w-48"
           />
-          <a href="/" class="text-green-100 hover:text-white underline">
-            Learn More About Pour the PORT
-          </a>
-        </div>
-        <div class="mt-4 text-center">
           <a href="/septic-tank-maintenance-guide/" class="text-green-200 hover:text-white text-sm underline">
             Read Our Complete Maintenance Guide
           </a>
@@ -399,24 +438,43 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://www.pour
       <!-- Related Articles -->
       <section>
         <h2 class="text-3xl font-bold text-gray-900 mb-6">📚 Related Resources</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <a href="/septic-tank-maintenance-guide/" class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
-            <h3 class="text-xl font-semibold text-gray-800 mb-2">Maintenance Guide</h3>
-            <p class="text-gray-600 text-sm">Complete septic system maintenance schedule and best practices</p>
-          </a>
-          
-          <a href="/natural-septic-solutions/" class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
-            <h3 class="text-xl font-semibold text-gray-800 mb-2">Natural Solutions</h3>
-            <p class="text-gray-600 text-sm">Eco-friendly approaches to septic system health and maintenance</p>
-          </a>
-          
-          <a href="/septic-system-problems/" class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
-            <h3 class="text-xl font-semibold text-gray-800 mb-2">Common Problems</h3>
-            <p class="text-gray-600 text-sm">Identify and prevent septic system issues before they become disasters</p>
-          </a>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">
+              <a href="/septic-tank-maintenance-guide/" class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow block">
+                Maintenance Guide
+              </a>
+            </h3>
+            <p class="text-gray-600 text-sm">
+              <a href="/septic-tank-maintenance-guide/" class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow block">
+                Complete septic system maintenance schedule and best practices
+              </a>
+            </p>
+            <p class="text-gray-600 text-sm mt-2">
+              <a href="/natural-septic-solutions/" class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow block">
+                Eco-friendly approaches to septic system health and maintenance
+              </a>
+            </p>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">
+              <a href="/septic-system-problems/" class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow block">
+                Common Problems
+              </a>
+            </h3>
+            <p class="text-gray-600 text-sm">
+              <a href="/septic-system-problems/" class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow block">
+                Identify and prevent septic system issues before they become disasters
+              </a>
+            </p>
+          </div>
         </div>
       </section>
     </main>
+
+    <!-- Footer -->
+    <Footer />
 
     <!-- Conversion Tracking -->
     <ConversionTracking />
