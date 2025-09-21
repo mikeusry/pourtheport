@@ -11,6 +11,7 @@ import FAQ from '../components/FAQ.astro';
 import StickyCAT from '../components/StickyCAT.astro';
 import GoogleAnalytics from '../components/GoogleAnalytics.astro';
 import ConversionTracking from '../components/ConversionTracking.astro';
+import Navigation from '../components/Navigation.astro';
 import '../styles/global.css';
 
 const title = "Pour the PORT - Prevent $15,000 Septic Disasters for $84/Year";
@@ -177,53 +178,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://www.pour
 			Skip to main content
 		</a>
 		
-		<!-- Navigation Header -->
-		<nav class="bg-white shadow-sm sticky top-0 z-50" role="navigation" aria-label="Main navigation">
-			<div class="container mx-auto px-4">
-				<div class="flex justify-between items-center py-4">
-					<a href="/" class="font-bold text-xl text-green-600 hover:text-green-700 focus:text-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 rounded p-1 -m-1" aria-label="Pour the PORT - Home">
-						Pour the PORT
-					</a>
-					<div class="hidden md:flex items-center space-x-6" role="menubar">
-						<a href="/product" class="text-gray-600 hover:text-green-600 focus:text-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 font-medium transition-colors p-2 -m-2 rounded" role="menuitem">
-							Product Details
-						</a>
-						<a href="/septic-tank-maintenance-guide/" class="text-gray-600 hover:text-green-600 focus:text-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 font-medium transition-colors p-2 -m-2 rounded" role="menuitem">
-							Maintenance Guide
-						</a>
-						<a href="#pricing" class="bg-green-500 hover:bg-green-600 focus:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 text-white font-medium px-4 py-2 rounded-full transition-colors" role="menuitem" aria-label="Buy Now - Go to pricing">
-							Buy Now
-						</a>
-					</div>
-					<!-- Mobile Menu Button -->
-					<button 
-						id="mobile-menu-button" 
-						class="md:hidden text-gray-600 hover:text-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 p-2 -m-2 rounded-md"
-						aria-label="Open mobile menu"
-						aria-expanded="false"
-						aria-controls="mobile-menu"
-					>
-						<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-						</svg>
-					</button>
-				</div>
-			</div>
-			<!-- Mobile Menu -->
-			<div id="mobile-menu" class="hidden md:hidden bg-white border-t" role="menu" aria-labelledby="mobile-menu-button">
-				<nav class="px-4 py-3 space-y-3" role="navigation" aria-label="Mobile navigation">
-					<a href="/product" class="block text-gray-600 hover:text-green-600 focus:text-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-inset font-medium transition-colors p-2 -m-2 rounded" role="menuitem">
-						Product Details
-					</a>
-					<a href="/septic-tank-maintenance-guide/" class="block text-gray-600 hover:text-green-600 focus:text-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-inset font-medium transition-colors p-2 -m-2 rounded" role="menuitem">
-						Maintenance Guide
-					</a>
-					<a href="#pricing" class="block bg-green-500 hover:bg-green-600 focus:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 text-white font-medium px-4 py-2 rounded-full text-center transition-colors" role="menuitem">
-						Buy Now
-					</a>
-				</nav>
-			</div>
-		</nav>
+		<Navigation />
 
 		<!-- Main Content -->
 		<main id="main-content" role="main" aria-label="Main content">
@@ -356,27 +311,6 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://www.pour
 					content.setAttribute('aria-hidden', 'false');
 				}
 				
-				// Mobile menu functionality with accessibility
-				const mobileMenuButton = document.getElementById('mobile-menu-button');
-				const mobileMenu = document.getElementById('mobile-menu');
-				if (mobileMenuButton && mobileMenu) {
-					mobileMenuButton.addEventListener('click', () => {
-						const isHidden = mobileMenu.classList.contains('hidden');
-						mobileMenu.classList.toggle('hidden');
-						mobileMenuButton.setAttribute('aria-expanded', isHidden ? 'true' : 'false');
-						mobileMenuButton.setAttribute('aria-label', isHidden ? 'Close mobile menu' : 'Open mobile menu');
-					});
-					
-					// Close menu on escape key
-					document.addEventListener('keydown', (e) => {
-						if (e.key === 'Escape' && !mobileMenu.classList.contains('hidden')) {
-							mobileMenu.classList.add('hidden');
-							mobileMenuButton.setAttribute('aria-expanded', 'false');
-							mobileMenuButton.setAttribute('aria-label', 'Open mobile menu');
-							mobileMenuButton.focus();
-						}
-					});
-				}
 			}, 50);
 			
 			// Load analytics much later
