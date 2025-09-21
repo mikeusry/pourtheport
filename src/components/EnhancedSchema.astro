@@ -1,0 +1,163 @@
+---
+export interface Props {
+  type: 'homepage' | 'product' | 'article' | 'faq';
+  title: string;
+  description: string;
+  url?: string;
+  product?: {
+    name: string;
+    price: string;
+    currency: string;
+    brand: string;
+    sku?: string;
+    image?: string;
+  };
+  article?: {
+    datePublished: string;
+    dateModified: string;
+    author: string;
+    headline: string;
+    image?: string;
+  };
+  faq?: Array<{
+    question: string;
+    answer: string;
+  }>;
+}
+
+const { type, title, description, url, product, article, faq } = Astro.props;
+const baseUrl = Astro.site || 'https://www.pourtheport.com';
+const fullUrl = url || Astro.url.href;
+
+// Organization Schema
+const organizationSchema = {
+  "@type": "Organization",
+  "name": "Pour the PORT",
+  "url": baseUrl,
+  "logo": "https://res.cloudinary.com/southland-organics/image/upload/w_400,h_400,c_fit,q_auto/pour-the-port/logos/pour-the-port-logo",
+  "description": "USDA Certified Biobased septic tank treatment preventing costly system failures",
+  "address": {
+    "@type": "PostalAddress",
+    "addressCountry": "US"
+  },
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "customer service",
+    "url": baseUrl
+  }
+};
+
+// Website Schema
+const websiteSchema = {
+  "@type": "WebSite",
+  "name": "Pour the PORT",
+  "url": baseUrl,
+  "description": "Prevent septic disasters with USDA Certified Biobased treatment",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": `${baseUrl}/search?q={search_term_string}`
+    },
+    "query-input": "required name=search_term_string"
+  }
+};
+
+// Generate schemas based on page type
+let pageSchemas = [organizationSchema, websiteSchema];
+
+if (type === 'homepage') {
+  // Homepage specific schema
+  pageSchemas.push({
+    "@type": "WebPage",
+    "name": title,
+    "description": description,
+    "url": fullUrl,
+    "mainEntity": {
+      "@type": "Product",
+      "name": "Pour the PORT Septic Tank Treatment",
+      "description": "USDA Certified Biobased septic treatment that prevents $15K+ disasters",
+      "brand": {
+        "@type": "Brand",
+        "name": "Pour the PORT"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "84.00",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock",
+        "priceValidUntil": "2025-12-31"
+      }
+    }
+  });
+}
+
+if (type === 'product' && product) {
+  pageSchemas.push({
+    "@type": "Product",
+    "name": product.name,
+    "description": description,
+    "brand": {
+      "@type": "Brand",
+      "name": product.brand
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": product.price,
+      "priceCurrency": product.currency,
+      "availability": "https://schema.org/InStock",
+      "url": fullUrl
+    },
+    "image": product.image,
+    "sku": product.sku,
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.8",
+      "reviewCount": "250",
+      "bestRating": "5",
+      "worstRating": "1"
+    }
+  });
+}
+
+if (type === 'article' && article) {
+  pageSchemas.push({
+    "@type": "Article",
+    "headline": article.headline,
+    "description": description,
+    "image": article.image,
+    "author": {
+      "@type": "Person",
+      "name": article.author
+    },
+    "publisher": organizationSchema,
+    "datePublished": article.datePublished,
+    "dateModified": article.dateModified,
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": fullUrl
+    }
+  });
+}
+
+if (type === 'faq' && faq) {
+  pageSchemas.push({
+    "@type": "FAQPage",
+    "mainEntity": faq.map(item => ({
+      "@type": "Question",
+      "name": item.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": item.answer
+      }
+    }))
+  });
+}
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": pageSchemas
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(structuredData, null, 2)}></script>

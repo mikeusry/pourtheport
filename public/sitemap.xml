@@ -9,7 +9,7 @@
   <!-- Homepage -->
   <url>
     <loc>https://www.pourtheport.com/</loc>
-    <lastmod>2025-01-10</lastmod>
+    <lastmod>2025-09-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -17,7 +17,7 @@
   <!-- Product Page -->
   <url>
     <loc>https://www.pourtheport.com/product</loc>
-    <lastmod>2025-01-10</lastmod>
+    <lastmod>2025-09-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -25,37 +25,44 @@
   <!-- SEO Content Pages -->
   <url>
     <loc>https://www.pourtheport.com/septic-tank-maintenance-guide</loc>
-    <lastmod>2025-01-10</lastmod>
+    <lastmod>2025-09-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
     <loc>https://www.pourtheport.com/septic-system-problems</loc>
-    <lastmod>2025-01-10</lastmod>
+    <lastmod>2025-09-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
     <loc>https://www.pourtheport.com/septic-treatment-vs-pumping</loc>
-    <lastmod>2025-01-10</lastmod>
+    <lastmod>2025-09-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
     <loc>https://www.pourtheport.com/natural-septic-solutions</loc>
-    <lastmod>2025-01-10</lastmod>
+    <lastmod>2025-09-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   
   <url>
     <loc>https://www.pourtheport.com/septic-tank-bacteria</loc>
-    <lastmod>2025-01-10</lastmod>
+    <lastmod>2025-09-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-  
+
+  <url>
+    <loc>https://www.pourtheport.com/septic-tank-cleaning-schedule</loc>
+    <lastmod>2025-09-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
 </urlset>
