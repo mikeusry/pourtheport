@@ -1,0 +1,60 @@
+---
+/**
+ * Google Tag Manager Body Component
+ *
+ * This component contains the noscript fallback for GTM that must be placed
+ * immediately after the opening <body> tag according to Google's specifications.
+ *
+ * This is separated from the main GTM component to allow proper placement
+ * in the document structure while maintaining clean component architecture.
+ *
+ * Features:
+ * - Noscript fallback for users with JavaScript disabled
+ * - Environment-based conditional loading
+ * - Performance optimized with lazy loading iframe
+ * - Proper accessibility attributes
+ *
+ * Usage in Layout.astro:
+ * Place immediately after <body> tag:
+ * <body>
+ *   <GoogleTagManagerBody />
+ *   <!-- rest of body content -->
+ * </body>
+ */
+
+interface Props {
+  containerId?: string;
+}
+
+// Get GTM Container ID from environment
+const GTM_CONTAINER_ID = import.meta.env.PUBLIC_GTM_CONTAINER_ID;
+
+// Use prop override if provided, otherwise use environment variable
+const { containerId = GTM_CONTAINER_ID } = Astro.props;
+
+// Only load GTM if container ID is provided
+const shouldLoadGTM = containerId && containerId !== 'your-gtm-container-id-here';
+
+// Development mode check - GTM typically disabled in dev unless explicitly enabled
+const isDevelopment = import.meta.env.DEV;
+const enableInDev = import.meta.env.PUBLIC_GTM_ENABLE_DEV === 'true';
+const shouldLoadInCurrentEnv = isDevelopment ? enableInDev : true;
+
+// Final decision to load GTM
+const loadGTM = shouldLoadGTM && shouldLoadInCurrentEnv;
+---
+
+{loadGTM && (
+  <!-- Google Tag Manager (noscript) -->
+  <noscript>
+    <iframe
+      src={`https://www.googletagmanager.com/ns.html?id=${containerId}`}
+      height="0"
+      width="0"
+      style="display:none;visibility:hidden"
+      title="Google Tag Manager Fallback"
+      loading="lazy">
+    </iframe>
+  </noscript>
+  <!-- End Google Tag Manager (noscript) -->
+)}

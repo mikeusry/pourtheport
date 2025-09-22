@@ -1,0 +1,201 @@
+---
+/**
+ * GTM-Based Conversion Tracking Component
+ *
+ * This component replaces direct Google Analytics tracking with GTM-based
+ * event tracking. All events are pushed to the GTM dataLayer and can be
+ * configured to trigger any tags (GA4, Facebook Pixel, etc.) in GTM.
+ *
+ * Features:
+ * - Subscribe Now button click tracking
+ * - Form submission tracking
+ * - Contact link click tracking (email/phone)
+ * - Scroll depth tracking
+ * - Time on page engagement tracking
+ * - Video interaction tracking
+ * - Ecommerce event tracking
+ *
+ * Benefits over direct GA4:
+ * - Works with any analytics platform configured in GTM
+ * - Centralized tag management
+ * - Easier A/B testing setup
+ * - No code changes needed for new tracking tools
+ */
+---
+
+<script is:inline>
+  // GTM-based conversion tracking for Pour the PORT
+  document.addEventListener('DOMContentLoaded', function() {
+    // Check if GTM dataLayer is available
+    if (typeof window.dataLayer === 'undefined') {
+      console.log('📊 GTM Conversion Tracking: GTM not loaded, events will be queued');
+      window.dataLayer = window.dataLayer || [];
+    }
+
+    // Helper function to push events to GTM dataLayer
+    function pushToGTM(eventData) {
+      window.dataLayer.push(eventData);
+      console.log('📊 GTM Event:', eventData);
+    }
+
+    // Track Subscribe Now button clicks
+    const subscribeButtons = document.querySelectorAll('.shopify-buy-button, .shopify-product-buy-button');
+    subscribeButtons.forEach(function(button, index) {
+      button.addEventListener('click', function(e) {
+        const buttonText = this.querySelector('.button-text')?.textContent || 'Subscribe Now';
+        const buttonLocation = this.closest('section')?.id || 'unknown_section';
+
+        // Push ecommerce event to GTM
+        pushToGTM({
+          event: 'begin_checkout',
+          event_category: 'ecommerce',
+          event_label: buttonText,
+          value: 84.00,
+          currency: 'USD',
+          ecommerce: {
+            currency: 'USD',
+            value: 84.00,
+            items: [{
+              item_id: '42616731533557',
+              item_name: 'Pour the PORT Septic Treatment',
+              item_category: 'septic_maintenance',
+              quantity: 1,
+              price: 84.00
+            }]
+          },
+          // Custom parameters for advanced tracking
+          button_location: buttonLocation,
+          button_index: index,
+          subscription_type: '3_times_yearly',
+          product_type: 'septic_treatment'
+        });
+
+        // Push custom conversion event
+        pushToGTM({
+          event: 'subscribe_now_click',
+          event_category: 'conversion',
+          event_label: buttonText,
+          value: 84.00,
+          button_position: buttonLocation,
+          product_type: 'septic_treatment',
+          conversion_type: 'subscription_intent'
+        });
+      });
+    });
+
+    // Track form interactions
+    const forms = document.querySelectorAll('form');
+    forms.forEach(function(form) {
+      form.addEventListener('submit', function(e) {
+        const formType = this.getAttribute('data-form-type') || 'contact';
+
+        pushToGTM({
+          event: 'form_submit',
+          event_category: 'engagement',
+          event_label: formType,
+          form_type: formType
+        });
+      });
+    });
+
+    // Track email/phone clicks
+    const contactLinks = document.querySelectorAll('a[href^="mailto:"], a[href^="tel:"]');
+    contactLinks.forEach(function(link) {
+      link.addEventListener('click', function(e) {
+        const contactType = this.href.startsWith('mailto:') ? 'email' : 'phone';
+        const contactValue = this.href.replace(/^(mailto:|tel:)/, '');
+
+        pushToGTM({
+          event: 'contact_click',
+          event_category: 'engagement',
+          event_label: contactType,
+          contact_method: contactType,
+          contact_value: contactValue
+        });
+      });
+    });
+
+    // Track scroll depth for engagement
+    let scrollTracked = false;
+    let maxScroll = 0;
+
+    window.addEventListener('scroll', function() {
+      const scrollPercent = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+
+      if (scrollPercent > maxScroll) {
+        maxScroll = scrollPercent;
+
+        // Track milestone scroll depths
+        if (!scrollTracked && scrollPercent >= 75) {
+          pushToGTM({
+            event: 'scroll_depth',
+            event_category: 'engagement',
+            event_label: '75_percent',
+            scroll_depth: 75
+          });
+          scrollTracked = true;
+        }
+      }
+    });
+
+    // Track time on page engagement
+    let timeOnPage = 0;
+    const startTime = Date.now();
+
+    setInterval(function() {
+      timeOnPage = Math.round((Date.now() - startTime) / 1000);
+
+      // Track engagement milestones
+      if (timeOnPage === 30) {
+        pushToGTM({
+          event: 'engagement_time',
+          event_category: 'engagement',
+          event_label: '30_seconds',
+          engagement_time: 30
+        });
+      } else if (timeOnPage === 60) {
+        pushToGTM({
+          event: 'engagement_time',
+          event_category: 'engagement',
+          event_label: '1_minute',
+          engagement_time: 60
+        });
+      } else if (timeOnPage === 180) {
+        pushToGTM({
+          event: 'engagement_time',
+          event_category: 'engagement',
+          event_label: '3_minutes',
+          engagement_time: 180
+        });
+      }
+    }, 1000);
+
+    // Track video interactions (for Wistia videos)
+    window.addEventListener('message', function(event) {
+      if (event.origin !== 'https://fast.wistia.net') return;
+
+      const data = event.data;
+      if (data && data.event) {
+        pushToGTM({
+          event: 'video_' + data.event,
+          event_category: 'video',
+          event_label: 'product_demo',
+          video_title: 'Pour the PORT Demo',
+          video_provider: 'wistia'
+        });
+      }
+    });
+
+    // Track page view with enhanced data
+    pushToGTM({
+      event: 'page_view_enhanced',
+      page_title: document.title,
+      page_location: window.location.href,
+      page_path: window.location.pathname,
+      content_group1: 'septic_treatment',
+      content_group2: window.location.pathname.includes('blog') ? 'blog' : 'landing_page'
+    });
+
+    console.log('📊 GTM Conversion tracking initialized for Pour the PORT');
+  });
+</script>

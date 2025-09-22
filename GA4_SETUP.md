@@ -1,15 +1,19 @@
-# Google Analytics 4 Setup Guide for Pour the PORT
+# Google Analytics 4 Setup Guide for Pour the PORT (GTM Version)
 
-This guide will help you set up Google Analytics 4 (GA4) to track conversions and user behavior on your Pour the PORT landing page.
+This guide will help you set up Google Analytics 4 (GA4) through Google Tag Manager (GTM) to track conversions and user behavior on your Pour the PORT landing page.
 
 ## ✅ What's Already Implemented
 
-- **Google Analytics 4 script integration** in all pages
-- **Enhanced conversion tracking** for Subscribe Now buttons
-- **Ecommerce tracking** with product data and values
+- **Google Tag Manager (GTM) integration** in all pages (Container: GTM-PGJB2NPL)
+- **GTM-based conversion tracking** for Subscribe Now buttons
+- **Ecommerce event tracking** via GTM dataLayer
 - **User engagement tracking** (scroll depth, time on page, video interactions)
 - **Contact interaction tracking** (email/phone clicks)
 - **Development/production environment handling**
+
+## 🔄 IMPORTANT: Analytics Now Managed Through GTM
+
+Analytics tracking has been migrated from direct GA4 implementation to Google Tag Manager for better flexibility and centralized tag management.
 
 ## 🚀 Quick Setup (5 minutes)
 

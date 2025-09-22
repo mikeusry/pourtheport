@@ -1,0 +1,114 @@
+---
+/**
+ * Google Tag Manager Integration Component
+ *
+ * This component implements the official GTM installation code from Google.
+ * It includes both the <head> script and <body> noscript fallback.
+ *
+ * Features:
+ * - Environment-based conditional loading (only loads if GTM_CONTAINER_ID is set)
+ * - Production-safe (won't load in development unless explicitly enabled)
+ * - Performance optimized with async loading
+ * - Includes noscript fallback for users with JavaScript disabled
+ * - Type-safe with TypeScript interface
+ *
+ * Usage in Layout.astro:
+ * - Import and use <GoogleTagManager /> in the <head> section
+ * - Import and use <GoogleTagManagerBody /> right after opening <body> tag
+ */
+
+interface Props {
+  containerId?: string;
+  includeNoscript?: boolean;
+}
+
+// Get GTM Container ID from environment
+const GTM_CONTAINER_ID = import.meta.env.PUBLIC_GTM_CONTAINER_ID;
+
+// Use prop override if provided, otherwise use environment variable
+const { containerId = GTM_CONTAINER_ID, includeNoscript = false } = Astro.props;
+
+// Only load GTM if container ID is provided
+const shouldLoadGTM = containerId && containerId !== 'your-gtm-container-id-here';
+
+// Development mode check - GTM typically disabled in dev unless explicitly enabled
+const isDevelopment = import.meta.env.DEV;
+const enableInDev = import.meta.env.PUBLIC_GTM_ENABLE_DEV === 'true';
+const shouldLoadInCurrentEnv = isDevelopment ? enableInDev : true;
+
+// Final decision to load GTM
+const loadGTM = shouldLoadGTM && shouldLoadInCurrentEnv;
+---
+
+{loadGTM && (
+  <>
+    <!-- Google Tag Manager -->
+    <script define:vars={{ containerId }} is:inline>
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer',containerId);
+    </script>
+    <!-- End Google Tag Manager -->
+
+    {includeNoscript && (
+      <!-- Google Tag Manager (noscript) -->
+      <noscript>
+        <iframe
+          src={`https://www.googletagmanager.com/ns.html?id=${containerId}`}
+          height="0"
+          width="0"
+          style="display:none;visibility:hidden"
+          title="Google Tag Manager"
+          loading="lazy">
+        </iframe>
+      </noscript>
+      <!-- End Google Tag Manager (noscript) -->
+    )}
+  </>
+)}
+
+<!--
+  GTM Data Layer Helper Functions
+  These can be called from any page to send custom events to GTM
+-->
+{loadGTM && (
+  <script is:inline>
+    // Helper function to push events to GTM dataLayer
+    window.gtmPush = function(eventData) {
+      if (typeof window !== 'undefined' && window.dataLayer) {
+        window.dataLayer.push(eventData);
+        console.log('GTM Event Pushed:', eventData);
+      }
+    };
+
+    // Helper function to track ecommerce events
+    window.gtmEcommerce = function(action, params) {
+      if (typeof window !== 'undefined' && window.dataLayer) {
+        const eventData = {
+          event: 'ecommerce_action',
+          ecommerce_action: action,
+          ...params
+        };
+        window.dataLayer.push(eventData);
+        console.log('GTM Ecommerce Event:', eventData);
+      }
+    };
+
+    // Helper function to track conversions
+    window.gtmConversion = function(conversionType, value, currency = 'USD') {
+      if (typeof window !== 'undefined' && window.dataLayer) {
+        const eventData = {
+          event: 'conversion',
+          conversion_type: conversionType,
+          conversion_value: value,
+          currency: currency,
+          timestamp: new Date().toISOString()
+        };
+        window.dataLayer.push(eventData);
+        console.log('GTM Conversion Event:', eventData);
+      }
+    };
+  </script>
+)}

@@ -1,8 +1,7 @@
 ---
 import CloudinaryImage from '../components/CloudinaryImage.astro';
 import ShopifyBuyButton from '../components/ShopifyBuyButton.astro';
-import GoogleAnalytics from '../components/GoogleAnalytics.astro';
-import ConversionTracking from '../components/ConversionTracking.astro';
+import GTMConversionTracking from '../components/GTMConversionTracking.astro';
 import Navigation from '../components/Navigation.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
@@ -31,8 +30,8 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://www.pour
     <meta property="og:description" content={description} />
     <meta property="og:image" content="https://res.cloudinary.com/southland-organics/image/upload/w_1200,h_630,c_fill,q_auto/pour-the-port/logos/NPS_768_mqklvq" />
 
-    <!-- Google Analytics 4 -->
-    <GoogleAnalytics />
+    <!-- GTM Conversion Tracking -->
+    <GTMConversionTracking />
   </head>
 
   <body class="bg-gray-50">
@@ -362,7 +361,5 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://www.pour
     <!-- Footer -->
     <Footer />
 
-    <!-- Conversion Tracking -->
-    <ConversionTracking />
   </body>
 </html>
